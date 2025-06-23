@@ -220,11 +220,38 @@
 
           <div class="resume-item d-flex flex-column flex-md-row mb-5">
             <div class="resume-content mr-auto">
+              <h3 class="mb-0">Geopresence</h3>
+                <ul class="list-inline list-social-icons mb-0">
+                    <li>
+                      <p>
+                      The main idea behind this work was to create a geospatial index and query system for edge computing.
+                      </p>
+                      <p>
+                      For a simplistic example, image air quality and weather monitoring devices placed on streetlights in a city; instead of querying weather.com query the streetlight across the street from the restaurant you're going to.
+                      </p>
+                      <p>
+                      Used bitmap compression and cardinality estimatiom algorithms (HyperLogLog/HyperLogLog++) to optimize the query system for various time and space constraints presented by IoT/low power devices.
+                      </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="resume-date text-md-right">
+              <span class="text-primary">January 2020 - December 2020</span>
+            </div>
+          </div>
+
+          <div class="resume-item d-flex flex-column flex-md-row mb-5">
+            <div class="resume-content mr-auto">
               <h3 class="mb-0">Toxicity Classifier</h3>
                 <ul class="list-inline list-social-icons mb-0">
                     <li>
                       <p> Analyzed 1 TB of comments and metadata from reddit.com using Apache Spark. Used Amazon EMR Step APIs to submit Spark jobs to an optimized AWS cluster. 
-                      Optimized Spark jobs using advanced sampling techniques and Kyro serialization. Answered questions such as which users were most toxic with sentiment analysis and analyzed user backgrounds.
+                      </p>
+                      <p>
+                      Optimized Spark jobs using advanced sampling techniques and Kyro serialization. 
+                      </p>
+                      <p>
+                      Answered questions such as which users were most toxic with sentiment analysis and analyzed user backgrounds.
                       </p>
                     </li>
                 </ul>
@@ -238,9 +265,18 @@
               <h3 class="mb-0">DFS: A distributed filesystem</h3>
                 <ul class="list-inline list-social-icons mb-0">
                     <li>
-                      <p> A distributed filesystem built with Java, Netty, and Google Protocol Buffers. The filesystem supports replication, dynamic addition of storage nodes, and compression.
+                      <p> 
+                      A distributed filesystem built with Java, Netty, and Google Protocol Buffers. 
+                      </p>
+                      <p>
+                      The filesystem supports replication, dynamic addition of storage nodes, and compression.
+                      </p>
+                      <p>
                       The system is also fault tolerant in that if a node goes down or data is corrupted the original data is still available. 
-                      Bloom filters are also used by the controller for fast and cheap routing to data requests.</p>
+                      </p>
+                      <p>
+                      Bloom filters are used by the controller for probobalistic routing to data requests.
+                      </p>
                     </li>
                     <li class="list-inline-item">
                     <a href="https://github.com/dielhennr/dfs">
@@ -264,8 +300,9 @@
                     <li>
                         <p> 
                         An animal data management system for medical researchers built with React.js, Node.Js, and Google Firestore. 
-                        This application will prove beneficial for researchers that need streamlined access to their animal colony data, sharing capabilities, photo upload capabilities, and
-                        note taking capabilities.
+                        </p>
+                        <p>
+                        This application will prove beneficial for researchers that need streamlined access to animal colony data, sharing capabilities, photo upload capabilities, and note taking capabilities.
                         </p> 
                     </li>
                     <li class="list-inline-item">
@@ -288,9 +325,9 @@
               <h3 class="mb-0">Fire-Engine: An in-memory search engine</h3>
                 <ul class="list-inline list-social-icons mb-0">
                     <li>
-                        <p>A threaded search engine that tracks user searches, 
+                        <p>A multi-threaded search engine that tracks user searches, 
                         allows users to crawl web pages, and search an inverted index built 
-                        from crawled web pages. This was built using Java.</p>
+                        from crawled web pages.</p>
                     </li>
                     <li class="list-inline-item">
                     <a href="https://github.com/dielhennr/Fire-Engine">
@@ -313,9 +350,12 @@
                 <ul class="list-inline list-social-icons mb-0">
                     <li>
                         <p>A command line shell that implements many features of other common command
-                        line shells. This includes but is not limited to history, bang
+                        line shells. 
+                        </p>
+                        <p>
+                        This includes but is not limited to history, bang
                         execution, piping, redirection, background jobs, and arrow key
-                        support. This was built using the C programming language.</p>
+                        support.</p>
                     </li>
                     <li class="list-inline-item">
                     <a href="https://github.com/dielhennr/itsh">
