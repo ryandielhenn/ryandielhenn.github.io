@@ -13,8 +13,13 @@ export const siteConfig = {
     "Software engineer with experience at Confluent, contributing to Apache Kafka’s KRaft (ZooKeeper-free) architecture. Currently pursuing an M.S. in Computer Science at Cal State LA, specializing in distributed systems, artificial intelligence, and data science.",
   skills: ["Java", "Go", "C", "Python", "Apache Kafka", "Docker", "Linux"],
   projects: [
-
-
+    {
+      name: "Zephyr - Self-Healing Distributed Cache",
+      description:
+        "A self-healing distributed cache featuring consistent hashing ring for data distribution and load balancing. Implements configurable membership discovery supporting both gossip protocol and etcd-based coordination, with Phi accrual failure detection for adaptive failure detection and automatic node recovery.",
+      link: "https://github.com/ryandielhenn/zephyrcache",
+      skills: ["Go", "Distributed Systems", "Consistent Hashing", "Gossip Protocol", "Docker", "Prometheus", "Grafana"],
+    },
     {
       name: "DFS: Distributed Filesystem",
       description:
@@ -31,20 +36,6 @@ export const siteConfig = {
     },
   ],
   experience: [
-    {
-      company: "Personal Project",
-      title: "Zephyr - Self-Healing Distributed Cache",
-      dateRange: "Aug 2025 – Present",
-      link: "https://github.com/ryandielhenn/zephyrcache",
-      bullets: [
-        "Designing and implementing a self-healing distributed cache featuring consistent hashing ring for data distribution and load balancing.",
-        "Implementing configurable membership discovery supporting both gossip protocol and etcd-based coordination.",
-        "Integrating Phi accrual failure detection for adaptive failure detection and automatic node recovery.",
-        "Adding comprehensive monitoring with Prometheus metrics and Grafana dashboard for observability.",
-        "Containerizing with Docker Compose for easy local cluster deployment and testing.",
-      ],
-    },
-
   {
     company: "Confluent",
     title: "Software Engineer (Intern → Contributor → Full-time)",
