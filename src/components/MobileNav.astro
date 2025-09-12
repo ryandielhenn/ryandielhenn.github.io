@@ -86,11 +86,9 @@ const hasResume = siteConfig.resume;
         </a>
         
         <a
-          href={siteConfig.resume}
-          download="Ryan_Dielhenn_Resume.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="#"
           class="nav-button group resume-button download-button"
+          id="download-resume-btn"
         >
           <div class="nav-button-content">
             <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -272,13 +270,45 @@ const hasResume = siteConfig.resume;
       }
     }
     
+    // Handle download resume button
+    const downloadResumeBtn = document.getElementById('download-resume-btn');
+    if (downloadResumeBtn) {
+      downloadResumeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Get the resume URL from the view resume button
+        const viewResumeBtn = document.querySelector('.resume-button:not(.download-button)');
+        const resumeUrl = viewResumeBtn?.getAttribute('href');
+        
+        if (resumeUrl) {
+          // Create a temporary link to download the file
+          const link = document.createElement('a');
+          link.href = resumeUrl;
+          link.download = 'Ryan_Dielhenn_Resume.pdf';
+          link.target = '_blank';
+          
+          // Trigger the download
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+        
+        // Visual feedback
+        (downloadResumeBtn as HTMLElement).style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          (downloadResumeBtn as HTMLElement).style.transform = '';
+        }, 150);
+      });
+    }
+    
     navButtons.forEach(button => {
       button.addEventListener('click', (e) => {
         const targetId = button.getAttribute('href');
         const isResumeButton = button.classList.contains('resume-button');
+        const isDownloadButton = button.id === 'download-resume-btn';
         
-        // Don't prevent default for resume buttons - let them open/download normally
-        if (!isResumeButton) {
+        // Don't prevent default for view resume button - let it open normally
+        if (!isResumeButton || isDownloadButton) {
           e.preventDefault();
         }
         
