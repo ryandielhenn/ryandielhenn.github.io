@@ -313,6 +313,13 @@ p, span, div {
 
 
 
+/* Desktop: Show all sections by default */
+@media (min-width: 769px) {
+  #about, #experience, #projects, #education {
+    display: block !important;
+  }
+}
+
 /* Mobile optimizations for project cards */
 @media (max-width: 768px) {
   .card-3d {
@@ -345,12 +352,12 @@ p, span, div {
 
   /* Hide all sections except hero on mobile by default */
   #about, #experience, #projects, #education {
-    display: none;
+    display: none !important;
   }
 
   /* Show sections when they have the active class */
   #about.active, #experience.active, #projects.active, #education.active {
-    display: block;
+    display: block !important;
     animation: slideInUp 0.5s ease-out forwards;
   }
   

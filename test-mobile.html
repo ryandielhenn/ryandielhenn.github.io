@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Navigation Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #111;
+            color: white;
+        }
+        
+        .nav-button {
+            display: block;
+            padding: 15px;
+            margin: 10px 0;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .nav-button:hover {
+            background: #555;
+        }
+        
+        #about, #experience, #projects, #education {
+            display: none;
+            padding: 20px;
+            margin: 20px 0;
+            background: #222;
+            border-radius: 8px;
+        }
+        
+        #about.active, #experience.active, #projects.active, #education.active {
+            display: block;
+        }
+        
+        @media (min-width: 769px) {
+            #about, #experience, #projects, #education {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Mobile Navigation Test</h1>
+    
+    <div class="nav-buttons">
+        <a href="#about" class="nav-button">About</a>
+        <a href="#experience" class="nav-button">Experience</a>
+        <a href="#projects" class="nav-button">Projects</a>
+        <a href="#education" class="nav-button">Education</a>
+    </div>
+    
+    <section id="about">
+        <h2>About Section</h2>
+        <p>This is the about section content.</p>
+    </section>
+    
+    <section id="experience">
+        <h2>Experience Section</h2>
+        <p>This is the experience section content.</p>
+    </section>
+    
+    <section id="projects">
+        <h2>Projects Section</h2>
+        <p>This is the projects section content.</p>
+    </section>
+    
+    <section id="education">
+        <h2>Education Section</h2>
+        <p>This is the education section content.</p>
+    </section>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navButtons = document.querySelectorAll('.nav-button');
+            
+            function showMobileSection(sectionId) {
+                const allSections = document.querySelectorAll('#about, #experience, #projects, #education');
+                allSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                const targetSection = document.querySelector(sectionId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                }
+            }
+            
+            navButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = button.getAttribute('href');
+                    
+                    if (window.innerWidth <= 768) {
+                        showMobileSection(targetId);
+                        setTimeout(() => {
+                            const targetSection = document.querySelector(targetId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+                            }
+                        }, 100);
+                    } else {
+                        const targetSection = document.querySelector(targetId);
+                        if (targetSection) {
+                            targetSection.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
