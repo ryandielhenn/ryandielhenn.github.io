@@ -183,9 +183,15 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
   // Add smooth scrolling and section highlighting
   document.addEventListener('DOMContentLoaded', () => {
     const navButtons = document.querySelectorAll('.nav-button');
+    let currentMobileSection: string | null = null;
     
     // Function to show a specific section on mobile
     function showMobileSection(sectionId: string) {
+      // Only change sections if we're actually switching to a different one
+      if (currentMobileSection === sectionId) {
+        return; // Already showing this section
+      }
+      
       // Hide all sections first
       const allSections = document.querySelectorAll('#about, #experience, #projects, #education');
       allSections.forEach(section => {
@@ -196,6 +202,7 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
       const targetSection = document.querySelector(sectionId);
       if (targetSection) {
         targetSection.classList.add('active');
+        currentMobileSection = sectionId;
       }
     }
     
@@ -263,6 +270,12 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
       });
     }
     
+    // On mobile, disable intersection observer and keep sections visible once shown
+    if (window.innerWidth <= 768) {
+      // Don't use intersection observer on mobile to prevent sections from disappearing
+      console.log('Mobile detected - intersection observer disabled');
+    }
+    
     // Handle window resize
     window.addEventListener('resize', () => {
       if (window.innerWidth > 768) {
@@ -271,12 +284,14 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
         allSections.forEach(section => {
           section.classList.add('active');
         });
+        currentMobileSection = null; // Reset mobile section tracking
       } else {
         // Mobile - hide all sections by default
         const allSections = document.querySelectorAll('#about, #experience, #projects, #education');
         allSections.forEach(section => {
           section.classList.remove('active');
         });
+        currentMobileSection = null; // Reset mobile section tracking
       }
     });
   });

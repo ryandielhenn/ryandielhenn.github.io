@@ -361,6 +361,23 @@ p, span, div {
     animation: slideInUp 0.5s ease-out forwards;
   }
   
+  /* Ensure active sections stay visible on mobile */
+  #about.active, #experience.active, #projects.active, #education.active {
+    position: relative;
+    z-index: 10;
+  }
+  
+  /* Disable scroll animations on mobile to prevent interference */
+  .scroll-animate {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  .scroll-animate.animate {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
   /* Ensure skill tags are readable on mobile */
   .skill-tag {
     font-size: 0.75rem;
