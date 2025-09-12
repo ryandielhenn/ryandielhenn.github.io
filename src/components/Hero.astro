@@ -1,5 +1,6 @@
 ---
 import { siteConfig } from "../config";
+import MobileNav from "./MobileNav.astro";
 ---
 
 <div
@@ -16,7 +17,7 @@ import { siteConfig } from "../config";
 
   
   <div class="h-full mx-auto p-8 sm:p-12 md:p-24 flex items-center">
-    <div>
+    <div class="w-full">
       <h1
         class="text-pretty text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold tracking-tight text-gray-800 dark:text-white"
       >
@@ -27,9 +28,11 @@ import { siteConfig } from "../config";
       >
         <span class="typing-animation-headline" id="typing-headline"></span>
       </p>
+      
+      <!-- Desktop Resume Buttons -->
       {
         siteConfig.resume && (
-          <div class="mt-6 sm:mt-8 md:mt-10 animate-fade-in-up animation-delay-500 flex gap-4">
+          <div class="hidden md:block mt-6 sm:mt-8 md:mt-10 animate-fade-in-up animation-delay-500 flex gap-4">
             <a
               href={siteConfig.resume}
               target="_blank"
@@ -87,6 +90,11 @@ import { siteConfig } from "../config";
           </div>
         )
       }
+      
+      <!-- Mobile Navigation Buttons -->
+      <div class="md:hidden mt-8">
+        <MobileNav />
+      </div>
     </div>
   </div>
   
