@@ -53,10 +53,28 @@ import "../styles/global.css";
     <Header />
     <section>
       <Hero />
-      <About />
-      <Experience />
-      <Projects />
-      <Education />
+      <!-- Desktop: Show all sections normally -->
+      <div class="hidden md:block">
+        <About />
+        <Experience />
+        <Projects />
+        <Education />
+      </div>
+      <!-- Mobile: Show sections individually -->
+      <div class="md:hidden">
+        <div id="mobile-about" class="mobile-section hidden">
+          <About />
+        </div>
+        <div id="mobile-experience" class="mobile-section hidden">
+          <Experience />
+        </div>
+        <div id="mobile-projects" class="mobile-section hidden">
+          <Projects />
+        </div>
+        <div id="mobile-education" class="mobile-section hidden">
+          <Education />
+        </div>
+      </div>
     </section>
     <Footer />
   </body>

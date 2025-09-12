@@ -336,57 +336,13 @@ p, span, div {
     background-color: rgba(31, 41, 55, 0.95);
   }
 
-  /* Mobile section visibility control */
+  /* Simple mobile section handling */
   .mobile-section {
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .mobile-section.hidden {
     display: none;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.3s ease-in-out;
-  }
-
-  .mobile-section.active {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Hide all sections except hero on mobile by default */
-  #about, #experience, #projects, #education {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-  }
-
-  /* Show sections when they have the active class */
-  #about.active, #experience.active, #projects.active, #education.active {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    animation: slideInUp 0.5s ease-out forwards;
-    position: relative;
-    z-index: 10;
-  }
-  
-  /* Disable scroll animations on mobile to prevent interference */
-  .scroll-animate {
-    opacity: 1 !important;
-    transform: none !important;
-    animation: none !important;
-  }
-  
-  .scroll-animate.animate {
-    opacity: 1 !important;
-    transform: none !important;
-    animation: none !important;
-  }
-  
-  /* Disable all intersection observer effects on mobile */
-  .timeline-item, .education-item, .card-3d {
-    opacity: 1 !important;
-    transform: none !important;
-    animation: none !important;
   }
   
   /* Ensure skill tags are readable on mobile */

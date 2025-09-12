@@ -180,45 +180,29 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
 </style>
 
 <script>
-  // Add smooth scrolling and section highlighting
   document.addEventListener('DOMContentLoaded', () => {
     const navButtons = document.querySelectorAll('.nav-button');
-    let currentMobileSection: string | null = null;
     
-    // Disable global animation controller on mobile to prevent interference
-    if (window.innerWidth <= 768 && window.animationController) {
-      console.log('Disabling global animations on mobile');
-      window.animationController.destroy();
-    }
-    
-    // Function to show a specific section on mobile
-    function showMobileSection(sectionId: string) {
-      // Only change sections if we're actually switching to a different one
-      if (currentMobileSection === sectionId) {
-        return; // Already showing this section
-      }
-      
-      // Hide all sections first - use multiple methods to ensure they're hidden
-      const allSections = document.querySelectorAll('#about, #experience, #projects, #education');
-      allSections.forEach(section => {
-        section.classList.remove('active');
-        // Force hide with inline styles as backup
-        (section as HTMLElement).style.display = 'none';
-        (section as HTMLElement).style.visibility = 'hidden';
-        (section as HTMLElement).style.opacity = '0';
-        (section as HTMLElement).style.pointerEvents = 'none';
+    // Simple mobile navigation function
+    function showMobileSection(sectionName: string) {
+      // Hide all mobile sections
+      const allMobileSections = document.querySelectorAll('.mobile-section');
+      allMobileSections.forEach(section => {
+        section.classList.add('hidden');
       });
       
-      // Show the target section - use multiple methods to ensure it's visible
-      const targetSection = document.querySelector(sectionId);
+      // Show the target section
+      const targetSection = document.getElementById(`mobile-${sectionName}`);
       if (targetSection) {
-        targetSection.classList.add('active');
-        // Force show with inline styles as backup
-        (targetSection as HTMLElement).style.display = 'block';
-        (targetSection as HTMLElement).style.visibility = 'visible';
-        (targetSection as HTMLElement).style.opacity = '1';
-        (targetSection as HTMLElement).style.pointerEvents = 'auto';
-        currentMobileSection = sectionId;
+        targetSection.classList.remove('hidden');
+        
+        // Scroll to the section
+        setTimeout(() => {
+          targetSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }, 100);
       }
     }
     
@@ -227,23 +211,14 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
         e.preventDefault();
         const targetId = button.getAttribute('href');
         
-        // Check if we're on mobile
         if (window.innerWidth <= 768) {
-          // Show the section on mobile
-          showMobileSection(targetId);
-          
-          // Scroll to the section
-          setTimeout(() => {
-            const targetSection = document.querySelector(targetId);
-            if (targetSection) {
-              (targetSection as HTMLElement).scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-              });
-            }
-          }, 100);
+          // Mobile behavior
+          const sectionName = targetId?.replace('#', '');
+          if (sectionName) {
+            showMobileSection(sectionName);
+          }
         } else {
-          // Desktop behavior - just scroll
+          // Desktop behavior - scroll to section
           const targetSection = document.querySelector(targetId);
           if (targetSection) {
             (targetSection as HTMLElement).scrollIntoView({
@@ -253,86 +228,12 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
           }
         }
         
-        // Add visual feedback
+        // Visual feedback
         (button as HTMLElement).style.transform = 'scale(0.95)';
         setTimeout(() => {
           (button as HTMLElement).style.transform = '';
         }, 150);
       });
-    });
-
-    // Add intersection observer to highlight active section (desktop only)
-    if (window.innerWidth > 768) {
-      const sections = document.querySelectorAll('section[id]');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const sectionId = entry.target.id;
-            navButtons.forEach(button => {
-              button.classList.remove('active');
-              if (button.getAttribute('href') === `#${sectionId}`) {
-                button.classList.add('active');
-              }
-            });
-          }
-        });
-      }, {
-        threshold: 0.3,
-        rootMargin: '-50px 0px -50px 0px'
-      });
-
-      sections.forEach(section => {
-        observer.observe(section);
-      });
-    }
-    
-    // On mobile, disable intersection observer and keep sections visible once shown
-    if (window.innerWidth <= 768) {
-      // Don't use intersection observer on mobile to prevent sections from disappearing
-      console.log('Mobile detected - intersection observer disabled');
-      
-      // Add scroll listener to maintain section visibility
-      let scrollTimeout: number;
-      window.addEventListener('scroll', () => {
-        // Clear any existing timeout
-        if (scrollTimeout) {
-          clearTimeout(scrollTimeout);
-        }
-        
-        // Debounce the scroll event
-        scrollTimeout = setTimeout(() => {
-          if (currentMobileSection) {
-            const activeSection = document.querySelector(currentMobileSection);
-            if (activeSection && !activeSection.classList.contains('active')) {
-              // Re-apply active class if it was removed by another script
-              activeSection.classList.add('active');
-              (activeSection as HTMLElement).style.display = 'block';
-              (activeSection as HTMLElement).style.visibility = 'visible';
-              (activeSection as HTMLElement).style.opacity = '1';
-              (activeSection as HTMLElement).style.pointerEvents = 'auto';
-            }
-          }
-        }, 50);
-      });
-    }
-    
-    // Handle window resize
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 768) {
-        // Desktop - show all sections
-        const allSections = document.querySelectorAll('#about, #experience, #projects, #education');
-        allSections.forEach(section => {
-          section.classList.add('active');
-        });
-        currentMobileSection = null; // Reset mobile section tracking
-      } else {
-        // Mobile - hide all sections by default
-        const allSections = document.querySelectorAll('#about, #experience, #projects, #education');
-        allSections.forEach(section => {
-          section.classList.remove('active');
-        });
-        currentMobileSection = null; // Reset mobile section tracking
-      }
     });
   });
 </script>
