@@ -10,9 +10,8 @@ const hasResume = siteConfig.resume;
 <div class="mobile-nav-buttons md:hidden">
   <div class="grid grid-cols-2 gap-4 max-w-md mx-auto">
     <a
-      href="#about"
+      href="/about"
       class="nav-button group col-span-2"
-      data-section="about"
     >
       <div class="nav-button-content">
         <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -24,9 +23,8 @@ const hasResume = siteConfig.resume;
     
     {hasExperience && (
       <a
-        href="#experience"
+        href="/experience"
         class="nav-button group"
-        data-section="experience"
       >
         <div class="nav-button-content">
           <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -39,9 +37,8 @@ const hasResume = siteConfig.resume;
     
     {hasProjects && (
       <a
-        href="#projects"
+        href="/projects"
         class="nav-button group"
-        data-section="projects"
       >
         <div class="nav-button-content">
           <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -54,9 +51,8 @@ const hasResume = siteConfig.resume;
     
     {hasEducation && (
       <a
-        href="#education"
+        href="/education"
         class="nav-button group"
-        data-section="education"
       >
         <div class="nav-button-content">
           <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -247,46 +243,6 @@ const hasResume = siteConfig.resume;
   document.addEventListener('DOMContentLoaded', () => {
     const navButtons = document.querySelectorAll('.nav-button');
     
-    // Simple mobile navigation function
-    function showMobileSection(sectionName: string) {
-      // Hide all mobile sections
-      const allMobileSections = document.querySelectorAll('.mobile-section');
-      allMobileSections.forEach(section => {
-        section.classList.add('hidden');
-      });
-      
-      // Show the target section
-      const targetSection = document.getElementById(`mobile-${sectionName}`);
-      if (targetSection) {
-        targetSection.classList.remove('hidden');
-        
-        // Scroll to the section
-        setTimeout(() => {
-          targetSection.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }, 100);
-      }
-    }
-    
-    // Function to return to home (show navigation buttons)
-    function returnToHome() {
-      // Hide all mobile sections
-      const allMobileSections = document.querySelectorAll('.mobile-section');
-      allMobileSections.forEach(section => {
-        section.classList.add('hidden');
-      });
-      
-      // Scroll to top to show navigation buttons
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }
-    
-    // Make returnToHome globally available for back buttons
-    (window as any).returnToHome = returnToHome;
     
     // Handle resume button (download functionality)
     const resumeBtn = document.getElementById('download-resume-btn');
@@ -296,6 +252,8 @@ const hasResume = siteConfig.resume;
         
         // Get the resume URL from the data attribute
         const resumeUrl = resumeBtn.getAttribute('data-resume-url');
+        
+        if (!resumeUrl) return;
         
         // Create a temporary link to download the file
         const link = document.createElement('a');
@@ -318,33 +276,15 @@ const hasResume = siteConfig.resume;
     
     navButtons.forEach(button => {
       button.addEventListener('click', (e) => {
-        const targetId = button.getAttribute('href');
         const isResumeButton = button.classList.contains('resume-button');
         const isDownloadButton = button.id === 'download-resume-btn';
         
-        // Don't prevent default for view resume button - let it open normally
-        if (!isResumeButton || isDownloadButton) {
+        // Only prevent default for resume download button
+        if (isDownloadButton) {
           e.preventDefault();
         }
         
-        if (window.innerWidth <= 768 && !isResumeButton) {
-          // Mobile behavior for navigation buttons only
-          const sectionName = targetId?.replace('#', '');
-          if (sectionName) {
-            showMobileSection(sectionName);
-          }
-        } else if (!isResumeButton) {
-          // Desktop behavior - scroll to section
-          const targetSection = document.querySelector(targetId);
-          if (targetSection) {
-            (targetSection as HTMLElement).scrollIntoView({
-              behavior: 'smooth',
-              block: 'start'
-            });
-          }
-        }
-        
-        // Visual feedback
+        // Visual feedback for all buttons
         (button as HTMLElement).style.transform = 'scale(0.95)';
         setTimeout(() => {
           (button as HTMLElement).style.transform = '';

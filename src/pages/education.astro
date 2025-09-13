@@ -1,9 +1,5 @@
 ---
 import Header from "../components/Header.astro";
-import Hero from "../components/Hero.astro";
-import About from "../components/About.astro";
-import Projects from "../components/Projects.astro";
-import Experience from "../components/Experience.astro";
 import Education from "../components/Education.astro";
 import Footer from "../components/Footer.astro";
 
@@ -29,41 +25,25 @@ import "../styles/global.css";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={siteConfig.description} />
+    <meta name="description" content={`Education of ${siteConfig.name} - ${siteConfig.description}`} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
-    <title>{siteConfig.name} - {siteConfig.title}</title>
+    <title>Education - {siteConfig.name}</title>
     
     <!-- Always apply dark mode -->
     <script is:inline>
-      // Always apply dark mode
       document.documentElement.classList.add('dark');
     </script>
-    
-    <!-- Global animations script -->
-    <script src="/js/animations.js" is:inline></script>
-    
-
   </head>
   <body class="bg-neutral-950 transition-colors duration-300">
     <Header />
-    <section>
-      <Hero />
-      <!-- Desktop: Show all sections normally -->
-      <div class="hidden md:block">
-        <About />
-        <Experience />
-        <Projects />
-        <Education />
-      </div>
-    </section>
-    <!-- Desktop Footer Only -->
-    <div class="hidden md:block">
-      <Footer />
-    </div>
+    <main>
+      <Education />
+    </main>
+    <Footer />
   </body>
 </html>
