@@ -2,9 +2,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Initialize terminal interactions
   initTerminalInteractions();
-  
-  // Initialize back to top button
-  initBackToTop();
 });
 
 function initTerminalInteractions() {
@@ -69,28 +66,5 @@ function showRootContent() {
   const rootContent = document.getElementById('root-content');
   if (rootContent) {
     rootContent.classList.remove('hidden');
-  }
-}
-
-function initBackToTop() {
-  const backToTopBtn = document.getElementById('back-to-top');
-  if (backToTopBtn) {
-    // Show button when scrolling
-    window.addEventListener('scroll', function() {
-      if (window.scrollY > 300) {
-        backToTopBtn.classList.add('visible');
-      } else {
-        backToTopBtn.classList.remove('visible');
-      }
-    });
-    
-    // Smooth scroll to top when clicked
-    backToTopBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
   }
 }
