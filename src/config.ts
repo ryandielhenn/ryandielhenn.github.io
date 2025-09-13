@@ -52,7 +52,7 @@ export const siteConfig = {
   experience: [
   {
     company: "Confluent",
-    title: "Software Engineer (Intern → Contributor → Full-time)",
+    title: "Software Engineer",
     dateRange: "May 2020 – Jul 2022",
     bullets: [
       "Collaborated across engineering teams to improve reliability, observability, and security during Kafka’s transition to a ZooKeeper-free architecture (KRaft).",
@@ -76,7 +76,8 @@ export const siteConfig = {
     },
     {
       company: "University of San Francisco",
-      title: "Teaching Assistant — Operating Systems & Big Data",
+      title: `Teaching Assistant — Big Data & 
+          Operating Systems`,
       dateRange: "Aug 2019 – May 2020",
       bullets: [
         "Designed projects and coursework, reviewed student code weekly, and provided feedback with grades.",
