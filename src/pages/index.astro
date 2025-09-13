@@ -1,11 +1,5 @@
 ---
-import Header from "../components/Header.astro";
 import Hero from "../components/Hero.astro";
-import About from "../components/About.astro";
-import Projects from "../components/Projects.astro";
-import Experience from "../components/Experience.astro";
-import Education from "../components/Education.astro";
-import Footer from "../components/Footer.astro";
 
 import { siteConfig } from "../config";
 import "../styles/global.css";
@@ -50,20 +44,8 @@ import "../styles/global.css";
 
   </head>
   <body class="bg-neutral-950 transition-colors duration-300">
-    <Header />
     <section>
       <Hero />
-      <!-- Desktop: Show all sections normally -->
-      <div class="hidden md:block">
-        <About />
-        <Experience />
-        <Projects />
-        <Education />
-      </div>
     </section>
-    <!-- Desktop Footer Only -->
-    <div class="hidden md:block">
-      <Footer />
-    </div>
   </body>
 </html>

@@ -21,6 +21,13 @@ export const siteConfig = {
       skills: ["Go", "Distributed Systems", "Consistent Hashing", "Gossip Protocol", "Docker", "Prometheus", "Grafana"],
     },
     {
+      name: "GeoPresence - Geospatial Index for IoT",
+      description:
+        "A geospatial index system designed for IoT/low-power devices using Roaring Bitmaps and bitmap compression. Enables location-based services, weather tracking, and GIS applications by creating efficient spatial queries for edge computing environments. Features probabilistic point density estimation with HyperLogLog++ and adaptive grid resolution.",
+      link: "https://github.com/USF-BigDataLab/geopresence",
+      skills: ["C", "C++", "Java", "Geospatial Computing", "IoT", "Roaring Bitmaps", "HyperLogLog++", "Edge Computing", "Spatial Indexing"],
+    },
+    {
       name: "DFS: Distributed Filesystem",
       description:
         "A distributed filesystem built with Java, Netty, and Protocol Buffers. Supports replication, dynamic addition of storage nodes, and compression. Fault tolerant: if a node goes down or data is corrupted, the original data remains available. Bloom filters are used by the controller for probabilistic routing of data requests.",
@@ -33,6 +40,13 @@ export const siteConfig = {
         "A multithreaded search engine that tracks user queries, enables web crawling, and supports search over an inverted index built from the crawled pages.",
       link: "https://github.com/ryandielhenn/Fire-Engine",
       skills: ["Java", "Multithreading", "Inverted Index", "Web Crawling", "Jetty"],
+    },
+    {
+      name: "itsh - Command Line Shell",
+      description:
+        "A command line shell built in C with support for scripts, heredocs, pipes, redirection, background jobs, command history with bang reruns, and built-in commands like cd and setenv. Features arrow key navigation through history and input editing.",
+      link: "https://github.com/ryandielhenn/itsh",
+      skills: ["C", "Systems Programming", "Shell Implementation", "Process Management", "Signal Handling", "Pipes", "Redirection"],
     },
   ],
   experience: [

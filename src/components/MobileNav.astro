@@ -7,69 +7,77 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
 const hasResume = siteConfig.resume;
 ---
 
-<div class="filesystem-nav md:hidden">
+<div class="interactive-terminal">
   <div class="terminal-window">
     <div class="terminal-header">
       <div class="terminal-buttons">
-        <div class="terminal-btn close"></div>
-        <div class="terminal-btn minimize"></div>
-        <div class="terminal-btn maximize"></div>
+        <div class="btn close"></div>
+        <div class="btn minimize"></div>
+        <div class="btn maximize"></div>
       </div>
       <div class="terminal-title">portfolio@ryandielhenn:~$</div>
     </div>
+    
     <div class="terminal-body">
-      <div class="terminal-content">
+      <!-- Root directory listing -->
+      <div id="root-content" class="terminal-content">
         <div class="terminal-line">
           <span class="prompt">portfolio@ryandielhenn:~$</span>
           <span class="command">ls -la</span>
         </div>
-        <div class="terminal-output">
-          <div class="file-item" data-path="/about">
-            <span class="file-type">drwxr-xr-x</span>
-            <span class="file-size">2.1K</span>
-            <span class="file-date">Dec 15</span>
-            <span class="file-name about">about/</span>
+        
+        <div class="file-listing">
+          <div class="file-item" data-folder="about">
+            <span class="permissions">drwxr-xr-x</span>
+            <span class="size">2.1K</span>
+            <span class="date">Dec 15</span>
+            <span class="name">about/</span>
           </div>
+          
           {hasExperience && (
-            <div class="file-item" data-path="/experience">
-              <span class="file-type">drwxr-xr-x</span>
-              <span class="file-size">4.2K</span>
-              <span class="file-date">Dec 15</span>
-              <span class="file-name experience">experience/</span>
+            <div class="file-item" data-folder="experience">
+              <span class="permissions">drwxr-xr-x</span>
+              <span class="size">4.2K</span>
+              <span class="date">Dec 15</span>
+              <span class="name">experience/</span>
             </div>
           )}
+          
           {hasProjects && (
-            <div class="file-item" data-path="/projects">
-              <span class="file-type">drwxr-xr-x</span>
-              <span class="file-size">3.8K</span>
-              <span class="file-date">Dec 15</span>
-              <span class="file-name projects">projects/</span>
+            <div class="file-item" data-folder="projects">
+              <span class="permissions">drwxr-xr-x</span>
+              <span class="size">3.8K</span>
+              <span class="date">Dec 15</span>
+              <span class="name">projects/</span>
             </div>
           )}
+          
           {hasEducation && (
-            <div class="file-item" data-path="/education">
-              <span class="file-type">drwxr-xr-x</span>
-              <span class="file-size">1.9K</span>
-              <span class="file-date">Dec 15</span>
-              <span class="file-name education">education/</span>
+            <div class="file-item" data-folder="education">
+              <span class="permissions">drwxr-xr-x</span>
+              <span class="size">1.9K</span>
+              <span class="date">Dec 15</span>
+              <span class="name">education/</span>
             </div>
           )}
+          
           {hasResume && (
-            <div class="file-item" data-path="resume" data-resume-url={siteConfig.resume}>
-              <span class="file-type">-rw-r--r--</span>
-              <span class="file-size">245K</span>
-              <span class="file-date">Dec 15</span>
-              <span class="file-name resume">resume.pdf</span>
+            <div class="file-item" data-resume>
+              <span class="permissions">-rw-r--r--</span>
+              <span class="size">245K</span>
+              <span class="date">Dec 15</span>
+              <span class="name">resume.pdf</span>
             </div>
           )}
-          <div class="file-item social-links">
-            <span class="file-type">lrwxrwxrwx</span>
-            <span class="file-size">-</span>
-            <span class="file-date">Dec 15</span>
-            <span class="file-name social">social/</span>
-            <div class="social-icons">
+          
+          <div class="file-item social">
+            <span class="permissions">lrwxrwxrwx</span>
+            <span class="size">-</span>
+            <span class="date">Dec 15</span>
+            <span class="name">social/</span>
+            <div class="social-links">
               {siteConfig.social?.email && (
-                <a href={`mailto:${siteConfig.social.email}`} class="social-link" aria-label="Email">
+                <a href={`mailto:${siteConfig.social.email}`} class="social-link">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                     <polyline points="22,6 12,13 2,6" />
@@ -77,7 +85,7 @@ const hasResume = siteConfig.resume;
                 </a>
               )}
               {siteConfig.social?.linkedin && (
-                <a href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
+                <a href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer" class="social-link">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
                     <rect x="2" y="9" width="4" height="12" />
@@ -86,7 +94,7 @@ const hasResume = siteConfig.resume;
                 </a>
               )}
               {siteConfig.social?.github && (
-                <a href={siteConfig.social.github} target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub">
+                <a href={siteConfig.social.github} target="_blank" rel="noopener noreferrer" class="social-link">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-1.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
                   </svg>
@@ -95,9 +103,251 @@ const hasResume = siteConfig.resume;
             </div>
           </div>
         </div>
+        
         <div class="terminal-line">
           <span class="prompt">portfolio@ryandielhenn:~$</span>
           <span class="cursor">_</span>
+        </div>
+      </div>
+
+      <!-- About folder content -->
+      <div id="about-content" class="terminal-content hidden">
+        <div class="terminal-line">
+          <span class="prompt">portfolio@ryandielhenn:~/about$</span>
+          <span class="command">ls -la</span>
+        </div>
+        
+        <div class="file-listing">
+          <div class="file-item" data-file="bio.txt">
+            <span class="permissions">-rw-r--r--</span>
+            <span class="size">1.2K</span>
+            <span class="date">Dec 15</span>
+            <span class="name">bio.txt</span>
+          </div>
+          <div class="file-item" data-file="skills.txt">
+            <span class="permissions">-rw-r--r--</span>
+            <span class="size">856B</span>
+            <span class="date">Dec 15</span>
+            <span class="name">skills.txt</span>
+          </div>
+        </div>
+        
+        <div class="terminal-line">
+          <span class="prompt">portfolio@ryandielhenn:~/about$</span>
+          <span class="command">cat bio.txt</span>
+        </div>
+        
+        <div class="file-content">
+          <div class="simple-content">
+            <h3>About Me</h3>
+            <p>{siteConfig.aboutMe}</p>
+            
+            <h4>Skills & Technologies</h4>
+            <div class="skills-list">
+              {siteConfig.skills.map(skill => (
+                <span class="skill-item">{skill}</span>
+              ))}
+            </div>
+            
+            <h4>Areas of Expertise</h4>
+            <div class="expertise-grid">
+              <div class="expertise-item">
+                <h5>Distributed Systems</h5>
+                <p>Experience with Apache Kafka, asynchronous communication patterns, and fault-tolerant architectures.</p>
+              </div>
+              <div class="expertise-item">
+                <h5>Data Science</h5>
+                <p>Specializing in AI, machine learning, and data analysis techniques.</p>
+              </div>
+              <div class="expertise-item">
+                <h5>Software Engineering</h5>
+                <p>Backend development with focus on scalable, maintainable code.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="back-button-container">
+          <button class="back-button" onclick="window.goBack && window.goBack()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m12 19-7-7 7-7"/>
+              <path d="M19 12H5"/>
+            </svg>
+            cd ..
+          </button>
+        </div>
+      </div>
+
+      <!-- Experience folder content -->
+      <div id="experience-content" class="terminal-content hidden">
+        <div class="terminal-line">
+          <span class="prompt">portfolio@ryandielhenn:~/experience$</span>
+          <span class="command">ls -la</span>
+        </div>
+        
+        <div class="file-listing">
+          <div class="file-item" data-file="work-history.txt">
+            <span class="permissions">-rw-r--r--</span>
+            <span class="size">3.8K</span>
+            <span class="date">Dec 15</span>
+            <span class="name">work-history.txt</span>
+          </div>
+        </div>
+        
+        <div class="terminal-line">
+          <span class="prompt">portfolio@ryandielhenn:~/experience$</span>
+          <span class="command">cat work-history.txt</span>
+        </div>
+        
+        <div class="file-content">
+          <div class="simple-content">
+            <h3>Experience</h3>
+            <p>My professional journey in software engineering and distributed systems.</p>
+            
+            <div class="experience-list">
+              {siteConfig.experience.map((job, index) => (
+                <div class="experience-item">
+                  <div class="experience-header">
+                    <h4>{job.title}</h4>
+                    <span class="experience-date">{job.dateRange}</span>
+                  </div>
+                  <h5 class="experience-company">{job.company}</h5>
+                  <ul class="experience-bullets">
+                    {job.bullets.map((bullet, bulletIndex) => (
+                      <li>{bullet}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        
+        <div class="back-button-container">
+          <button class="back-button" onclick="window.goBack && window.goBack()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m12 19-7-7 7-7"/>
+              <path d="M19 12H5"/>
+            </svg>
+            cd ..
+          </button>
+        </div>
+      </div>
+
+      <!-- Projects folder content -->
+      <div id="projects-content" class="terminal-content hidden">
+        <div class="terminal-line">
+          <span class="prompt">portfolio@ryandielhenn:~/projects$</span>
+          <span class="command">ls -la</span>
+        </div>
+        
+        <div class="file-listing">
+          <div class="file-item" data-file="portfolio.txt">
+            <span class="permissions">-rw-r--r--</span>
+            <span class="size">2.9K</span>
+            <span class="date">Dec 15</span>
+            <span class="name">portfolio.txt</span>
+          </div>
+        </div>
+        
+        <div class="terminal-line">
+          <span class="prompt">portfolio@ryandielhenn:~/projects$</span>
+          <span class="command">cat portfolio.txt</span>
+        </div>
+        
+        <div class="file-content">
+          <div class="simple-content">
+            <h3>Projects</h3>
+            <p>A collection of my work in distributed systems, data science, and software engineering.</p>
+            
+            <div class="projects-list">
+              {siteConfig.projects.map((project, index) => (
+                <div class="project-item">
+                  <div class="project-header">
+                    <h4>{project.name}</h4>
+                    <a href={project.link} target="_blank" rel="noopener noreferrer" class="project-link">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+                      </svg>
+                    </a>
+                  </div>
+                  <p class="project-description">{project.description}</p>
+                  <div class="project-skills">
+                    {project.skills.map((skill, skillIndex) => (
+                      <span class="project-skill">{skill}</span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        
+        <div class="back-button-container">
+          <button class="back-button" onclick="window.goBack && window.goBack()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m12 19-7-7 7-7"/>
+              <path d="M19 12H5"/>
+            </svg>
+            cd ..
+          </button>
+        </div>
+      </div>
+
+      <!-- Education folder content -->
+      <div id="education-content" class="terminal-content hidden">
+        <div class="terminal-line">
+          <span class="prompt">portfolio@ryandielhenn:~/education$</span>
+          <span class="command">ls -la</span>
+        </div>
+        
+        <div class="file-listing">
+          <div class="file-item" data-file="degrees.txt">
+            <span class="permissions">-rw-r--r--</span>
+            <span class="size">1.5K</span>
+            <span class="date">Dec 15</span>
+            <span class="name">degrees.txt</span>
+          </div>
+        </div>
+        
+        <div class="terminal-line">
+          <span class="prompt">portfolio@ryandielhenn:~/education$</span>
+          <span class="command">cat degrees.txt</span>
+        </div>
+        
+        <div class="file-content">
+          <div class="simple-content">
+            <h3>Education</h3>
+            <p>My academic background and achievements.</p>
+            
+            <div class="education-list">
+              {siteConfig.education.map((edu, index) => (
+                <div class="education-item">
+                  <div class="education-header">
+                    <h4>{edu.degree}</h4>
+                    <span class="education-date">{edu.dateRange}</span>
+                  </div>
+                  <h5 class="education-school">{edu.school}</h5>
+                  <ul class="education-achievements">
+                    {edu.achievements.map((achievement, achievementIndex) => (
+                      <li>{achievement}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        
+        <div class="back-button-container">
+          <button class="back-button" onclick="window.goBack && window.goBack()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m12 19-7-7 7-7"/>
+              <path d="M19 12H5"/>
+            </svg>
+            cd ..
+          </button>
         </div>
       </div>
     </div>
@@ -105,150 +355,30 @@ const hasResume = siteConfig.resume;
 </div>
 
 <style>
-  .filesystem-nav {
-    padding: 1rem;
-    max-width: 100%;
-  }
-
-  .nav-button {
-    display: block;
-    padding: 1.25rem 1.5rem;
-    background: rgba(31, 41, 55, 0.8);
-    border: 2px solid rgba(59, 130, 246, 0.3);
-    border-radius: 16px;
-    text-decoration: none;
-    color: #e5e7eb;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    min-height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-
-  .nav-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
+  .interactive-terminal {
     width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-    transition: left 0.5s ease;
+    margin: 0 auto;
+    padding: 2rem 1rem;
   }
 
-  .nav-button:hover::before {
-    left: 100%;
-  }
-
-  .nav-button:hover {
-    transform: translateY(-4px) scale(1.02);
-    border-color: rgba(59, 130, 246, 0.6);
-    background: rgba(31, 41, 55, 0.95);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 0 20px rgba(59, 130, 246, 0.3);
-  }
-
-  .nav-button:active {
-    transform: translateY(-2px) scale(1.01);
-  }
-
-  .nav-button-content {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    justify-content: center;
-  }
-
-
-  .nav-icon {
-    width: 24px;
-    height: 24px;
-    flex-shrink: 0;
-    color: #3b82f6;
-    transition: all 0.3s ease;
-  }
-
-  .nav-text {
-    font-size: 1.125rem;
-    font-weight: 600;
-    font-family: 'IBM Plex Mono', monospace;
-    letter-spacing: -0.025em;
-    transition: color 0.3s ease;
-  }
-
-  .nav-button:hover .nav-icon {
-    color: #60a5fa;
-    transform: scale(1.1);
-  }
-
-  .nav-button:hover .nav-text {
-    color: #f3f4f6;
-  }
-
-  /* Animation for button appearance */
-  .nav-button {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: slideInUp 0.6s ease-out forwards;
-  }
-
-  .nav-button:nth-child(1) { animation-delay: 0.1s; }
-  .nav-button:nth-child(2) { animation-delay: 0.2s; }
-  .nav-button:nth-child(3) { animation-delay: 0.3s; }
-  .nav-button:nth-child(4) { animation-delay: 0.4s; }
-
-  @keyframes slideInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
+  /* Desktop styles */
+  @media (min-width: 768px) {
+    .interactive-terminal {
+      width: 100%;
+      padding: 2rem 2rem;
+    }
+    
+    .terminal-window {
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+      min-height: 80vh;
+    }
+    
+    .terminal-body {
+      padding: 3rem;
+      min-height: 75vh;
     }
   }
 
-  /* Resume button special styling */
-  .resume-button {
-    border-color: rgba(59, 130, 246, 0.4);
-    background: rgba(31, 41, 55, 0.9);
-  }
-  
-  .resume-button:hover {
-    border-color: rgba(59, 130, 246, 0.7);
-    background: rgba(31, 41, 55, 1);
-  }
-  
-  .download-button {
-    border-color: rgba(34, 197, 94, 0.4);
-    background: rgba(31, 41, 55, 0.9);
-  }
-  
-  .download-button:hover {
-    border-color: rgba(34, 197, 94, 0.7);
-    background: rgba(31, 41, 55, 1);
-  }
-  
-  .download-button .nav-icon {
-    color: #22c55e;
-  }
-  
-  .download-button:hover .nav-icon {
-    color: #4ade80;
-  }
-
-  /* Touch feedback for mobile */
-  @media (hover: none) and (pointer: coarse) {
-    .nav-button:active {
-      transform: scale(0.98);
-      background: rgba(31, 41, 55, 1);
-    }
-  }
-
-  /* Terminal Styles */
   .terminal-window {
     background: #1a1a1a;
     border-radius: 8px;
@@ -260,7 +390,7 @@ const hasResume = siteConfig.resume;
 
   .terminal-header {
     background: #2d2d2d;
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -272,15 +402,15 @@ const hasResume = siteConfig.resume;
     gap: 0.5rem;
   }
 
-  .terminal-btn {
+  .btn {
     width: 12px;
     height: 12px;
     border-radius: 50%;
   }
 
-  .terminal-btn.close { background: #ff5f56; }
-  .terminal-btn.minimize { background: #ffbd2e; }
-  .terminal-btn.maximize { background: #27ca3f; }
+  .btn.close { background: #ff5f56; }
+  .btn.minimize { background: #ffbd2e; }
+  .btn.maximize { background: #27ca3f; }
 
   .terminal-title {
     color: #888;
@@ -290,14 +420,20 @@ const hasResume = siteConfig.resume;
 
   .terminal-body {
     background: #1a1a1a;
-    padding: 1rem;
-    min-height: 300px;
+    padding: 1.5rem;
+    min-height: 500px;
+    max-height: 70vh;
+    overflow-y: auto;
   }
 
   .terminal-content {
     color: #e5e7eb;
     font-size: 0.875rem;
     line-height: 1.5;
+  }
+
+  .terminal-content.hidden {
+    display: none;
   }
 
   .terminal-line {
@@ -318,6 +454,44 @@ const hasResume = siteConfig.resume;
     font-weight: 500;
   }
 
+  .output {
+    color: #e5e7eb;
+    font-style: italic;
+  }
+
+  .back-button-container {
+    margin-top: 2rem;
+    padding: 1rem 0;
+    text-align: center;
+  }
+
+  .back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: #2d2d2d;
+    color: #e5e7eb;
+    border: 1px solid #444;
+    border-radius: 6px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .back-button:hover {
+    background: #3d3d3d;
+    border-color: #555;
+    color: #f3f4f6;
+    transform: translateY(-1px);
+  }
+
+  .back-button:active {
+    transform: translateY(0);
+  }
+
   .cursor {
     color: #22c55e;
     animation: blink 1s infinite;
@@ -328,14 +502,14 @@ const hasResume = siteConfig.resume;
     51%, 100% { opacity: 0; }
   }
 
-  .terminal-output {
+  .file-listing {
     margin: 1rem 0;
   }
 
   .file-item {
     display: flex;
     align-items: center;
-    padding: 0.25rem 0;
+    padding: 0.5rem 0;
     cursor: pointer;
     border-radius: 4px;
     transition: all 0.2s ease;
@@ -347,14 +521,14 @@ const hasResume = siteConfig.resume;
     transform: translateX(4px);
   }
 
-  .file-type {
+  .permissions {
     color: #888;
     width: 80px;
     font-size: 0.75rem;
     margin-right: 1rem;
   }
 
-  .file-size {
+  .size {
     color: #888;
     width: 50px;
     font-size: 0.75rem;
@@ -362,35 +536,27 @@ const hasResume = siteConfig.resume;
     text-align: right;
   }
 
-  .file-date {
+  .date {
     color: #888;
     width: 60px;
     font-size: 0.75rem;
     margin-right: 1rem;
   }
 
-  .file-name {
+  .name {
     color: #e5e7eb;
     font-weight: 500;
     flex: 1;
   }
 
-  .file-name.about { color: #3b82f6; }
-  .file-name.experience { color: #f59e0b; }
-  .file-name.projects { color: #10b981; }
-  .file-name.education { color: #8b5cf6; }
-  .file-name.resume { color: #ef4444; }
-  .file-name.social { color: #06b6d4; }
-
-  .file-item:hover .file-name {
-    color: #60a5fa;
-  }
+  .file-item[data-folder="about"] .name { color: #3b82f6; }
+  .file-item[data-folder="experience"] .name { color: #f59e0b; }
+  .file-item[data-folder="projects"] .name { color: #10b981; }
+  .file-item[data-folder="education"] .name { color: #8b5cf6; }
+  .file-item[data-resume] .name { color: #ef4444; }
+  .file-item.social .name { color: #06b6d4; }
 
   .social-links {
-    position: relative;
-  }
-
-  .social-icons {
     position: absolute;
     right: 0;
     top: 50%;
@@ -401,7 +567,7 @@ const hasResume = siteConfig.resume;
     transition: opacity 0.2s ease;
   }
 
-  .social-links:hover .social-icons {
+  .file-item.social:hover .social-links {
     opacity: 1;
   }
 
@@ -414,29 +580,307 @@ const hasResume = siteConfig.resume;
     color: #60a5fa;
   }
 
-  /* Responsive adjustments */
-  @media (max-width: 375px) {
-    .terminal-body {
-      padding: 0.75rem;
+  .file-content {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    border-left: 3px solid #22c55e;
+  }
+
+  .simple-content {
+    padding: 1rem;
+    color: #e5e7eb;
+    line-height: 1.6;
+  }
+
+  .simple-content h3 {
+    color: #e5e7eb;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    margin-top: 0;
+  }
+
+  .simple-content h4 {
+    color: #e5e7eb;
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .simple-content h5 {
+    color: #e5e7eb;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+  }
+
+  .simple-content p {
+    margin: 0 0 1rem 0;
+    color: #9ca3af;
+  }
+
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .skill-item {
+    background: #374151;
+    color: #e5e7eb;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+  }
+
+  .expertise-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .expertise-item {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    border-radius: 4px;
+    border-left: 3px solid #22c55e;
+  }
+
+  .expertise-item p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+
+  .experience-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .experience-item {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1.5rem;
+    border-radius: 4px;
+    border-left: 3px solid #22c55e;
+  }
+
+  .experience-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .experience-header h4 {
+    color: #e5e7eb;
+    font-size: 1.1rem;
+    margin: 0;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .experience-date {
+    color: #9ca3af;
+    font-size: 0.875rem;
+    white-space: nowrap;
+  }
+
+  .experience-company {
+    color: #22c55e;
+    font-size: 1rem;
+    margin: 0 0 1rem 0;
+    font-weight: 600;
+  }
+
+  .experience-bullets {
+    margin: 0;
+    padding-left: 1rem;
+  }
+
+  .experience-bullets li {
+    color: #9ca3af;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+    position: relative;
+  }
+
+  .experience-bullets li::before {
+    content: "•";
+    color: #22c55e;
+    position: absolute;
+    left: -1rem;
+  }
+
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .project-item {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1.5rem;
+    border-radius: 4px;
+    border-left: 3px solid #22c55e;
+  }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    gap: 1rem;
+  }
+
+  .project-header h4 {
+    color: #e5e7eb;
+    font-size: 1.1rem;
+    margin: 0;
+    flex: 1;
+  }
+
+  .project-link {
+    color: #22c55e;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: rgba(34, 197, 94, 0.1);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .project-link:hover {
+    background: rgba(34, 197, 94, 0.2);
+    transform: scale(1.05);
+  }
+
+  .project-description {
+    color: #9ca3af;
+    margin: 0 0 1rem 0;
+    line-height: 1.6;
+    font-size: 0.9rem;
+  }
+
+  .project-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .project-skill {
+    background: #374151;
+    color: #e5e7eb;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    border: 1px solid #4b5563;
+  }
+
+  .education-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .education-item {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1.5rem;
+    border-radius: 4px;
+    border-left: 3px solid #22c55e;
+  }
+
+  .education-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .education-header h4 {
+    color: #e5e7eb;
+    font-size: 1.1rem;
+    margin: 0;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .education-date {
+    color: #9ca3af;
+    font-size: 0.875rem;
+    white-space: nowrap;
+  }
+
+  .education-school {
+    color: #22c55e;
+    font-size: 1rem;
+    margin: 0 0 1rem 0;
+    font-weight: 600;
+  }
+
+  .education-achievements {
+    margin: 0;
+    padding-left: 1rem;
+  }
+
+  .education-achievements li {
+    color: #9ca3af;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+    position: relative;
+  }
+
+  .education-achievements li::before {
+    content: "•";
+    color: #22c55e;
+    position: absolute;
+    left: -1rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .interactive-terminal {
+      padding: 1rem 0.75rem;
     }
     
-    .file-type {
+    .terminal-body {
+      padding: 1.5rem;
+      min-height: 60vh;
+    }
+    
+    .permissions {
       width: 70px;
       font-size: 0.7rem;
     }
     
-    .file-size {
+    .size {
       width: 40px;
       font-size: 0.7rem;
     }
     
-    .file-date {
+    .date {
       width: 50px;
       font-size: 0.7rem;
     }
     
-    .terminal-content {
-      font-size: 0.8rem;
+    .file-item {
+      padding: 0.75rem 0;
+    }
+    
+    .file-item .name {
+      font-size: 0.9rem;
     }
   }
 </style>
@@ -447,20 +891,16 @@ const hasResume = siteConfig.resume;
     
     fileItems.forEach(item => {
       item.addEventListener('click', (e) => {
-        const path = item.getAttribute('data-path');
-        const resumeUrl = item.getAttribute('data-resume-url');
+        const folder = item.getAttribute('data-folder');
+        const isResume = item.hasAttribute('data-resume');
         
-        if (path === 'resume' && resumeUrl) {
+        if (isResume) {
           // Handle resume download
           e.preventDefault();
-          
-          // Create a temporary link to download the file
           const link = document.createElement('a');
-          link.href = resumeUrl;
+          link.href = '/ryan_dielhenn_resume.pdf';
           link.download = 'Ryan_Dielhenn_Resume.pdf';
           link.target = '_blank';
-          
-          // Trigger the download
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
@@ -470,11 +910,70 @@ const hasResume = siteConfig.resume;
           setTimeout(() => {
             (item as HTMLElement).style.transform = '';
           }, 150);
-        } else if (path && path.startsWith('/')) {
-          // Navigate to section pages
-          window.location.href = path;
+        } else if (folder) {
+          // Navigate into folder
+          navigateToFolder(folder);
         }
       });
     });
+
+    // Add event listeners for back buttons
+    const backButtons = document.querySelectorAll('[onclick*="goBack"]');
+    backButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log('Back button clicked'); // Debug log
+        goBack();
+      });
+    });
   });
+
+  function navigateToFolder(folderName: string) {
+    // Hide all content sections
+    const allContents = document.querySelectorAll('.terminal-content');
+    allContents.forEach(content => {
+      content.classList.add('hidden');
+    });
+
+    // Show the selected folder content
+    const targetContent = document.getElementById(`${folderName}-content`);
+    if (targetContent) {
+      targetContent.classList.remove('hidden');
+      
+      // Scroll to top of terminal
+      const terminalBody = document.querySelector('.terminal-body');
+      if (terminalBody) {
+        terminalBody.scrollTop = 0;
+      }
+    }
+  }
+
+  function goBack() {
+    console.log('goBack function called'); // Debug log
+    
+    // Hide all content sections
+    const allContents = document.querySelectorAll('.terminal-content');
+    allContents.forEach(content => {
+      content.classList.add('hidden');
+    });
+
+    // Show root content
+    const rootContent = document.getElementById('root-content');
+    if (rootContent) {
+      rootContent.classList.remove('hidden');
+      console.log('Root content shown'); // Debug log
+      
+      // Scroll to top of terminal
+      const terminalBody = document.querySelector('.terminal-body');
+      if (terminalBody) {
+        terminalBody.scrollTop = 0;
+      }
+    } else {
+      console.log('Root content not found'); // Debug log
+    }
+  }
+
+  // Make functions globally available
+  (window as any).navigateToFolder = navigateToFolder;
+  (window as any).goBack = goBack;
 </script>
