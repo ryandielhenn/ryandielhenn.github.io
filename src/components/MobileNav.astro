@@ -70,37 +70,11 @@ const hasResume = siteConfig.resume;
             </div>
           )}
           
-          <div class="file-item social">
-            <span class="permissions">lrwxrwxrwx</span>
-            <span class="size">-</span>
+          <div class="file-item" data-folder="social">
+            <span class="permissions">drwxr-xr-x</span>
+            <span class="size">1.2K</span>
             <span class="date">Dec 15</span>
             <span class="name">social/</span>
-            <div class="social-links">
-              {siteConfig.social?.email && (
-                <a href={`mailto:${siteConfig.social.email}`} class="social-link">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                    <polyline points="22,6 12,13 2,6" />
-                  </svg>
-                </a>
-              )}
-              {siteConfig.social?.linkedin && (
-                <a href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer" class="social-link">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                    <rect x="2" y="9" width="4" height="12" />
-                    <circle cx="4" cy="4" r="2" />
-                  </svg>
-                </a>
-              )}
-              {siteConfig.social?.github && (
-                <a href={siteConfig.social.github} target="_blank" rel="noopener noreferrer" class="social-link">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-1.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-                  </svg>
-                </a>
-              )}
-            </div>
           </div>
         </div>
         
@@ -162,11 +136,11 @@ const hasResume = siteConfig.resume;
               <div class="expertise-item">
                 <h5>Software Engineering</h5>
                 <p>Backend development with focus on scalable, maintainable code.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
+      </div>
+    </div>
+  </div>
+</div>
+
         <div class="back-button-container">
           <button class="back-button" onclick="window.goBack && window.goBack()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -349,6 +323,19 @@ const hasResume = siteConfig.resume;
             cd ..
           </button>
         </div>
+      </div>
+    </div>
+
+    <!-- Social Content -->
+    <div id="social-content" class="terminal-content hidden">
+      <div class="back-button-container">
+        <button class="back-button" onclick="window.goBack && window.goBack()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="m12 19-7-7 7-7"/>
+            <path d="M19 12H5"/>
+          </svg>
+          cd ..
+        </button>
       </div>
     </div>
   </div>
@@ -849,6 +836,68 @@ const hasResume = siteConfig.resume;
     left: -1rem;
   }
 
+  .social-links-display {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .social-link-item {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1.5rem;
+    border-radius: 4px;
+    border-left: 3px solid #22c55e;
+  }
+
+  .social-link-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .social-link-header h4 {
+    color: #e5e7eb;
+    font-size: 1.1rem;
+    margin: 0;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .social-link-btn {
+    color: #22c55e;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: rgba(34, 197, 94, 0.1);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .social-link-btn:hover {
+    background: rgba(34, 197, 94, 0.2);
+    transform: scale(1.05);
+  }
+
+
+  .social-address {
+    color: #9ca3af;
+    margin: 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.9rem;
+  }
+
+
+
+
+
   /* Responsive */
   @media (max-width: 768px) {
     .interactive-terminal {
@@ -926,9 +975,12 @@ const hasResume = siteConfig.resume;
         goBack();
       });
     });
+
   });
 
   function navigateToFolder(folderName: string) {
+    console.log('Navigating to folder:', folderName); // Debug log
+    
     // Hide all content sections
     const allContents = document.querySelectorAll('.terminal-content');
     allContents.forEach(content => {
@@ -939,12 +991,16 @@ const hasResume = siteConfig.resume;
     const targetContent = document.getElementById(`${folderName}-content`);
     if (targetContent) {
       targetContent.classList.remove('hidden');
+      console.log('Showing content for:', folderName); // Debug log
       
       // Scroll to top of terminal
       const terminalBody = document.querySelector('.terminal-body');
       if (terminalBody) {
         terminalBody.scrollTop = 0;
+        console.log('Scrolled to top'); // Debug log
       }
+    } else {
+      console.log('Target content not found for:', folderName); // Debug log
     }
   }
 
