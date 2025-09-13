@@ -8,10 +8,10 @@ const hasResume = siteConfig.resume;
 ---
 
 <div class="mobile-nav-buttons md:hidden">
-  <div class="grid grid-cols-2 gap-4 max-w-md mx-auto">
+  <div class="grid grid-cols-3 gap-4 max-w-lg mx-auto">
     <a
       href="/about"
-      class="nav-button group col-span-2"
+      class="nav-button group"
     >
       <div class="nav-button-content">
         <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -82,8 +82,8 @@ const hasResume = siteConfig.resume;
       </a>
     )}
     
-    <!-- Social Links -->
-    <div class="col-span-2 flex justify-center gap-6 mt-4">
+    <!-- Social Links in 6th position -->
+    <div class="nav-button flex items-center justify-center gap-2">
       {siteConfig.social?.email && (
         <a
           href={`mailto:${siteConfig.social.email}`}
@@ -92,8 +92,8 @@ const hasResume = siteConfig.resume;
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="20"
+            height="20"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -116,8 +116,8 @@ const hasResume = siteConfig.resume;
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="20"
+            height="20"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -141,8 +141,8 @@ const hasResume = siteConfig.resume;
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="20"
+            height="20"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -182,11 +182,6 @@ const hasResume = siteConfig.resume;
     justify-content: center;
   }
 
-  .col-span-2 {
-    grid-column: span 2;
-    padding: 1.5rem 2rem;
-    min-height: 90px;
-  }
 
   .nav-button::before {
     content: '';
@@ -224,9 +219,6 @@ const hasResume = siteConfig.resume;
     justify-content: center;
   }
 
-  .col-span-2 .nav-button-content {
-    gap: 1rem;
-  }
 
   .nav-icon {
     width: 24px;
