@@ -70,12 +70,6 @@ const hasResume = siteConfig.resume;
             </div>
           )}
           
-          <div class="file-item" data-folder="social">
-            <span class="permissions">drwxr-xr-x</span>
-            <span class="size">1.2K</span>
-            <span class="date">Dec 15</span>
-            <span class="name">social/</span>
-          </div>
         </div>
         
         <div class="terminal-line">
@@ -86,26 +80,6 @@ const hasResume = siteConfig.resume;
 
       <!-- About folder content -->
       <div id="about-content" class="terminal-content hidden">
-        <div class="terminal-line">
-          <span class="prompt">portfolio@ryandielhenn:~/about$</span>
-          <span class="command">ls -la</span>
-        </div>
-        
-        <div class="file-listing">
-          <div class="file-item" data-file="bio.txt">
-            <span class="permissions">-rw-r--r--</span>
-            <span class="size">1.2K</span>
-            <span class="date">Dec 15</span>
-            <span class="name">bio.txt</span>
-          </div>
-          <div class="file-item" data-file="skills.txt">
-            <span class="permissions">-rw-r--r--</span>
-            <span class="size">856B</span>
-            <span class="date">Dec 15</span>
-            <span class="name">skills.txt</span>
-          </div>
-        </div>
-        
         <div class="terminal-line">
           <span class="prompt">portfolio@ryandielhenn:~/about$</span>
           <span class="command">cat bio.txt</span>
@@ -156,20 +130,6 @@ const hasResume = siteConfig.resume;
       <div id="experience-content" class="terminal-content hidden">
         <div class="terminal-line">
           <span class="prompt">portfolio@ryandielhenn:~/experience$</span>
-          <span class="command">ls -la</span>
-        </div>
-        
-        <div class="file-listing">
-          <div class="file-item" data-file="work-history.txt">
-            <span class="permissions">-rw-r--r--</span>
-            <span class="size">3.8K</span>
-            <span class="date">Dec 15</span>
-            <span class="name">work-history.txt</span>
-          </div>
-        </div>
-        
-        <div class="terminal-line">
-          <span class="prompt">portfolio@ryandielhenn:~/experience$</span>
           <span class="command">cat work-history.txt</span>
         </div>
         
@@ -210,20 +170,6 @@ const hasResume = siteConfig.resume;
 
       <!-- Projects folder content -->
       <div id="projects-content" class="terminal-content hidden">
-        <div class="terminal-line">
-          <span class="prompt">portfolio@ryandielhenn:~/projects$</span>
-          <span class="command">ls -la</span>
-        </div>
-        
-        <div class="file-listing">
-          <div class="file-item" data-file="portfolio.txt">
-            <span class="permissions">-rw-r--r--</span>
-            <span class="size">2.9K</span>
-            <span class="date">Dec 15</span>
-            <span class="name">portfolio.txt</span>
-          </div>
-        </div>
-        
         <div class="terminal-line">
           <span class="prompt">portfolio@ryandielhenn:~/projects$</span>
           <span class="command">cat portfolio.txt</span>
@@ -273,20 +219,6 @@ const hasResume = siteConfig.resume;
       <div id="education-content" class="terminal-content hidden">
         <div class="terminal-line">
           <span class="prompt">portfolio@ryandielhenn:~/education$</span>
-          <span class="command">ls -la</span>
-        </div>
-        
-        <div class="file-listing">
-          <div class="file-item" data-file="degrees.txt">
-            <span class="permissions">-rw-r--r--</span>
-            <span class="size">1.5K</span>
-            <span class="date">Dec 15</span>
-            <span class="name">degrees.txt</span>
-          </div>
-        </div>
-        
-        <div class="terminal-line">
-          <span class="prompt">portfolio@ryandielhenn:~/education$</span>
           <span class="command">cat degrees.txt</span>
         </div>
         
@@ -326,18 +258,6 @@ const hasResume = siteConfig.resume;
       </div>
     </div>
 
-    <!-- Social Content -->
-    <div id="social-content" class="terminal-content hidden">
-      <div class="back-button-container">
-        <button class="back-button" onclick="window.goBack && window.goBack()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="m12 19-7-7 7-7"/>
-            <path d="M19 12H5"/>
-          </svg>
-          cd ..
-        </button>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -541,31 +461,6 @@ const hasResume = siteConfig.resume;
   .file-item[data-folder="projects"] .name { color: #10b981; }
   .file-item[data-folder="education"] .name { color: #8b5cf6; }
   .file-item[data-resume] .name { color: #ef4444; }
-  .file-item.social .name { color: #06b6d4; }
-
-  .social-links {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    gap: 0.5rem;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-  }
-
-  .file-item.social:hover .social-links {
-    opacity: 1;
-  }
-
-  .social-link {
-    color: #888;
-    transition: color 0.2s ease;
-  }
-
-  .social-link:hover {
-    color: #60a5fa;
-  }
 
   .file-content {
     margin: 1rem 0;
@@ -836,63 +731,6 @@ const hasResume = siteConfig.resume;
     left: -1rem;
   }
 
-  .social-links-display {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    margin-top: 1rem;
-  }
-
-  .social-link-item {
-    background: rgba(0, 0, 0, 0.2);
-    padding: 1.5rem;
-    border-radius: 4px;
-    border-left: 3px solid #22c55e;
-  }
-
-  .social-link-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 0.5rem;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .social-link-header h4 {
-    color: #e5e7eb;
-    font-size: 1.1rem;
-    margin: 0;
-    flex: 1;
-    min-width: 200px;
-  }
-
-  .social-link-btn {
-    color: #22c55e;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    background: rgba(34, 197, 94, 0.1);
-    border-radius: 4px;
-    transition: all 0.2s ease;
-    flex-shrink: 0;
-  }
-
-  .social-link-btn:hover {
-    background: rgba(34, 197, 94, 0.2);
-    transform: scale(1.05);
-  }
-
-
-  .social-address {
-    color: #9ca3af;
-    margin: 0;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.9rem;
-  }
 
 
 
