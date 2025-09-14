@@ -14,28 +14,20 @@ const hasResume = siteConfig.resume;
 
 <div class="interactive-terminal">
   <div class="terminal-window">
-    <div class="terminal-header">
-      <div class="terminal-buttons">
-        <div class="btn close"></div>
-        <div class="btn minimize"></div>
-        <div class="btn maximize"></div>
-      </div>
-      <div class="terminal-title">portfolio@ryandielhenn:~$</div>
-    </div>
     
     <div class="terminal-body">
       <!-- Root directory listing -->
       <div id="root-content" class="terminal-content">
         <div class="terminal-line">
           <span class="prompt">portfolio@ryandielhenn:~$</span>
-          <span class="command">ls -la</span>
+          <span class="command" id="main-command"></span>
         </div>
         
-        <div class="file-listing">
+        <div class="file-listing" id="file-listing" style="display: none;">
           <div class="file-item" data-folder="about">
             <span class="permissions">drwxr-xr-x</span>
             <span class="size">2.1K</span>
-            <span class="date">Dec 15</span>
+            <span class="date">Sep 14</span>
             <span class="name">about/</span>
           </div>
           
@@ -43,7 +35,7 @@ const hasResume = siteConfig.resume;
             <div class="file-item" data-folder="experience">
               <span class="permissions">drwxr-xr-x</span>
               <span class="size">4.2K</span>
-              <span class="date">Dec 15</span>
+              <span class="date">Sep 14</span>
               <span class="name">experience/</span>
             </div>
           )}
@@ -52,7 +44,7 @@ const hasResume = siteConfig.resume;
             <div class="file-item" data-folder="projects">
               <span class="permissions">drwxr-xr-x</span>
               <span class="size">3.8K</span>
-              <span class="date">Dec 15</span>
+              <span class="date">Sep 14</span>
               <span class="name">projects/</span>
             </div>
           )}
@@ -61,29 +53,29 @@ const hasResume = siteConfig.resume;
             <div class="file-item" data-folder="education">
               <span class="permissions">drwxr-xr-x</span>
               <span class="size">1.9K</span>
-              <span class="date">Dec 15</span>
+              <span class="date">Sep 14</span>
               <span class="name">education/</span>
-            </div>
-          )}
-          
-          {hasResume && (
-            <div class="file-item" data-resume>
-              <span class="permissions">-rw-r--r--</span>
-              <span class="size">245K</span>
-              <span class="date">Dec 15</span>
-              <span class="name">resume.pdf</span>
             </div>
           )}
           
           <div class="file-item" data-folder="connect">
             <span class="permissions">drwxr-xr-x</span>
             <span class="size">2.8K</span>
-            <span class="date">Dec 15</span>
+            <span class="date">Sep 14</span>
             <span class="name">connect/</span>
           </div>
+          
+          {hasResume && (
+            <div class="file-item" data-resume>
+              <span class="permissions">-rw-r--r--</span>
+              <span class="size">245K</span>
+              <span class="date">Sep 14</span>
+              <span class="name">resume.pdf</span>
+            </div>
+          )}
         </div>
         
-        <div class="terminal-line">
+        <div class="terminal-line" id="second-prompt" style="display: none;">
           <span class="prompt">portfolio@ryandielhenn:~$</span>
           <span class="cursor">_</span>
         </div>
@@ -104,36 +96,48 @@ const hasResume = siteConfig.resume;
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  // Initialize file item click handlers
+  function initFileItemHandlers() {
     const fileItems = document.querySelectorAll('.file-item');
     
     fileItems.forEach(item => {
-      item.addEventListener('click', (e) => {
-        const folder = item.getAttribute('data-folder');
-        const isResume = item.hasAttribute('data-resume');
-        
-        if (isResume) {
-          // Handle resume download
-          e.preventDefault();
-          const link = document.createElement('a');
-          link.href = '/ryan_dielhenn_resume.pdf';
-          link.download = 'Ryan_Dielhenn_Resume.pdf';
-          link.target = '_blank';
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          
-          // Visual feedback
-          (item as HTMLElement).style.transform = 'scale(0.95)';
-          setTimeout(() => {
-            (item as HTMLElement).style.transform = '';
-          }, 150);
-        } else if (folder) {
-          // Navigate into folder
-          navigateToFolder(folder);
-        }
-      });
+      // Remove existing listeners to prevent duplicates
+      item.removeEventListener('click', handleFileItemClick);
+      item.addEventListener('click', handleFileItemClick);
     });
+  }
+
+  // Handle file item clicks
+  function handleFileItemClick(e: Event) {
+    const item = e.currentTarget as HTMLElement;
+    const folder = item.getAttribute('data-folder');
+    const isResume = item.hasAttribute('data-resume');
+    
+    if (isResume) {
+      // Handle resume download
+      e.preventDefault();
+      const link = document.createElement('a');
+      link.href = '/ryan_dielhenn_resume.pdf';
+      link.download = 'Ryan_Dielhenn_Resume.pdf';
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      // Visual feedback
+      item.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        item.style.transform = '';
+      }, 150);
+    } else if (folder) {
+      // Navigate into folder
+      navigateToFolder(folder);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Initialize file item handlers (will be re-initialized when file listing appears)
+    initFileItemHandlers();
 
     // Add event listeners for back buttons
     const backButtons = document.querySelectorAll('[onclick*="goBack"]');
@@ -214,6 +218,66 @@ const hasResume = siteConfig.resume;
       console.log('Root content not found'); // Debug log
     }
   }
+
+  // Typing animation for main command
+  function typeCommand(element: HTMLElement, text: string, speed: number = 80) {
+    element.textContent = '';
+    element.classList.add('typing');
+    
+    let i = 0;
+    function type() {
+      if (i < text.length) {
+        element.textContent += text.charAt(i);
+        i++;
+        setTimeout(type, speed);
+      } else {
+        element.classList.remove('typing');
+        element.classList.add('typing-complete');
+        
+        // Show file listing after command finishes typing
+        const fileListing = document.getElementById('file-listing');
+        if (fileListing) {
+          setTimeout(() => {
+            fileListing.style.display = 'block';
+            
+            // Animate each file item appearing one by one
+            const fileItems = fileListing.querySelectorAll('.file-item');
+            fileItems.forEach((item, index) => {
+              setTimeout(() => {
+                item.classList.add('animate-in');
+              }, index * 100); // 100ms delay between each item
+            });
+            
+            // Re-initialize file item click handlers after animation
+            setTimeout(() => {
+              initFileItemHandlers();
+            }, fileItems.length * 100 + 100);
+            
+            // Show second prompt after all file items have animated in
+            setTimeout(() => {
+              const secondPrompt = document.getElementById('second-prompt');
+              if (secondPrompt) {
+                secondPrompt.style.display = 'block';
+              }
+            }, fileItems.length * 100 + 400);
+          }, 200);
+        }
+      }
+    }
+    
+    type();
+  }
+
+  // Initialize typing animation on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    const mainCommand = document.getElementById('main-command');
+    if (mainCommand) {
+      // Start typing animation after a short delay
+      setTimeout(() => {
+        typeCommand(mainCommand, 'ls -la', 80);
+      }, 500);
+    }
+  });
 
   // Make functions globally available
   (window as any).navigateToFolder = navigateToFolder;

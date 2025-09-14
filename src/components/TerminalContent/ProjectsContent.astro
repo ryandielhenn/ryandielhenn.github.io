@@ -6,12 +6,21 @@ import { siteConfig } from "../../config";
 <div id="projects-content" class="terminal-content hidden">
   <div class="terminal-line">
     <span class="prompt">portfolio@ryandielhenn:~/projects$</span>
-    <span class="command">cat portfolio.txt</span>
+    <span class="command" id="projects-command"></span>
   </div>
   
-  <div class="file-content">
+  <div class="file-content" id="projects-content-body" style="opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease;">
     <div class="simple-content">
-      <h3>Projects</h3>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h3 style="margin: 0;">Projects</h3>
+        <button class="back-button" onclick="window.goBack && window.goBack()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="m12 19-7-7 7-7"/>
+            <path d="M19 12H5"/>
+          </svg>
+          cd ..
+        </button>
+      </div>
       <p>A collection of my work in distributed systems, data science, and software engineering.</p>
       
       <div class="projects-list">
@@ -37,17 +46,85 @@ import { siteConfig } from "../../config";
       </div>
     </div>
   </div>
-  
-  <div class="back-button-container">
-    <button class="back-button" onclick="window.goBack && window.goBack()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="m12 19-7-7 7-7"/>
-        <path d="M19 12H5"/>
-      </svg>
-      cd ..
-    </button>
-  </div>
 </div>
+
+<script>
+  // Typing animation for projects command
+  function typeProjectsCommand(element: HTMLElement, text: string, speed: number = 80) {
+    // Prevent multiple animations
+    if (element.classList.contains('typing') || element.classList.contains('typing-complete')) {
+      return;
+    }
+    
+    element.textContent = '';
+    element.classList.add('typing');
+    
+    let i = 0;
+    function type() {
+      if (i < text.length) {
+        element.textContent += text.charAt(i);
+        i++;
+        setTimeout(type, speed);
+      } else {
+        element.classList.remove('typing');
+        element.classList.add('typing-complete');
+        
+        // Show content after command finishes typing
+        setTimeout(() => {
+          const contentBody = document.getElementById('projects-content-body');
+          if (contentBody) {
+            contentBody.style.opacity = '1';
+            contentBody.style.transform = 'translateY(0)';
+          }
+        }, 300);
+      }
+    }
+    
+    type();
+  }
+
+  // Flag to prevent multiple initializations
+  let projectsAnimationInitialized = false;
+
+  // Initialize typing animation when projects content becomes visible
+  function initProjectsAnimation() {
+    if (projectsAnimationInitialized) {
+      return;
+    }
+    
+    const projectsCommand = document.getElementById('projects-command');
+    if (projectsCommand) {
+      projectsAnimationInitialized = true;
+      setTimeout(() => {
+        typeProjectsCommand(projectsCommand, 'cat portfolio.txt', 80);
+      }, 500);
+    }
+  }
+
+  // Listen for when projects content becomes visible
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+        const target = mutation.target as HTMLElement;
+        if (target.id === 'projects-content' && !target.classList.contains('hidden')) {
+          initProjectsAnimation();
+        }
+      }
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const projectsContent = document.getElementById('projects-content');
+    if (projectsContent) {
+      observer.observe(projectsContent, { attributes: true });
+      
+      // If already visible, start animation
+      if (!projectsContent.classList.contains('hidden')) {
+        initProjectsAnimation();
+      }
+    }
+  });
+</script>
 
 <style>
   @import "../../styles/terminal.css";

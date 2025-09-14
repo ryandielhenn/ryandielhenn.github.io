@@ -6,12 +6,21 @@ import { siteConfig } from "../../config";
 <div id="experience-content" class="terminal-content hidden">
   <div class="terminal-line">
     <span class="prompt">portfolio@ryandielhenn:~/experience$</span>
-    <span class="command">cat work-history.txt</span>
+    <span class="command" id="experience-command"></span>
   </div>
   
-  <div class="file-content">
+  <div class="file-content" id="experience-content-body" style="opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease;">
     <div class="simple-content">
-      <h3>Experience</h3>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h3 style="margin: 0;">Experience</h3>
+        <button class="back-button" onclick="window.goBack && window.goBack()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="m12 19-7-7 7-7"/>
+            <path d="M19 12H5"/>
+          </svg>
+          cd ..
+        </button>
+      </div>
       <p>My professional journey in software engineering and distributed systems.</p>
       
       <div class="experience-list">
@@ -32,17 +41,85 @@ import { siteConfig } from "../../config";
       </div>
     </div>
   </div>
-  
-  <div class="back-button-container">
-    <button class="back-button" onclick="window.goBack && window.goBack()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="m12 19-7-7 7-7"/>
-        <path d="M19 12H5"/>
-      </svg>
-      cd ..
-    </button>
-  </div>
 </div>
+
+<script>
+  // Typing animation for experience command
+  function typeExperienceCommand(element: HTMLElement, text: string, speed: number = 80) {
+    // Prevent multiple animations
+    if (element.classList.contains('typing') || element.classList.contains('typing-complete')) {
+      return;
+    }
+    
+    element.textContent = '';
+    element.classList.add('typing');
+    
+    let i = 0;
+    function type() {
+      if (i < text.length) {
+        element.textContent += text.charAt(i);
+        i++;
+        setTimeout(type, speed);
+      } else {
+        element.classList.remove('typing');
+        element.classList.add('typing-complete');
+        
+        // Show content after command finishes typing
+        setTimeout(() => {
+          const contentBody = document.getElementById('experience-content-body');
+          if (contentBody) {
+            contentBody.style.opacity = '1';
+            contentBody.style.transform = 'translateY(0)';
+          }
+        }, 300);
+      }
+    }
+    
+    type();
+  }
+
+  // Flag to prevent multiple initializations
+  let experienceAnimationInitialized = false;
+
+  // Initialize typing animation when experience content becomes visible
+  function initExperienceAnimation() {
+    if (experienceAnimationInitialized) {
+      return;
+    }
+    
+    const experienceCommand = document.getElementById('experience-command');
+    if (experienceCommand) {
+      experienceAnimationInitialized = true;
+      setTimeout(() => {
+        typeExperienceCommand(experienceCommand, 'cat work-history.txt', 80);
+      }, 500);
+    }
+  }
+
+  // Listen for when experience content becomes visible
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+        const target = mutation.target as HTMLElement;
+        if (target.id === 'experience-content' && !target.classList.contains('hidden')) {
+          initExperienceAnimation();
+        }
+      }
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const experienceContent = document.getElementById('experience-content');
+    if (experienceContent) {
+      observer.observe(experienceContent, { attributes: true });
+      
+      // If already visible, start animation
+      if (!experienceContent.classList.contains('hidden')) {
+        initExperienceAnimation();
+      }
+    }
+  });
+</script>
 
 <style>
   @import "../../styles/terminal.css";
