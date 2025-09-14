@@ -281,7 +281,6 @@ const hasResume = siteConfig.resume;
                 <div class="connect-item" data-link={`mailto:${siteConfig.social.email}`}>
                   <div class="connect-header">
                     <h4>Email</h4>
-                    <span class="connect-icon">✉️</span>
                   </div>
                   <p class="connect-detail">{siteConfig.social.email}</p>
                   <p class="connect-description">Best for professional inquiries and collaborations</p>
@@ -292,7 +291,6 @@ const hasResume = siteConfig.resume;
                 <div class="connect-item" data-link={siteConfig.social.linkedin}>
                   <div class="connect-header">
                     <h4>LinkedIn</h4>
-                    <span class="connect-icon">💼</span>
                   </div>
                   <p class="connect-detail">Professional networking and career opportunities</p>
                   <p class="connect-description">Connect for business partnerships and job opportunities</p>
@@ -303,7 +301,6 @@ const hasResume = siteConfig.resume;
                 <div class="connect-item" data-link={siteConfig.social.github}>
                   <div class="connect-header">
                     <h4>GitHub</h4>
-                    <span class="connect-icon">💻</span>
                   </div>
                   <p class="connect-detail">Open source contributions and code collaboration</p>
                   <p class="connect-description">Check out my projects and contribute to open source</p>
@@ -820,9 +817,6 @@ const hasResume = siteConfig.resume;
   }
 
   .connect-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-bottom: 0.5rem;
   }
 
@@ -831,10 +825,6 @@ const hasResume = siteConfig.resume;
     font-size: 1.1rem;
     margin: 0;
     font-weight: 600;
-  }
-
-  .connect-icon {
-    font-size: 1.25rem;
   }
 
   .connect-detail {
