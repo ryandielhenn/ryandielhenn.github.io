@@ -53,13 +53,20 @@ export const siteConfig = {
   {
     company: "Confluent",
     title: "Software Engineer",
-    dateRange: "May 2020 – Jul 2022",
+    dateRange: "Jan 2021 – Jul 2022",
     bullets: [
-      "Collaborated across engineering teams to improve reliability, observability, and security during Kafka’s transition to a ZooKeeper-free architecture (KRaft).",
+      "Collaborated across engineering teams to improve reliability, observability, and security during Kafka's transition to a ZooKeeper-free architecture (KRaft).",
       "Adapted Cluster Linking to support KRaft, enabling cross-cluster replication without ZooKeeper.",
-      "Integrated metrics to ensure visibility into quorum state and cluster health in Kafka’s KRaft mode.",
-      "Developed dynamic client reconfiguration in Kafka (as a Summer 2020 intern), allowing producers/consumers to update settings without downtime, and extended Confluent Cloud’s rebalance tooling to support asynchronous replicas.",
-      "Continued contributing to Apache Kafka while completing my undergraduate degree (Fall 2020) before returning full time in Jan 2021."
+      "Integrated metrics to ensure visibility into quorum state and cluster health in Kafka's KRaft mode."
+    ]
+  },
+  {
+    company: "Confluent",
+    title: "Software Engineering Intern",
+    dateRange: "May 2020 – Aug 2020",
+    bullets: [
+      "Developed dynamic client reconfiguration in Kafka (as a Summer 2020 intern), allowing producers/consumers to update settings without downtime.",
+      "Extended Confluent Cloud's rebalance tooling to support asynchronous replicas."
     ]
   },
   {

@@ -1,0 +1,221 @@
+---
+import { siteConfig } from "../config";
+import AboutContent from "./TerminalContent/AboutContent.astro";
+import ExperienceContent from "./TerminalContent/ExperienceContent.astro";
+import ProjectsContent from "./TerminalContent/ProjectsContent.astro";
+import EducationContent from "./TerminalContent/EducationContent.astro";
+import ConnectContent from "./TerminalContent/ConnectContent.astro";
+
+const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
+const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
+const hasEducation = siteConfig.education && siteConfig.education.length > 0;
+const hasResume = siteConfig.resume;
+---
+
+<div class="interactive-terminal">
+  <div class="terminal-window">
+    <div class="terminal-header">
+      <div class="terminal-buttons">
+        <div class="btn close"></div>
+        <div class="btn minimize"></div>
+        <div class="btn maximize"></div>
+      </div>
+      <div class="terminal-title">portfolio@ryandielhenn:~$</div>
+    </div>
+    
+    <div class="terminal-body">
+      <!-- Root directory listing -->
+      <div id="root-content" class="terminal-content">
+        <div class="terminal-line">
+          <span class="prompt">portfolio@ryandielhenn:~$</span>
+          <span class="command">ls -la</span>
+        </div>
+        
+        <div class="file-listing">
+          <div class="file-item" data-folder="about">
+            <span class="permissions">drwxr-xr-x</span>
+            <span class="size">2.1K</span>
+            <span class="date">Dec 15</span>
+            <span class="name">about/</span>
+          </div>
+          
+          {hasExperience && (
+            <div class="file-item" data-folder="experience">
+              <span class="permissions">drwxr-xr-x</span>
+              <span class="size">4.2K</span>
+              <span class="date">Dec 15</span>
+              <span class="name">experience/</span>
+            </div>
+          )}
+          
+          {hasProjects && (
+            <div class="file-item" data-folder="projects">
+              <span class="permissions">drwxr-xr-x</span>
+              <span class="size">3.8K</span>
+              <span class="date">Dec 15</span>
+              <span class="name">projects/</span>
+            </div>
+          )}
+          
+          {hasEducation && (
+            <div class="file-item" data-folder="education">
+              <span class="permissions">drwxr-xr-x</span>
+              <span class="size">1.9K</span>
+              <span class="date">Dec 15</span>
+              <span class="name">education/</span>
+            </div>
+          )}
+          
+          {hasResume && (
+            <div class="file-item" data-resume>
+              <span class="permissions">-rw-r--r--</span>
+              <span class="size">245K</span>
+              <span class="date">Dec 15</span>
+              <span class="name">resume.pdf</span>
+            </div>
+          )}
+          
+          <div class="file-item" data-folder="connect">
+            <span class="permissions">drwxr-xr-x</span>
+            <span class="size">2.8K</span>
+            <span class="date">Dec 15</span>
+            <span class="name">connect/</span>
+          </div>
+        </div>
+        
+        <div class="terminal-line">
+          <span class="prompt">portfolio@ryandielhenn:~$</span>
+          <span class="cursor">_</span>
+        </div>
+      </div>
+
+      <!-- Content sections -->
+      <AboutContent />
+      <ExperienceContent />
+      <ProjectsContent />
+      <EducationContent />
+      <ConnectContent />
+    </div>
+  </div>
+</div>
+
+<style>
+  @import "../styles/terminal.css";
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const fileItems = document.querySelectorAll('.file-item');
+    
+    fileItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        const folder = item.getAttribute('data-folder');
+        const isResume = item.hasAttribute('data-resume');
+        
+        if (isResume) {
+          // Handle resume download
+          e.preventDefault();
+          const link = document.createElement('a');
+          link.href = '/ryan_dielhenn_resume.pdf';
+          link.download = 'Ryan_Dielhenn_Resume.pdf';
+          link.target = '_blank';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          
+          // Visual feedback
+          (item as HTMLElement).style.transform = 'scale(0.95)';
+          setTimeout(() => {
+            (item as HTMLElement).style.transform = '';
+          }, 150);
+        } else if (folder) {
+          // Navigate into folder
+          navigateToFolder(folder);
+        }
+      });
+    });
+
+    // Add event listeners for back buttons
+    const backButtons = document.querySelectorAll('[onclick*="goBack"]');
+    backButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log('Back button clicked'); // Debug log
+        goBack();
+      });
+    });
+
+    // Add event listeners for connect items
+    const connectItems = document.querySelectorAll('.connect-item');
+    connectItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        const link = item.getAttribute('data-link');
+        if (link) {
+          if (link.startsWith('mailto:')) {
+            // Handle email link
+            window.location.href = link;
+          } else {
+            // Handle external links (LinkedIn, GitHub)
+            window.open(link, '_blank', 'noopener,noreferrer');
+          }
+        }
+      });
+    });
+
+  });
+
+  function navigateToFolder(folderName: string) {
+    console.log('Navigating to folder:', folderName); // Debug log
+    
+    // Hide all content sections
+    const allContents = document.querySelectorAll('.terminal-content');
+    allContents.forEach(content => {
+      content.classList.add('hidden');
+    });
+
+    // Show the selected folder content
+    const targetContent = document.getElementById(`${folderName}-content`);
+    if (targetContent) {
+      targetContent.classList.remove('hidden');
+      console.log('Showing content for:', folderName); // Debug log
+      
+      // Scroll to top of terminal
+      const terminalBody = document.querySelector('.terminal-body');
+      if (terminalBody) {
+        terminalBody.scrollTop = 0;
+        console.log('Scrolled to top'); // Debug log
+      }
+    } else {
+      console.log('Target content not found for:', folderName); // Debug log
+    }
+  }
+
+  function goBack() {
+    console.log('goBack function called'); // Debug log
+    
+    // Hide all content sections
+    const allContents = document.querySelectorAll('.terminal-content');
+    allContents.forEach(content => {
+      content.classList.add('hidden');
+    });
+
+    // Show root content
+    const rootContent = document.getElementById('root-content');
+    if (rootContent) {
+      rootContent.classList.remove('hidden');
+      console.log('Root content shown'); // Debug log
+      
+      // Scroll to top of terminal
+      const terminalBody = document.querySelector('.terminal-body');
+      if (terminalBody) {
+        terminalBody.scrollTop = 0;
+      }
+    } else {
+      console.log('Root content not found'); // Debug log
+    }
+  }
+
+  // Make functions globally available
+  (window as any).navigateToFolder = navigateToFolder;
+  (window as any).goBack = goBack;
+</script>

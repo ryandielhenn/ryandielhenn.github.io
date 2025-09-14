@@ -1,0 +1,49 @@
+---
+import { siteConfig } from "../../config";
+---
+
+<!-- Experience folder content -->
+<div id="experience-content" class="terminal-content hidden">
+  <div class="terminal-line">
+    <span class="prompt">portfolio@ryandielhenn:~/experience$</span>
+    <span class="command">cat work-history.txt</span>
+  </div>
+  
+  <div class="file-content">
+    <div class="simple-content">
+      <h3>Experience</h3>
+      <p>My professional journey in software engineering and distributed systems.</p>
+      
+      <div class="experience-list">
+        {siteConfig.experience.map((job, index) => (
+          <div class="experience-item">
+            <div class="experience-header">
+              <h4>{job.title}</h4>
+              <span class="experience-date">{job.dateRange}</span>
+            </div>
+            <h5 class="experience-company">{job.company}</h5>
+            <ul class="experience-bullets">
+              {job.bullets.map((bullet, bulletIndex) => (
+                <li>{bullet}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+  
+  <div class="back-button-container">
+    <button class="back-button" onclick="window.goBack && window.goBack()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="m12 19-7-7 7-7"/>
+        <path d="M19 12H5"/>
+      </svg>
+      cd ..
+    </button>
+  </div>
+</div>
+
+<style>
+  @import "../../styles/terminal.css";
+</style>
