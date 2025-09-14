@@ -1,5 +1,11 @@
 /* Terminal Navigation Styles */
 
+/* Prevent body scroll when terminal is active */
+body.terminal-active {
+  overflow: hidden;
+  height: 100vh;
+}
+
 .interactive-terminal {
   width: 100%;
   margin: 0 auto;
