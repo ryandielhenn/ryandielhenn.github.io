@@ -27,8 +27,8 @@ p, span, div {
 
 /* Dark mode styles */
 .dark body {
-  background-color: #111827;
-  color: #f9fafb;
+  background-color: #2d353b;
+  color: #d3c6aa;
 }
 
 .dark {

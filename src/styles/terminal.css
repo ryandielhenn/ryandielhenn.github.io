@@ -31,12 +31,12 @@ body.terminal-active {
 }
 
 .terminal-window {
-  background: #1e1e2e; /* Catppuccin Mocha Base */
+  background: #2d353b; /* Everforest Background */
   border-radius: 8px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   overflow: hidden;
   font-family: 'IBM Plex Mono', monospace;
-  border: 1px solid #313244; /* Catppuccin Surface1 */
+  border: 1px solid #3c484f; /* Everforest Surface1 */
 }
 
 .terminal-header {
@@ -70,7 +70,7 @@ body.terminal-active {
 }
 
 .terminal-body {
-  background: #1e1e2e; /* Catppuccin Mocha Base */
+  background: #2d353b; /* Everforest Background */
   padding: 1.5rem;
   min-height: 500px;
   max-height: 70vh;
@@ -78,7 +78,7 @@ body.terminal-active {
 }
 
 .terminal-content {
-  color: #cdd6f4; /* Catppuccin Text */
+  color: #d3c6aa; /* Everforest Text */
   font-size: 0.875rem;
   line-height: 1.5;
 }
@@ -95,13 +95,13 @@ body.terminal-active {
 }
 
 .prompt {
-  color: #a6e3a1; /* Catppuccin Green */
+  color: #a7c080; /* Everforest Green */
   font-weight: 600;
   margin-right: 0.5rem;
 }
 
 .command {
-  color: #89b4fa; /* Catppuccin Blue */
+  color: #7fbbb3; /* Everforest Blue */
   font-weight: 500;
   position: relative;
 }
@@ -110,12 +110,12 @@ body.terminal-active {
 .command.typing {
   overflow: hidden;
   white-space: nowrap;
-  border-right: 2px solid #a6e3a1; /* Catppuccin Green */
+  border-right: 2px solid #a7c080; /* Everforest Green */
   animation: blink-cursor 1s infinite;
 }
 
 @keyframes blink-cursor {
-  0%, 50% { border-color: #a6e3a1; }
+  0%, 50% { border-color: #a7c080; }
   51%, 100% { border-color: transparent; }
 }
 
@@ -124,19 +124,19 @@ body.terminal-active {
 }
 
 .output {
-  color: #cdd6f4; /* Catppuccin Text */
+  color: #d3c6aa; /* Everforest Text */
   font-style: italic;
 }
 
 .back-button-container {
   position: sticky;
   top: 0;
-  background: #1e1e2e; /* Match terminal background */
+  background: #2d353b; /* Match terminal background */
   z-index: 10;
   margin: -1.5rem -1.5rem 0 -1.5rem; /* Extend to edges but no bottom margin */
   padding: 1rem 1.5rem 0 1.5rem; /* Remove bottom padding */
   text-align: right;
-  border-bottom: 1px solid #313244; /* Subtle border */
+  border-bottom: 1px solid #3c484f; /* Subtle border */
   padding-bottom: 0.5rem; /* Small bottom padding for spacing */
 }
 
@@ -145,9 +145,9 @@ body.terminal-active {
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
-  background: #313244; /* Catppuccin Surface1 */
-  color: #cdd6f4; /* Catppuccin Text */
-  border: 1px solid #45475a; /* Catppuccin Surface2 */
+  background: #3c484f; /* Everforest Surface1 */
+  color: #d3c6aa; /* Everforest Text */
+  border: 1px solid #475258; /* Everforest Surface2 */
   border-radius: 6px;
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.875rem;
@@ -157,9 +157,9 @@ body.terminal-active {
 }
 
 .back-button:hover {
-  background: #45475a; /* Catppuccin Surface2 */
-  border-color: #585b70; /* Catppuccin Surface2 */
-  color: #f5c2e7; /* Catppuccin Pink */
+  background: #475258; /* Everforest Surface2 */
+  border-color: #5c6a72; /* Everforest Surface2 */
+  color: #e67e80; /* Everforest Red */
   transform: translateY(-1px);
 }
 
@@ -168,7 +168,7 @@ body.terminal-active {
 }
 
 .cursor {
-  color: #a6e3a1; /* Catppuccin Green */
+  color: #a7c080; /* Everforest Green */
   animation: blink 1s infinite;
 }
 
@@ -200,34 +200,34 @@ body.terminal-active {
 }
 
 .file-item:hover {
-  background: rgba(137, 180, 250, 0.1); /* Catppuccin Blue with opacity */
+  background: rgba(127, 187, 179, 0.1); /* Everforest Blue with opacity */
   transform: translateX(4px);
-  box-shadow: 0 2px 8px rgba(137, 180, 250, 0.2);
+  box-shadow: 0 2px 8px rgba(127, 187, 179, 0.2);
   border-radius: 4px;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
 
 .file-item:hover .name {
-  color: #f9e2af; /* Catppuccin Yellow */
-  text-shadow: 0 0 8px rgba(249, 226, 175, 0.3);
+  color: #dbbc7f; /* Everforest Yellow */
+  text-shadow: 0 0 8px rgba(219, 188, 127, 0.3);
 }
 
 .file-item:hover .permissions,
 .file-item:hover .size,
 .file-item:hover .date {
-  color: #bac2de; /* Catppuccin Subtext1 */
+  color: #9da9a0; /* Everforest Subtext1 */
 }
 
 .permissions {
-  color: #6c7086; /* Catppuccin Subtext0 */
+  color: #5c6a72; /* Everforest Subtext0 */
   width: 80px;
   font-size: 0.75rem;
   margin-right: 1rem;
 }
 
 .size {
-  color: #6c7086; /* Catppuccin Subtext0 */
+  color: #5c6a72; /* Everforest Subtext0 */
   width: 50px;
   font-size: 0.75rem;
   margin-right: 1rem;
@@ -235,55 +235,55 @@ body.terminal-active {
 }
 
 .date {
-  color: #6c7086; /* Catppuccin Subtext0 */
+  color: #5c6a72; /* Everforest Subtext0 */
   width: 60px;
   font-size: 0.75rem;
   margin-right: 1rem;
 }
 
 .name {
-  color: #cdd6f4; /* Catppuccin Text */
+  color: #d3c6aa; /* Everforest Text */
   font-weight: 500;
   flex: 1;
 }
 
-.file-item[data-folder="about"] .name { color: #89b4fa; } /* Catppuccin Blue */
-.file-item[data-folder="experience"] .name { color: #fab387; } /* Catppuccin Peach */
-.file-item[data-folder="projects"] .name { color: #a6e3a1; } /* Catppuccin Green */
-.file-item[data-folder="education"] .name { color: #cba6f7; } /* Catppuccin Mauve */
-.file-item[data-folder="connect"] .name { color: #94e2d5; } /* Catppuccin Teal */
-.file-item[data-resume] .name { color: #f38ba8; } /* Catppuccin Red */
+.file-item[data-folder="about"] .name { color: #7fbbb3; } /* Everforest Blue */
+.file-item[data-folder="experience"] .name { color: #e69875; } /* Everforest Orange */
+.file-item[data-folder="projects"] .name { color: #a7c080; } /* Everforest Green */
+.file-item[data-folder="education"] .name { color: #d699b6; } /* Everforest Purple */
+.file-item[data-folder="connect"] .name { color: #83c092; } /* Everforest Teal */
+.file-item[data-resume] .name { color: #e67e80; } /* Everforest Red */
 
 .file-content {
   margin: 1rem 0;
   padding: 1rem;
-  background: rgba(49, 50, 68, 0.3); /* Catppuccin Surface1 with opacity */
+  background: rgba(60, 72, 79, 0.3); /* Everforest Surface1 with opacity */
   border-radius: 4px;
-  border-left: 3px solid #a6e3a1; /* Catppuccin Green */
+  border-left: 3px solid #a7c080; /* Everforest Green */
 }
 
 .simple-content {
   padding: 1rem;
-  color: #cdd6f4; /* Catppuccin Text */
+  color: #d3c6aa; /* Everforest Text */
   line-height: 1.6;
 }
 
 .simple-content h3 {
-  color: #f5c2e7; /* Catppuccin Pink */
+  color: #d3c6aa; /* Everforest Text - matches main theme */
   font-size: 1.25rem;
   margin-bottom: 1rem;
   margin-top: 0;
 }
 
 .simple-content h4 {
-  color: #cba6f7; /* Catppuccin Mauve */
+  color: #a7c080; /* Everforest Green - accent color */
   font-size: 1.1rem;
   margin-bottom: 0.75rem;
   margin-top: 1.5rem;
 }
 
 .simple-content h5 {
-  color: #89b4fa; /* Catppuccin Blue */
+  color: #7fbbb3; /* Everforest Blue */
   font-size: 1rem;
   margin-bottom: 0.5rem;
   margin-top: 0;
@@ -291,7 +291,7 @@ body.terminal-active {
 
 .simple-content p {
   margin: 0 0 1rem 0;
-  color: #bac2de; /* Catppuccin Subtext1 */
+  color: #9da9a0; /* Everforest Subtext1 */
 }
 
 .skills-list {
@@ -302,12 +302,12 @@ body.terminal-active {
 }
 
 .skill-item {
-  background: #313244; /* Catppuccin Surface1 */
-  color: #cdd6f4; /* Catppuccin Text */
+  background: #3c484f; /* Everforest Surface1 */
+  color: #d3c6aa; /* Everforest Text */
   padding: 0.25rem 0.75rem;
   border-radius: 4px;
   font-size: 0.875rem;
-  border: 1px solid #45475a; /* Catppuccin Surface2 */
+  border: 1px solid #475258; /* Everforest Surface2 */
 }
 
 .expertise-grid {
@@ -317,10 +317,10 @@ body.terminal-active {
 }
 
 .expertise-item {
-  background: rgba(49, 50, 68, 0.3); /* Catppuccin Surface1 with opacity */
+  background: rgba(60, 72, 79, 0.3); /* Everforest Surface1 with opacity */
   padding: 1rem;
   border-radius: 4px;
-  border-left: 3px solid #a6e3a1; /* Catppuccin Green */
+  border-left: 3px solid #a7c080; /* Everforest Green */
 }
 
 .expertise-item p {
@@ -334,7 +334,7 @@ body.terminal-active {
 }
 
 .expertise-list li {
-  color: #9ca3af;
+  color: #9da9a0;
   margin-bottom: 0.5rem;
   line-height: 1.5;
   position: relative;
@@ -342,7 +342,7 @@ body.terminal-active {
 
 .expertise-list li::before {
   content: "•";
-  color: #a6e3a1; /* Catppuccin Green */
+  color: #a7c080; /* Everforest Green */
   position: absolute;
   left: -1rem;
 }
@@ -355,10 +355,10 @@ body.terminal-active {
 }
 
 .experience-item {
-  background: rgba(49, 50, 68, 0.3); /* Catppuccin Surface1 with opacity */
+  background: rgba(60, 72, 79, 0.3); /* Everforest Surface1 with opacity */
   padding: 1.5rem;
   border-radius: 4px;
-  border-left: 3px solid #a6e3a1; /* Catppuccin Green */
+  border-left: 3px solid #a7c080; /* Everforest Green */
 }
 
 .experience-header {
@@ -371,7 +371,7 @@ body.terminal-active {
 }
 
 .experience-header h4 {
-  color: #cdd6f4; /* Catppuccin Text */
+  color: #d3c6aa; /* Everforest Text */
   font-size: 1.1rem;
   margin: 0;
   flex: 1;
@@ -379,13 +379,13 @@ body.terminal-active {
 }
 
 .experience-date {
-  color: #bac2de; /* Catppuccin Subtext1 */
+  color: #9da9a0; /* Everforest Subtext1 */
   font-size: 0.875rem;
   white-space: nowrap;
 }
 
 .experience-company {
-  color: #a6e3a1; /* Catppuccin Green */
+  color: #a7c080; /* Everforest Green */
   font-size: 1rem;
   margin: 0 0 1rem 0;
   font-weight: 600;
@@ -397,7 +397,7 @@ body.terminal-active {
 }
 
 .experience-bullets li {
-  color: #bac2de; /* Catppuccin Subtext1 */
+  color: #9da9a0; /* Everforest Subtext1 */
   margin-bottom: 0.5rem;
   line-height: 1.5;
   position: relative;
@@ -405,7 +405,7 @@ body.terminal-active {
 
 .experience-bullets li::before {
   content: "•";
-  color: #a6e3a1; /* Catppuccin Green */
+  color: #a7c080; /* Everforest Green */
   position: absolute;
   left: -1rem;
 }
@@ -415,7 +415,7 @@ body.terminal-active {
 }
 
 .experience-link a {
-  color: #a6e3a1; /* Catppuccin Green */
+  color: #a7c080; /* Everforest Green */
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -425,7 +425,7 @@ body.terminal-active {
 }
 
 .experience-link a:hover {
-  color: #cba6f7; /* Catppuccin Mauve */
+  color: #d699b6; /* Everforest Purple */
 }
 
 .projects-list {
@@ -436,10 +436,10 @@ body.terminal-active {
 }
 
 .project-item {
-  background: rgba(49, 50, 68, 0.3); /* Catppuccin Surface1 with opacity */
+  background: rgba(60, 72, 79, 0.3); /* Everforest Surface1 with opacity */
   padding: 1.5rem;
   border-radius: 4px;
-  border-left: 3px solid #a6e3a1; /* Catppuccin Green */
+  border-left: 3px solid #a7c080; /* Everforest Green */
 }
 
 .project-header {
@@ -451,33 +451,33 @@ body.terminal-active {
 }
 
 .project-header h4 {
-  color: #cdd6f4; /* Catppuccin Text */
+  color: #d3c6aa; /* Everforest Text */
   font-size: 1.1rem;
   margin: 0;
   flex: 1;
 }
 
 .project-link {
-  color: #a6e3a1; /* Catppuccin Green */
+  color: #a7c080; /* Everforest Green */
   text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 32px;
   height: 32px;
-  background: rgba(166, 227, 161, 0.1);
+  background: rgba(167, 192, 128, 0.1);
   border-radius: 4px;
   transition: all 0.2s ease;
   flex-shrink: 0;
 }
 
 .project-link:hover {
-  background: rgba(166, 227, 161, 0.2);
+  background: rgba(167, 192, 128, 0.2);
   transform: scale(1.05);
 }
 
 .project-description {
-  color: #bac2de; /* Catppuccin Subtext1 */
+  color: #9da9a0; /* Everforest Subtext1 */
   margin: 0 0 1rem 0;
   line-height: 1.6;
   font-size: 0.9rem;
@@ -490,12 +490,12 @@ body.terminal-active {
 }
 
 .skill-tag {
-  background: #313244; /* Catppuccin Surface1 */
-  color: #cdd6f4; /* Catppuccin Text */
+  background: #3c484f; /* Everforest Surface1 */
+  color: #d3c6aa; /* Everforest Text */
   padding: 0.25rem 0.75rem;
   border-radius: 4px;
   font-size: 0.8rem;
-  border: 1px solid #45475a; /* Catppuccin Surface2 */
+  border: 1px solid #475258; /* Everforest Surface2 */
 }
 
 .education-list {
@@ -506,10 +506,10 @@ body.terminal-active {
 }
 
 .education-item {
-  background: rgba(49, 50, 68, 0.3); /* Catppuccin Surface1 with opacity */
+  background: rgba(60, 72, 79, 0.3); /* Everforest Surface1 with opacity */
   padding: 1.5rem;
   border-radius: 4px;
-  border-left: 3px solid #a6e3a1; /* Catppuccin Green */
+  border-left: 3px solid #a7c080; /* Everforest Green */
 }
 
 .education-header {
@@ -522,7 +522,7 @@ body.terminal-active {
 }
 
 .education-header h4 {
-  color: #cdd6f4; /* Catppuccin Text */
+  color: #d3c6aa; /* Everforest Text */
   font-size: 1.1rem;
   margin: 0;
   flex: 1;
@@ -530,13 +530,13 @@ body.terminal-active {
 }
 
 .education-date {
-  color: #bac2de; /* Catppuccin Subtext1 */
+  color: #9da9a0; /* Everforest Subtext1 */
   font-size: 0.875rem;
   white-space: nowrap;
 }
 
 .education-school {
-  color: #a6e3a1; /* Catppuccin Green */
+  color: #a7c080; /* Everforest Green */
   font-size: 1rem;
   margin: 0 0 1rem 0;
   font-weight: 600;
@@ -548,7 +548,7 @@ body.terminal-active {
 }
 
 .education-achievements li {
-  color: #bac2de; /* Catppuccin Subtext1 */
+  color: #9da9a0; /* Everforest Subtext1 */
   margin-bottom: 0.5rem;
   line-height: 1.5;
   position: relative;
@@ -556,7 +556,7 @@ body.terminal-active {
 
 .education-achievements li::before {
   content: "•";
-  color: #a6e3a1; /* Catppuccin Green */
+  color: #a7c080; /* Everforest Green */
   position: absolute;
   left: -1rem;
 }
@@ -569,15 +569,15 @@ body.terminal-active {
 .connect-item {
   margin-bottom: 1.5rem;
   padding: 1rem;
-  background: rgba(49, 50, 68, 0.3); /* Catppuccin Surface1 with opacity */
+  background: rgba(60, 72, 79, 0.3); /* Everforest Surface1 with opacity */
   border-radius: 8px;
-  border-left: 3px solid #94e2d5; /* Catppuccin Teal */
+  border-left: 3px solid #83c092; /* Everforest Teal */
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .connect-item:hover {
-  background: rgba(148, 226, 213, 0.1);
+  background: rgba(131, 192, 146, 0.1);
   transform: translateX(4px);
 }
 
@@ -591,26 +591,26 @@ body.terminal-active {
 .connect-icon {
   width: 24px;
   height: 24px;
-  color: #94e2d5; /* Catppuccin Teal */
+  color: #83c092; /* Everforest Teal */
   flex-shrink: 0;
 }
 
 .connect-header h4 {
-  color: #94e2d5; /* Catppuccin Teal */
+  color: #83c092; /* Everforest Teal */
   font-size: 1.1rem;
   margin: 0;
   font-weight: 600;
 }
 
 .connect-detail {
-  color: #cdd6f4; /* Catppuccin Text */
+  color: #d3c6aa; /* Everforest Text */
   font-size: 1rem;
   margin: 0 0 0.5rem 0;
   font-weight: 500;
 }
 
 .connect-description {
-  color: #bac2de; /* Catppuccin Subtext1 */
+  color: #9da9a0; /* Everforest Subtext1 */
   font-size: 0.875rem;
   margin: 0;
   line-height: 1.4;
