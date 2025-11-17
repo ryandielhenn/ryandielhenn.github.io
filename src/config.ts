@@ -14,6 +14,13 @@ export const siteConfig = {
   skills: ["Java", "Go", "C", "Python", "Apache Kafka", "Docker", "Linux"],
   projects: [
     {
+      name: "EDA Dashboard - High-Performance Data Exploration Tool",
+      description:
+        "Developed an interactive data exploration dashboard using FastAPI and DuckDB to make large-scale dataset analysis intuitive and efficient. The platform includes dedicated modules for exploring data distributions, uncovering correlations, assessing fairness, and detecting data drift. Leveraged DuckDB's columnar storage and query optimization to enable sub-second browser-based analysis of datasets with millions of rows without loading entire datasets into memory.",
+      link: "https://github.com/ryandielhenn/eda-dashboard",
+      skills: ["Python", "FastAPI", "DuckDB", "Data Analysis", "Bias Detection", "Fairness Analysis", "State Management", "Caching", "Data Visualization"],
+    },
+    {
       name: "Zephyr - Self-Healing Distributed Cache",
       description:
         "A self-healing distributed cache featuring consistent hashing ring for data distribution and load balancing. Implements configurable membership discovery supporting both gossip protocol and etcd-based coordination, with Phi accrual failure detection for adaptive failure detection and automatic node recovery.",

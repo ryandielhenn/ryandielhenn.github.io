@@ -1,51 +1,56 @@
 /* Terminal Navigation Styles */
 
-/* Prevent body scroll when terminal is active */
+/* Prevent body scroll when terminal is active - disabled for full-screen terminal */
 body.terminal-active {
-  overflow: hidden;
-  height: 100vh;
+  overflow: auto; /* Allow scrolling */
+  height: auto;
 }
 
 .interactive-terminal {
   width: 100%;
-  margin: 0 auto;
-  padding: 2rem 1rem;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Desktop styles */
 @media (min-width: 768px) {
   .interactive-terminal {
     width: 100%;
-    padding: 2rem 2rem;
-  }
-  
-  .terminal-window {
-    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
-    min-height: 80vh;
-  }
-  
-  .terminal-body {
-    padding: 3rem;
-    min-height: 75vh;
+    height: 100%;
+    padding: 0;
   }
 }
 
 .terminal-window {
   background: #2d353b; /* Everforest Background */
-  border-radius: 8px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: hidden; /* Hide overflow on window, let body handle scrolling */
   font-family: 'IBM Plex Mono', monospace;
-  border: 1px solid #3c484f; /* Everforest Surface1 */
+  border: none;
+  width: 100%;
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  flex-direction: column;
 }
 
 .terminal-header {
-  background: #2d2d2d;
+  background: #252a2e;
   padding: 0.75rem 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid #3c484f;
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .terminal-header {
+    padding: 0.875rem 1.5rem;
+  }
 }
 
 .terminal-buttons {
@@ -72,15 +77,25 @@ body.terminal-active {
 .terminal-body {
   background: #2d353b; /* Everforest Background */
   padding: 1.5rem;
-  min-height: 500px;
-  max-height: 70vh;
+  flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* Important for flex scrolling */
+}
+
+/* Desktop styles for terminal body */
+@media (min-width: 768px) {
+  .terminal-body {
+    padding: 2rem 2.5rem;
+  }
 }
 
 .terminal-content {
   color: #d3c6aa; /* Everforest Text */
-  font-size: 0.875rem;
-  line-height: 1.5;
+  font-size: 0.9375rem; /* Slightly larger for better readability */
+  line-height: 1.7;
 }
 
 .terminal-content.hidden {
@@ -256,42 +271,47 @@ body.terminal-active {
 
 .file-content {
   margin: 1rem 0;
-  padding: 1rem;
-  background: rgba(60, 72, 79, 0.3); /* Everforest Surface1 with opacity */
-  border-radius: 4px;
-  border-left: 3px solid #a7c080; /* Everforest Green */
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  border: none;
 }
 
 .simple-content {
-  padding: 1rem;
+  padding: 0.5rem 0;
   color: #d3c6aa; /* Everforest Text */
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .simple-content h3 {
-  color: #d3c6aa; /* Everforest Text - matches main theme */
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
+  color: #e5dfc8; /* Lighter text for better contrast */
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
   margin-top: 0;
+  font-weight: 600;
 }
 
 .simple-content h4 {
   color: #a7c080; /* Everforest Green - accent color */
-  font-size: 1.1rem;
-  margin-bottom: 0.75rem;
-  margin-top: 1.5rem;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+  font-weight: 600;
 }
 
 .simple-content h5 {
   color: #7fbbb3; /* Everforest Blue */
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
   margin-top: 0;
+  font-weight: 600;
 }
 
 .simple-content p {
-  margin: 0 0 1rem 0;
-  color: #9da9a0; /* Everforest Subtext1 */
+  margin: 0 0 1.5rem 0;
+  color: #c8c3aa; /* Lighter for better readability */
+  font-size: 1rem;
+  line-height: 1.8;
 }
 
 .skills-list {
@@ -317,15 +337,18 @@ body.terminal-active {
 }
 
 .expertise-item {
-  background: rgba(60, 72, 79, 0.3); /* Everforest Surface1 with opacity */
-  padding: 1rem;
-  border-radius: 4px;
+  background: rgba(60, 72, 79, 0.4); /* Slightly more visible */
+  padding: 1.25rem;
+  border-radius: 6px;
   border-left: 3px solid #a7c080; /* Everforest Green */
+  margin-bottom: 1rem;
 }
 
 .expertise-item p {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  color: #c8c3aa; /* Lighter for better readability */
+  line-height: 1.7;
 }
 
 .expertise-list {
@@ -355,9 +378,9 @@ body.terminal-active {
 }
 
 .experience-item {
-  background: rgba(60, 72, 79, 0.3); /* Everforest Surface1 with opacity */
+  background: rgba(60, 72, 79, 0.4); /* Slightly more visible */
   padding: 1.5rem;
-  border-radius: 4px;
+  border-radius: 6px;
   border-left: 3px solid #a7c080; /* Everforest Green */
 }
 
@@ -371,11 +394,12 @@ body.terminal-active {
 }
 
 .experience-header h4 {
-  color: #d3c6aa; /* Everforest Text */
-  font-size: 1.1rem;
+  color: #e5dfc8; /* Lighter for better contrast */
+  font-size: 1.2rem;
   margin: 0;
   flex: 1;
   min-width: 200px;
+  font-weight: 600;
 }
 
 .experience-date {
@@ -397,10 +421,11 @@ body.terminal-active {
 }
 
 .experience-bullets li {
-  color: #9da9a0; /* Everforest Subtext1 */
-  margin-bottom: 0.5rem;
-  line-height: 1.5;
+  color: #c8c3aa; /* Lighter for better readability */
+  margin-bottom: 0.75rem;
+  line-height: 1.7;
   position: relative;
+  font-size: 0.95rem;
 }
 
 .experience-bullets li::before {
@@ -436,9 +461,9 @@ body.terminal-active {
 }
 
 .project-item {
-  background: rgba(60, 72, 79, 0.3); /* Everforest Surface1 with opacity */
+  background: rgba(60, 72, 79, 0.4); /* Slightly more visible */
   padding: 1.5rem;
-  border-radius: 4px;
+  border-radius: 6px;
   border-left: 3px solid #a7c080; /* Everforest Green */
 }
 
@@ -451,10 +476,11 @@ body.terminal-active {
 }
 
 .project-header h4 {
-  color: #d3c6aa; /* Everforest Text */
-  font-size: 1.1rem;
+  color: #e5dfc8; /* Lighter for better contrast */
+  font-size: 1.2rem;
   margin: 0;
   flex: 1;
+  font-weight: 600;
 }
 
 .project-link {
@@ -477,10 +503,10 @@ body.terminal-active {
 }
 
 .project-description {
-  color: #9da9a0; /* Everforest Subtext1 */
-  margin: 0 0 1rem 0;
-  line-height: 1.6;
-  font-size: 0.9rem;
+  color: #c8c3aa; /* Lighter for better readability */
+  margin: 0 0 1.25rem 0;
+  line-height: 1.8;
+  font-size: 0.95rem;
 }
 
 .project-skills {
@@ -506,9 +532,9 @@ body.terminal-active {
 }
 
 .education-item {
-  background: rgba(60, 72, 79, 0.3); /* Everforest Surface1 with opacity */
+  background: rgba(60, 72, 79, 0.4); /* Slightly more visible */
   padding: 1.5rem;
-  border-radius: 4px;
+  border-radius: 6px;
   border-left: 3px solid #a7c080; /* Everforest Green */
 }
 
@@ -522,11 +548,12 @@ body.terminal-active {
 }
 
 .education-header h4 {
-  color: #d3c6aa; /* Everforest Text */
-  font-size: 1.1rem;
+  color: #e5dfc8; /* Lighter for better contrast */
+  font-size: 1.2rem;
   margin: 0;
   flex: 1;
   min-width: 200px;
+  font-weight: 600;
 }
 
 .education-date {
@@ -548,10 +575,11 @@ body.terminal-active {
 }
 
 .education-achievements li {
-  color: #9da9a0; /* Everforest Subtext1 */
-  margin-bottom: 0.5rem;
-  line-height: 1.5;
+  color: #c8c3aa; /* Lighter for better readability */
+  margin-bottom: 0.75rem;
+  line-height: 1.7;
   position: relative;
+  font-size: 0.95rem;
 }
 
 .education-achievements li::before {
@@ -568,8 +596,8 @@ body.terminal-active {
 
 .connect-item {
   margin-bottom: 1.5rem;
-  padding: 1rem;
-  background: rgba(60, 72, 79, 0.3); /* Everforest Surface1 with opacity */
+  padding: 1.25rem;
+  background: rgba(60, 72, 79, 0.4); /* Slightly more visible */
   border-radius: 8px;
   border-left: 3px solid #83c092; /* Everforest Teal */
   cursor: pointer;
@@ -603,28 +631,27 @@ body.terminal-active {
 }
 
 .connect-detail {
-  color: #d3c6aa; /* Everforest Text */
-  font-size: 1rem;
+  color: #e5dfc8; /* Lighter for better contrast */
+  font-size: 1.05rem;
   margin: 0 0 0.5rem 0;
   font-weight: 500;
 }
 
 .connect-description {
-  color: #9da9a0; /* Everforest Subtext1 */
-  font-size: 0.875rem;
+  color: #c8c3aa; /* Lighter for better readability */
+  font-size: 0.9375rem;
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.6;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .interactive-terminal {
-    padding: 1rem 0.75rem;
+    padding: 0;
   }
   
   .terminal-body {
-    padding: 1.5rem;
-    min-height: 60vh;
+    padding: 1.25rem 1rem;
   }
   
   /* Fix mobile terminal alignment */

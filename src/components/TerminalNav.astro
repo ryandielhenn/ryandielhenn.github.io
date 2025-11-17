@@ -268,18 +268,6 @@ const hasResume = siteConfig.resume;
     type();
   }
 
-  // Prevent body scroll when terminal is active (mobile only)
-  function preventBodyScroll() {
-    // Only apply on mobile
-    if (window.innerWidth <= 768) {
-      document.body.classList.add('terminal-active');
-    }
-  }
-
-  function allowBodyScroll() {
-    document.body.classList.remove('terminal-active');
-  }
-
   // Initialize typing animation on page load
   document.addEventListener('DOMContentLoaded', function() {
     const mainCommand = document.getElementById('main-command');
@@ -288,15 +276,6 @@ const hasResume = siteConfig.resume;
       setTimeout(() => {
         typeCommand(mainCommand, 'ls -la', 80);
       }, 500);
-    }
-
-    // Prevent body scroll when terminal loads (mobile)
-    preventBodyScroll();
-
-    // Re-enable body scroll when user navigates away from terminal
-    const terminalWindow = document.querySelector('.terminal-window');
-    if (terminalWindow) {
-      terminalWindow.addEventListener('blur', allowBodyScroll);
     }
   });
 
