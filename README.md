@@ -2,9 +2,6 @@
 
 **Live site:** [ryandielhenn.github.io](https://ryandielhenn.github.io)
 
-## Overview
-Complete redesign of [Ryan Fitzgerald’s DevPortfolio](https://github.com/RyanFitzgerald/devportfolio) to feature an interactive terminal emulator as the primary navigation and content display system. This refactor transforms the traditional web portfolio into an immersive command-line experience while maintaining all original functionality.
-
 <p align="center">
   <img src="./public/screenshot.png" alt="Terminal Portfolio Demo" width="600"/>
 </p>
