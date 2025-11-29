@@ -135,19 +135,64 @@ const hasResume = siteConfig.resume;
     }
   }
 
+  // Function to show content based on folder name (used by both navigation and history)
+  function showContent(folderName: string | null, addToHistory: boolean = true) {
+    // Hide all content sections
+    const allContents = document.querySelectorAll('.terminal-content');
+    allContents.forEach(content => {
+      content.classList.add('hidden');
+    });
+
+    if (folderName) {
+      // Show the selected folder content
+      const targetContent = document.getElementById(`${folderName}-content`);
+      if (targetContent) {
+        targetContent.classList.remove('hidden');
+        
+        if (addToHistory) {
+          // Push state to browser history
+          window.history.pushState({ folder: folderName }, '', `#${folderName}`);
+        }
+        
+        // Scroll to top of terminal
+        const terminalBody = document.querySelector('.terminal-body');
+        if (terminalBody) {
+          terminalBody.scrollTop = 0;
+        }
+      }
+    } else {
+      // Show root content
+      const rootContent = document.getElementById('root-content');
+      if (rootContent) {
+        rootContent.classList.remove('hidden');
+        
+        if (addToHistory) {
+          // Push state to browser history for root (remove hash from URL)
+          window.history.pushState({ folder: null }, '', window.location.pathname);
+        }
+        
+        // Scroll to top of terminal
+        const terminalBody = document.querySelector('.terminal-body');
+        if (terminalBody) {
+          terminalBody.scrollTop = 0;
+        }
+      }
+    }
+  }
+
+  // Handle browser back/forward buttons
+  window.addEventListener('popstate', (event) => {
+    const folder = event.state?.folder;
+    const hash = window.location.hash.slice(1); // Get current hash from URL
+    
+    // Use hash from URL if state is null (handles direct navigation)
+    const targetFolder = folder !== undefined ? folder : (hash || null);
+    showContent(targetFolder, false); // Don't add to history since we're already navigating
+  });
+
   document.addEventListener('DOMContentLoaded', () => {
     // Initialize file item handlers (will be re-initialized when file listing appears)
     initFileItemHandlers();
-
-    // Add event listeners for back buttons
-    const backButtons = document.querySelectorAll('[onclick*="goBack"]');
-    backButtons.forEach(button => {
-      button.addEventListener('click', (e) => {
-        e.preventDefault();
-        console.log('Back button clicked'); // Debug log
-        goBack();
-      });
-    });
 
     // Add event listeners for connect items
     const connectItems = document.querySelectorAll('.connect-item');
@@ -166,57 +211,21 @@ const hasResume = siteConfig.resume;
       });
     });
 
+    // Check if there's a hash in the URL on page load
+    const hash = window.location.hash.slice(1); // Remove the #
+    if (hash) {
+      // Show content for the hash without adding to history (replace current state)
+      showContent(hash, false);
+      window.history.replaceState({ folder: hash }, '', `#${hash}`);
+    } else {
+      // Initialize root state in history (root content should already be visible)
+      window.history.replaceState({ folder: null }, '', window.location.pathname);
+    }
+
   });
 
   function navigateToFolder(folderName: string) {
-    console.log('Navigating to folder:', folderName); // Debug log
-    
-    // Hide all content sections
-    const allContents = document.querySelectorAll('.terminal-content');
-    allContents.forEach(content => {
-      content.classList.add('hidden');
-    });
-
-    // Show the selected folder content
-    const targetContent = document.getElementById(`${folderName}-content`);
-    if (targetContent) {
-      targetContent.classList.remove('hidden');
-      console.log('Showing content for:', folderName); // Debug log
-      
-      // Scroll to top of terminal
-      const terminalBody = document.querySelector('.terminal-body');
-      if (terminalBody) {
-        terminalBody.scrollTop = 0;
-        console.log('Scrolled to top'); // Debug log
-      }
-    } else {
-      console.log('Target content not found for:', folderName); // Debug log
-    }
-  }
-
-  function goBack() {
-    console.log('goBack function called'); // Debug log
-    
-    // Hide all content sections
-    const allContents = document.querySelectorAll('.terminal-content');
-    allContents.forEach(content => {
-      content.classList.add('hidden');
-    });
-
-    // Show root content
-    const rootContent = document.getElementById('root-content');
-    if (rootContent) {
-      rootContent.classList.remove('hidden');
-      console.log('Root content shown'); // Debug log
-      
-      // Scroll to top of terminal
-      const terminalBody = document.querySelector('.terminal-body');
-      if (terminalBody) {
-        terminalBody.scrollTop = 0;
-      }
-    } else {
-      console.log('Root content not found'); // Debug log
-    }
+    showContent(folderName, true);
   }
 
   // Typing animation for main command
@@ -281,5 +290,4 @@ const hasResume = siteConfig.resume;
 
   // Make functions globally available
   (window as any).navigateToFolder = navigateToFolder;
-  (window as any).goBack = goBack;
 </script>
