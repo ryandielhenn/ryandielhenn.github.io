@@ -15,43 +15,59 @@ export const siteConfig = {
   projects: [
     {
       name: "EDA Dashboard - High-Performance Data Exploration Tool",
-      description:
-        "Developed an interactive data exploration dashboard using FastAPI and DuckDB to make large-scale dataset analysis intuitive and efficient. The platform includes dedicated modules for exploring data distributions, uncovering correlations, assessing fairness, and detecting data drift. Leveraged DuckDB's columnar storage and query optimization to enable sub-second browser-based analysis of datasets with millions of rows without loading entire datasets into memory.",
+      bullets: [
+        "Developing an interactive data exploration dashboard using FastAPI and DuckDB to make large-scale dataset analysis intuitive and efficient.",
+        "The platform includes dedicated modules for exploring data distributions, uncovering correlations, assessing fairness, and detecting data drift.",
+        "Leveraged DuckDB's columnar storage and query optimization to enable sub-second browser-based analysis of datasets with millions of rows without loading entire datasets into memory.",
+      ],
       link: "https://github.com/ryandielhenn/eda-dashboard",
       skills: ["Python", "FastAPI", "DuckDB", "Data Analysis", "Bias Detection", "Fairness Analysis", "State Management", "Caching", "Data Visualization"],
     },
     {
       name: "Zephyr - Self-Healing Distributed Cache",
-      description:
-        "A self-healing distributed cache featuring consistent hashing ring for data distribution and load balancing. Implements configurable membership discovery supporting both gossip protocol and etcd-based coordination, with Phi accrual failure detection for adaptive failure detection and automatic node recovery.",
+      bullets: [
+        "Designing and building a distributed caching system in Go using consistent hashing for key distribution across nodes.",
+        "Integrating etcd for cluster membership, lease management, and peer discovery to enable node coordination.",
+        "Developing monitoring and benchmarking tools to measure routing efficiency and system performance.",
+      ],
       link: "https://github.com/ryandielhenn/zephyrcache",
       skills: ["Go", "Distributed Systems", "Consistent Hashing", "Gossip Protocol", "Docker", "Prometheus", "Grafana"],
     },
     {
       name: "GeoPresence - Geospatial Index for IoT",
-      description:
-        "A geospatial index system designed for IoT/low-power devices using Roaring Bitmaps and bitmap compression. Enables location-based services, weather tracking, and GIS applications by creating efficient spatial queries for edge computing environments. Features probabilistic point density estimation with HyperLogLog++ and adaptive grid resolution.",
+      bullets: [
+        "A geospatial index system designed for IoT/low-power devices using Roaring Bitmaps and bitmap compression.",
+        "Enables location-based services, weather tracking, and GIS applications by creating efficient spatial queries for edge computing environments.",
+        "Features probabilistic point density estimation with HyperLogLog++ and adaptive grid resolution.",
+      ],
       link: "https://github.com/USF-BigDataLab/geopresence",
       skills: ["C", "C++", "Java", "Geospatial Computing", "IoT", "Roaring Bitmaps", "HyperLogLog++", "Edge Computing", "Spatial Indexing"],
     },
     {
       name: "DFS: Distributed Filesystem",
-      description:
-        "A distributed filesystem built with Java, Netty, and Protocol Buffers. Supports replication, dynamic addition of storage nodes, and compression. Fault tolerant: if a node goes down or data is corrupted, the original data remains available. Bloom filters are used by the controller for probabilistic routing of data requests.",
+      bullets: [
+        "A distributed filesystem built with Java, Netty, and Protocol Buffers.",
+        "Supports replication, dynamic addition of storage nodes, and compression.",
+        "Fault tolerant: if a node goes down or data is corrupted, the original data remains available.",
+        "Bloom filters are used by the controller for probabilistic routing of data requests.",
+      ],
       link: "https://github.com/ryandielhenn/dfs",
       skills: ["Java", "Netty", "Protocol Buffers", "Bloom Filters", "Distributed Systems"],
     },
     {
       name: "Fire-Engine: Multithreaded Search Engine",
-      description:
+      bullets: [
         "A multithreaded search engine that tracks user queries, enables web crawling, and supports search over an inverted index built from the crawled pages.",
+      ],
       link: "https://github.com/ryandielhenn/Fire-Engine",
       skills: ["Java", "Multithreading", "Inverted Index", "Web Crawling", "Jetty"],
     },
     {
       name: "itsh - Command Line Shell",
-      description:
-        "A command line shell built in C with support for scripts, heredocs, pipes, redirection, background jobs, command history with bang reruns, and built-in commands like cd and setenv. Features arrow key navigation through history and input editing.",
+      bullets: [
+        "A command line shell built in C with support for scripts, heredocs, pipes, redirection, background jobs, command history with bang reruns, and built-in commands like cd and setenv.",
+        "Features arrow key navigation through history and input editing.",
+      ],
       link: "https://github.com/ryandielhenn/itsh",
       skills: ["C", "Systems Programming", "Shell Implementation", "Process Management", "Signal Handling", "Pipes", "Redirection"],
     },

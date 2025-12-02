@@ -30,7 +30,11 @@ import { siteConfig } from "../../config";
                 </a>
               )}
             </div>
-            <p class="project-description">{project.description}</p>
+            <ul class="project-bullets">
+              {project.bullets.map((bullet, bulletIndex) => (
+                <li>{bullet}</li>
+              ))}
+            </ul>
             <div class="project-skills">
               {project.skills.map((skill, skillIndex) => (
                 <span class="skill-tag">{skill}</span>

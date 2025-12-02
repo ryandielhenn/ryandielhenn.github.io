@@ -502,11 +502,24 @@ body.terminal-active {
   transform: scale(1.05);
 }
 
-.project-description {
-  color: #c8c3aa; /* Lighter for better readability */
+.project-bullets {
   margin: 0 0 1.25rem 0;
-  line-height: 1.8;
+  padding-left: 1rem;
+}
+
+.project-bullets li {
+  color: #c8c3aa; /* Lighter for better readability */
+  margin-bottom: 0.75rem;
+  line-height: 1.7;
+  position: relative;
   font-size: 0.95rem;
+}
+
+.project-bullets li::before {
+  content: "•";
+  color: #a7c080; /* Everforest Green */
+  position: absolute;
+  left: -1rem;
 }
 
 .project-skills {
