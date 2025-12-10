@@ -10,7 +10,8 @@ export const siteConfig = {
     github: "https://github.com/ryandielhenn",
   },
   aboutMe:
-    "Software engineer with experience at Confluent, contributing to Apache Kafka’s KRaft (ZooKeeper-free) architecture. Currently pursuing an M.S. in Computer Science at Cal State LA, specializing in distributed systems, artificial intelligence, and data science.",
+    "M.S. Computer Science candidate specializing in scalable distributed systems and applied machine learning. My background includes contributions to Apache Kafka's transition to a self-managed metadata architecture (ZooKeeper removal), including work on Confluent Cloud.",
+
   skills: ["Java", "Go", "C", "Python", "Apache Kafka", "Docker", "Linux"],
   projects: [
     {
