@@ -130,7 +130,7 @@ export const siteConfig = {
       degree: "M.S. Computer Science",
       dateRange: "2025 – 2026",
       achievements: [
-        "Specializing in distributed systems, artificial intelligence, and data science",
+        "Specializing in scalable distributed systems and applied machine learning.",
       ],
     },
     {
