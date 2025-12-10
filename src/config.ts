@@ -19,7 +19,7 @@ export const siteConfig = {
       bullets: [
         "Developing an interactive data exploration dashboard using FastAPI and DuckDB to make large-scale dataset analysis intuitive and efficient.",
         "The platform includes dedicated modules for exploring data distributions, uncovering correlations, assessing fairness, and detecting data drift.",
-        "Leveraged DuckDB's columnar storage and query optimization to enable sub-second browser-based analysis of datasets with millions of rows without loading entire datasets into memory.",
+        "Leveraged DuckDB to enable fast and memory efficient analytical queries on datasets with millions of rows."
       ],
       link: "https://github.com/ryandielhenn/eda-dashboard",
       skills: ["Python", "FastAPI", "DuckDB", "Data Analysis", "Bias Detection", "Fairness Analysis", "State Management", "Caching", "Data Visualization"],
