@@ -17,9 +17,9 @@ export const siteConfig = {
     {
       name: "EDA Dashboard - High-Performance Data Exploration Tool",
       bullets: [
-        "Developing an interactive data exploration dashboard using FastAPI and DuckDB to make large-scale dataset analysis intuitive and efficient.",
-        "The platform includes dedicated modules for exploring data distributions, uncovering correlations, assessing fairness, and detecting data drift.",
-        "Leveraged DuckDB to enable fast and memory efficient analytical queries on datasets with millions of rows."
+        "An interactive EDA dashboard with FastAPI and DuckDB for browser-based analysis of million-row datasets with sub-second query performance.",
+        "Implemented bias detection and fairness analysis to identify discriminatory patterns across demographic groups and data drift detection to flag distribution shifts.",
+        "Leveraged DuckDB to enable fast and memory efficient analytical queries on datasets with millions of rows.",
       ],
       link: "https://github.com/ryandielhenn/eda-dashboard",
       skills: ["Python", "FastAPI", "DuckDB", "Data Analysis", "Bias Detection", "Fairness Analysis", "State Management", "Caching", "Data Visualization"],
@@ -27,9 +27,8 @@ export const siteConfig = {
     {
       name: "Zephyr - Self-Healing Distributed Cache",
       bullets: [
-        "Designing and building a distributed caching system in Go using consistent hashing for key distribution across nodes.",
-        "Integrating etcd for cluster membership, lease management, and peer discovery to enable node coordination.",
-        "Developing monitoring and benchmarking tools to measure routing efficiency and system performance.",
+        "A distributed caching system in Go with consistent hashing for key distribution, achieving 47K ops/sec throughput (10K operations, 32 concurrent clients, 128-byte values).",
+        "Implemented observability stack with Prometheus/Grafana to monitor request latency, throughput, and error rates, plus benchmarking tools to measure routing efficiency and performance under load.",
       ],
       link: "https://github.com/ryandielhenn/zephyrcache",
       skills: ["Go", "Distributed Systems", "Consistent Hashing", "Gossip Protocol", "Docker", "Prometheus", "Grafana"],
@@ -47,9 +46,8 @@ export const siteConfig = {
     {
       name: "DFS: Distributed Filesystem",
       bullets: [
-        "A distributed filesystem built with Java, Netty, and Protocol Buffers.",
+        "A fault tolerant distributed filesystem built with Java, Netty, and Protocol Buffers.",
         "Supports replication, dynamic addition of storage nodes, and compression.",
-        "Fault tolerant: if a node goes down or data is corrupted, the original data remains available.",
         "Bloom filters are used by the controller for probabilistic routing of data requests.",
       ],
       link: "https://github.com/ryandielhenn/dfs",
