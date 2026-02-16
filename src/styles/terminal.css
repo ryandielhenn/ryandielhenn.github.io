@@ -472,7 +472,8 @@ body.terminal-active {
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 1rem;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .project-title-row {
