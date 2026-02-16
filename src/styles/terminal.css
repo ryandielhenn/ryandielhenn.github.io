@@ -475,12 +475,25 @@ body.terminal-active {
   gap: 1rem;
 }
 
+.project-title-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 200px;
+}
+
 .project-header h4 {
   color: #e5dfc8; /* Lighter for better contrast */
   font-size: 1.2rem;
   margin: 0;
-  flex: 1;
   font-weight: 600;
+}
+
+.project-date {
+  color: #9da9a0; /* Everforest Subtext1 */
+  font-size: 0.875rem;
+  white-space: nowrap;
 }
 
 .project-link {
