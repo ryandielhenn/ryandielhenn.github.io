@@ -262,12 +262,10 @@ body.terminal-active {
   flex: 1;
 }
 
-.file-item[data-folder="about"] .name { color: #7fbbb3; } /* Everforest Blue */
-.file-item[data-folder="experience"] .name { color: #e69875; } /* Everforest Orange */
-.file-item[data-folder="projects"] .name { color: #a7c080; } /* Everforest Green */
-.file-item[data-folder="education"] .name { color: #d699b6; } /* Everforest Purple */
-.file-item[data-folder="connect"] .name { color: #83c092; } /* Everforest Teal */
-.file-item[data-resume] .name { color: #e67e80; } /* Everforest Red */
+/* Directories blue, links cyan (symlinks), resume default */
+.file-item[data-folder] .name { color: #7fbbb3; } /* Everforest Blue — directories */
+.file-item[data-resume] .name { color: #d3c6aa; } /* Default text — regular file */
+.file-item[data-link] .name { color: #83c092; } /* Everforest Teal — symlinks */
 
 .file-content {
   margin: 1rem 0;

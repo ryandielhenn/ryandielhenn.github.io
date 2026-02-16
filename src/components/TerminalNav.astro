@@ -4,7 +4,6 @@ import AboutContent from "./TerminalContent/AboutContent.astro";
 import ExperienceContent from "./TerminalContent/ExperienceContent.astro";
 import ProjectsContent from "./TerminalContent/ProjectsContent.astro";
 import EducationContent from "./TerminalContent/EducationContent.astro";
-import ConnectContent from "./TerminalContent/ConnectContent.astro";
 
 const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
 const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
@@ -58,19 +57,39 @@ const hasResume = siteConfig.resume;
             </div>
           )}
           
-          <div class="file-item" data-folder="connect">
-            <span class="permissions">drwxr-xr-x</span>
-            <span class="size">2.8K</span>
-            <span class="date">Sep 14</span>
-            <span class="name">connect/</span>
-          </div>
-          
           {hasResume && (
             <div class="file-item" data-resume>
               <span class="permissions">-rw-r--r--</span>
               <span class="size">245K</span>
               <span class="date">Sep 14</span>
               <span class="name">resume.pdf</span>
+            </div>
+          )}
+
+          {siteConfig.social?.github && (
+            <div class="file-item" data-link={siteConfig.social.github}>
+              <span class="permissions">-rw-r--r--</span>
+              <span class="size">64B</span>
+              <span class="date">Sep 14</span>
+              <span class="name">github.link</span>
+            </div>
+          )}
+
+          {siteConfig.social?.linkedin && (
+            <div class="file-item" data-link={siteConfig.social.linkedin}>
+              <span class="permissions">-rw-r--r--</span>
+              <span class="size">64B</span>
+              <span class="date">Sep 14</span>
+              <span class="name">linkedin.link</span>
+            </div>
+          )}
+
+          {siteConfig.social?.email && (
+            <div class="file-item" data-link={`mailto:${siteConfig.social.email}`}>
+              <span class="permissions">-rw-r--r--</span>
+              <span class="size">64B</span>
+              <span class="date">Sep 14</span>
+              <span class="name">email.link</span>
             </div>
           )}
         </div>
@@ -86,7 +105,6 @@ const hasResume = siteConfig.resume;
       <ExperienceContent />
       <ProjectsContent />
       <EducationContent />
-      <ConnectContent />
     </div>
   </div>
 </div>
@@ -113,7 +131,21 @@ const hasResume = siteConfig.resume;
     const folder = item.getAttribute('data-folder');
     const isResume = item.hasAttribute('data-resume');
     
-    if (isResume) {
+    const externalLink = item.getAttribute('data-link');
+
+    if (externalLink) {
+      // Handle external links (GitHub, LinkedIn, Email)
+      if (externalLink.startsWith('mailto:')) {
+        window.location.href = externalLink;
+      } else {
+        window.open(externalLink, '_blank', 'noopener,noreferrer');
+      }
+      // Visual feedback
+      item.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        item.style.transform = '';
+      }, 150);
+    } else if (isResume) {
       // Handle resume download
       e.preventDefault();
       const link = document.createElement('a');
@@ -193,23 +225,6 @@ const hasResume = siteConfig.resume;
   document.addEventListener('DOMContentLoaded', () => {
     // Initialize file item handlers (will be re-initialized when file listing appears)
     initFileItemHandlers();
-
-    // Add event listeners for connect items
-    const connectItems = document.querySelectorAll('.connect-item');
-    connectItems.forEach(item => {
-      item.addEventListener('click', (e) => {
-        const link = item.getAttribute('data-link');
-        if (link) {
-          if (link.startsWith('mailto:')) {
-            // Handle email link
-            window.location.href = link;
-          } else {
-            // Handle external links (LinkedIn, GitHub)
-            window.open(link, '_blank', 'noopener,noreferrer');
-          }
-        }
-      });
-    });
 
     // Check if there's a hash in the URL on page load
     const hash = window.location.hash.slice(1); // Remove the #
