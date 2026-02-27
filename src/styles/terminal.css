@@ -745,6 +745,16 @@ body.terminal-active {
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  .project-title-row,
+  .experience-title-row {
+    flex-wrap: wrap;
+  }
+
+  .project-link-text,
+  .experience-link-inline {
+    font-size: 0.8rem;
+  }
 }
 
 /* Extra small screens */
