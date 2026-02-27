@@ -38,6 +38,16 @@ export const siteConfig = {
       skills: ["Rust", "Databases", "Key-Value Store", "API Design", "Object Storage"],
     },
     {
+      name: "Zephyr - Self-Healing Distributed Cache",
+      dateRange: "July 2025 – Present",
+      bullets: [
+        "A distributed caching system in Go with consistent hashing for key distribution, achieving 49K ops/sec throughput (10K operations, 32 concurrent clients, 128-byte values).",
+        "Includes an observability stack with Prometheus/Grafana to monitor request latency, throughput, and error rates, plus benchmarking tools to measure routing efficiency and performance under load.",
+      ],
+      link: "https://github.com/ryandielhenn/zephyrcache",
+      skills: ["Go", "Distributed Systems", "Consistent Hashing", "Gossip Protocol", "Docker", "Prometheus", "Grafana"],
+    },
+    {
       name: "EDA Dashboard - High-Performance Data Exploration Tool",
       dateRange: "Aug. 2025 – Dec. 2025",
       bullets: [
@@ -47,16 +57,6 @@ export const siteConfig = {
       ],
       link: "https://github.com/ryandielhenn/eda-dashboard",
       skills: ["Python", "FastAPI", "DuckDB", "Data Analysis", "Bias Detection", "Fairness Analysis", "State Management", "Caching", "Data Visualization"],
-    },
-    {
-      name: "Zephyr - Self-Healing Distributed Cache",
-      dateRange: "July 2025 – Nov. 2025",
-      bullets: [
-        "A distributed caching system in Go with consistent hashing for key distribution, achieving 49K ops/sec throughput (10K operations, 32 concurrent clients, 128-byte values).",
-        "Includes an observability stack with Prometheus/Grafana to monitor request latency, throughput, and error rates, plus benchmarking tools to measure routing efficiency and performance under load.",
-      ],
-      link: "https://github.com/ryandielhenn/zephyrcache",
-      skills: ["Go", "Distributed Systems", "Consistent Hashing", "Gossip Protocol", "Docker", "Prometheus", "Grafana"],
     },
     {
       name: "GeoPresence - High-Performance Geospatial Index for IoT",
