@@ -20,7 +20,14 @@ import { siteConfig } from "../../config";
         {siteConfig.experience.map((job, index) => (
           <div class="experience-item">
             <div class="experience-header">
-              <h4>{job.title}</h4>
+              <div class="experience-title-row">
+                <h4>{job.title}</h4>
+                {job.link && (
+                  <a href={job.link} target="_blank" rel="noopener noreferrer" class="experience-link-inline">
+                    ↗ View Pull Requests to Kafka
+                  </a>
+                )}
+              </div>
               <span class="experience-date">{job.dateRange}</span>
             </div>
             <h5 class="experience-company">{job.company}</h5>

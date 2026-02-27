@@ -433,21 +433,23 @@ body.terminal-active {
   left: -1rem;
 }
 
-.experience-link {
-  margin-top: 1rem;
+.experience-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-.experience-link a {
+.experience-link-inline {
   color: #a7c080; /* Everforest Green */
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
   font-size: 0.875rem;
   transition: color 0.2s ease;
+  flex-shrink: 0;
 }
 
-.experience-link a:hover {
+.experience-link-inline:hover {
   color: #d699b6; /* Everforest Purple */
 }
 
@@ -512,6 +514,22 @@ body.terminal-active {
 .project-link:hover {
   background: rgba(167, 192, 128, 0.2);
   transform: scale(1.05);
+}
+
+.project-link-text {
+  width: auto;
+  height: auto;
+  background: none;
+  border-radius: 0;
+  padding: 0;
+  font-size: 0.875rem;
+  display: inline-flex;
+}
+
+.project-link-text:hover {
+  background: none;
+  transform: none;
+  color: #d699b6;
 }
 
 .project-bullets {

@@ -13,7 +13,30 @@ export const siteConfig = {
     "M.S. Computer Science candidate specializing in scalable distributed systems and applied machine learning. My background includes contributions to Apache Kafka's transition to a self-managed metadata architecture (ZooKeeper removal), including work on Confluent Cloud.",
 
   skills: ["Java", "Go", "C", "Python", "Apache Kafka", "Docker", "Linux"],
- projects: [
+  projects: [
+    {
+      name: "OpenData - Open Source Object Storage Databases",
+      dateRange: "Feb. 2026 – Present",
+      bullets: [
+        "Contributed to an open source collection of databases designed natively for object storage.",
+        "Implemented benchmarks for the timeseries database to measure and validate ingestion performance.",
+        "Added scalar argument support for PromQL expressions and support for the Prometheus metadata API.",
+      ],
+      link: "https://github.com/opendata-oss/opendata/pulls?q=is:pr+author:ryandielhenn",
+      linkLabel: "View Pull Requests to OpenData",
+      skills: ["Rust", "Databases", "Time Series", "Prometheus", "Benchmarking"],
+    },
+    {
+      name: "SlateDB - Open Source Embedded Key-Value Store",
+      dateRange: "Feb. 2026 – Present",
+      bullets: [
+        "Contributed to an open source embedded key-value storage engine built on object storage.",
+        "Simplified the builder API by consolidating compactor configuration, reducing complexity and improving the developer experience.",
+      ],
+      link: "https://github.com/slatedb/slatedb/pulls?q=is:pr+author:ryandielhenn",
+      linkLabel: "View Pull Requests to SlateDB",
+      skills: ["Rust", "Databases", "Key-Value Store", "API Design", "Object Storage"],
+    },
     {
       name: "EDA Dashboard - High-Performance Data Exploration Tool",
       dateRange: "Aug. 2025 – Dec. 2025",
@@ -77,35 +100,36 @@ export const siteConfig = {
       link: "https://github.com/ryandielhenn/itsh",
       skills: ["C", "Systems Programming", "Shell Implementation", "Process Management", "Signal Handling", "Pipes", "Redirection"],
     },
-  ], 
+  ],
   experience: [
-  {
-    company: "Confluent",
-    title: "Software Engineer",
-    dateRange: "Jan 2021 – Jul 2022",
-    bullets: [
+    {
+      company: "Confluent",
+      title: "Software Engineer",
+      dateRange: "Jan 2021 – Jul 2022",
+      link: "https://github.com/apache/kafka/pulls?q=is:pr+author:ryandielhenn",
+      bullets: [
 
 
-    "Contributed to Apache Kafka's migration from ZooKeeper to KRaft, improving observability and reliability of the distributed consensus layer in Java/Scala.",
-    "Built metrics pipelines in Java/Scala to monitor cluster health, quorum state, and inter-broker communication patterns for KRaft; updated Confluent Cloud tooling in Go to integrate new metrics.",
-    "Contributed to Confluent Cloud's Cluster Linking integration with KRaft architecture for cross-cluster replication.",
-    ]
-  },
-  {
-    company: "Confluent",
-    title: "Software Engineering Intern",
-    dateRange: "May 2020 – Aug 2020",
-    bullets: [
-    "Implemented dynamic client reconfiguration in Java/Scala for Apache Kafka, enabling runtime updates to producer/consumer settings (including connection, security, retry, and ack configurations) without service restarts.",
-    "Enhanced Confluent Cloud's rebalance tooling with asynchronous replica movement support.",
-    "Continued contributing to Apache Kafka during Fall 2020 while completing undergraduate degree.",
-    ]
-  },
-  {
+        "Contributed to Apache Kafka's migration from ZooKeeper to KRaft, improving observability and reliability of the distributed consensus layer in Java/Scala.",
+        "Built metrics pipelines in Java/Scala to monitor cluster health, quorum state, and inter-broker communication patterns for KRaft; updated Confluent Cloud tooling in Go to integrate new metrics.",
+        "Contributed to Confluent Cloud's Cluster Linking integration with KRaft architecture for cross-cluster replication.",
+      ]
+    },
+    {
+      company: "Confluent",
+      title: "Software Engineering Intern",
+      dateRange: "May 2020 – Aug 2020",
+      link: "https://github.com/apache/kafka/pulls?q=is:pr+author:ryandielhenn",
+      bullets: [
+        "Implemented dynamic client reconfiguration in Java/Scala for Apache Kafka, enabling runtime updates to producer/consumer settings (including connection, security, retry, and ack configurations) without service restarts.",
+        "Enhanced Confluent Cloud's rebalance tooling with asynchronous replica movement support.",
+        "Continued contributing to Apache Kafka during Fall 2020 while completing undergraduate degree.",
+      ]
+    },
+    {
       company: "Big Data Lab - University of San Francisco",
       title: "Undergraduate Researcher",
       dateRange: "Jan 2020 – Dec 2020",
-      link: "https://github.com/USF-BigDataLab/geopresence",
       bullets: [
         "Developed a C implementation of Geopresence, a bitmap-based geospatial indexing system, using RoaringBitmap compression and HyperLogLog++ for efficient location queries on IoT devices.",
         "Implemented C-based adaptive grid index achieving 17x speedup over Java; outperformed R-tree indexing by 400x at scale (1M+ points) while R-trees showed advantages on sparse datasets (<7K points)."
