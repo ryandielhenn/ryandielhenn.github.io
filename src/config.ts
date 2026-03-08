@@ -38,11 +38,11 @@ export const siteConfig = {
       skills: ["Rust", "Databases", "Key-Value Store", "API Design", "Object Storage"],
     },
     {
-      name: "Zephyr - Self-Healing Distributed Cache",
+      name: "Zephyr - Distributed Cache with Decentralized Membership",
       dateRange: "July 2025 – Present",
       bullets: [
-        "A distributed caching system in Go with consistent hashing for key distribution, achieving 49K ops/sec throughput (10K operations, 32 concurrent clients, 128-byte values).",
-        "Includes an observability stack with Prometheus/Grafana to monitor request latency, throughput, and error rates, plus benchmarking tools to measure routing efficiency and performance under load.",
+        "A distributed caching system in Go with consistent hashing for routing and etcd/gossip (configurable) for dynamic node registration, service discovery and failure detection.",
+        "The UDP gossip protocol is based on SWIM and is a configurable alternative to the etcd model, allowing for decentralized membership management and failure detection.",
       ],
       link: "https://github.com/ryandielhenn/zephyrcache",
       skills: ["Go", "Distributed Systems", "Consistent Hashing", "Gossip Protocol", "Docker", "Prometheus", "Grafana"],
