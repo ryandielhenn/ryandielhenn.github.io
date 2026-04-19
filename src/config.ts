@@ -15,22 +15,10 @@ export const siteConfig = {
   skills: ["Java", "Go", "C", "Python", "Apache Kafka", "Docker", "Linux"],
   projects: [
     {
-      name: "OpenData - Open Source Object Storage Databases",
-      dateRange: "Feb. 2026 – Present",
-      bullets: [
-        "Contributed to an open source collection of databases designed natively for object storage.",
-        "Implemented benchmarks for the timeseries database to measure and validate ingestion performance.",
-        "Added scalar argument support for PromQL expressions and support for the Prometheus metadata API.",
-      ],
-      link: "https://github.com/opendata-oss/opendata/pulls?q=is:pr+author:ryandielhenn",
-      linkLabel: "View Pull Requests to OpenData",
-      skills: ["Rust", "Databases", "Time Series", "Prometheus", "Benchmarking"],
-    },
-    {
       name: "SlateDB - Open Source Embedded Key-Value Store",
       dateRange: "Feb. 2026 – Present",
       bullets: [
-        "Contributed to an open source embedded key-value storage engine built on object storage.",
+        "Authored an RFC proposing distributed compaction for SlateDB, enabling parallelization of L0 SST and sorted run merging to address a single-compactor throughput bottleneck in the LSM-based architecture.",
         "Simplified the builder API by consolidating compactor configuration, reducing complexity and improving the developer experience.",
       ],
       link: "https://github.com/slatedb/slatedb/pulls?q=is:pr+author:ryandielhenn",
@@ -41,11 +29,21 @@ export const siteConfig = {
       name: "Zephyr - Distributed Cache with Decentralized Membership",
       dateRange: "July 2025 – Present",
       bullets: [
-        "A distributed caching system in Go with consistent hashing for routing and etcd/gossip (configurable) for dynamic node registration, service discovery and failure detection.",
-        "The UDP gossip protocol is based on SWIM and is a configurable alternative to the etcd model, allowing for decentralized membership management and failure detection.",
+        "Built a distributed cache in Go with consistent hashing for routing, key replication for availability, and a SWIM-based gossip protocol for decentralized node discovery and failure detection.",
       ],
       link: "https://github.com/ryandielhenn/zephyrcache",
       skills: ["Go", "Distributed Systems", "Consistent Hashing", "Gossip Protocol", "Docker", "Prometheus", "Grafana"],
+    },
+    {
+      name: "OpenData - Open Source Object Storage Databases",
+      dateRange: "Feb. 2026 – March 2026",
+      bullets: [
+        "Added the Prometheus /federate endpoint, the Prometheus /metadata endpoint, and support for PromQL scalar arguments in the timeseries database.",
+        "Established a nightly regression benchmark to identify performance regressions in the timeseries database.",
+      ],
+      link: "https://github.com/opendata-oss/opendata/pulls?q=is:pr+author:ryandielhenn",
+      linkLabel: "View Pull Requests to OpenData",
+      skills: ["Rust", "Databases", "Time Series", "Prometheus", "Benchmarking"],
     },
     {
       name: "EDA Dashboard - High-Performance Data Exploration Tool",
