@@ -262,6 +262,31 @@ body.terminal-active {
   flex: 1;
 }
 
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-right: 0.6rem;
+  flex-shrink: 0;
+  color: #9da9a0;
+  transition: color 0.2s ease;
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.file-item[data-folder] .icon { color: #7fbbb3; }
+.file-item[data-resume] .icon { color: #d3c6aa; }
+.file-item[data-link] .icon { color: #83c092; }
+
+.file-item:hover .icon {
+  color: #dbbc7f;
+}
+
 /* Directories blue, links cyan (symlinks), resume default */
 .file-item[data-folder] .name { color: #7fbbb3; } /* Everforest Blue — directories */
 .file-item[data-resume] .name { color: #d3c6aa; } /* Default text — regular file */
@@ -736,7 +761,13 @@ body.terminal-active {
     flex-shrink: 0;
     text-align: left;
   }
-  
+
+  .icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 0.5rem;
+  }
+
   .name {
     font-size: 0.8rem;
     font-weight: 500;
@@ -785,7 +816,13 @@ body.terminal-active {
     width: 50px;
     margin-right: 0.5rem;
   }
-  
+
+  .icon {
+    width: 14px;
+    height: 14px;
+    margin-right: 0.4rem;
+  }
+
   .name {
     font-size: 0.75rem;
   }

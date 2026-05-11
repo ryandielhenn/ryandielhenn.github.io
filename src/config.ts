@@ -8,6 +8,7 @@ export const siteConfig = {
     email: "dielhennr@gmail.com",
     linkedin: "https://linkedin.com/in/ryandielhenn",
     github: "https://github.com/ryandielhenn",
+    x: "https://x.com/dielhennr",
   },
   aboutMe:
     "M.S. Computer Science candidate specializing in scalable distributed systems and applied machine learning. My background includes contributions to Apache Kafka's transition to a self-managed metadata architecture (ZooKeeper removal), including work on Confluent Cloud.",
