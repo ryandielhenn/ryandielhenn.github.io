@@ -104,7 +104,7 @@ export const siteConfig = {
     {
       company: "Confluent",
       title: "Software Engineer",
-      dateRange: "Jan 2021 – Jul 2022",
+      dateRange: "Jan 2021 – Aug 2022",
       link: "https://github.com/apache/kafka/pulls?q=is:pr+author:ryandielhenn",
       bullets: [
 
