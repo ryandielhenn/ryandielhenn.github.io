@@ -52,7 +52,7 @@ export const siteConfig = {
       bullets: [
         "An interactive EDA dashboard with FastAPI and DuckDB for browser-based analysis of million-row datasets with sub-second query performance.",
         "Implemented bias detection and fairness analysis to identify discriminatory patterns across demographic groups and data drift detection to flag distribution shifts.",
-        "Leveraged DuckDB to enable fast and memory efficient analytical queries on datasets with millions of rows.",
+        "Uses DuckDB to enable fast and memory efficient analytical queries on datasets with millions of rows.",
       ],
       link: "https://github.com/ryandielhenn/eda-dashboard",
       skills: ["Python", "FastAPI", "DuckDB", "Data Analysis", "Bias Detection", "Fairness Analysis", "State Management", "Caching", "Data Visualization"],
