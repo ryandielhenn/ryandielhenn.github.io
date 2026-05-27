@@ -11,7 +11,7 @@ export const siteConfig = {
     x: "https://x.com/dielhennr",
   },
   aboutMe:
-    "M.S. Computer Science candidate specializing in scalable distributed systems and applied machine learning. My background includes contributions to Apache Kafka's transition to a self-managed metadata architecture (ZooKeeper removal), including work on Confluent Cloud.",
+    "M.S. Computer Science candidate specializing in scalable distributed systems and applied machine learning. My background includes multiple compaction-related contributions to SlateDB, contributions to Apache Kafka's transition to a self-managed metadata architecture (KRaft), and various contributions to OpenData - a collection of databases built ontop of SlateDB for native use with Object Storage.",
 
   skills: ["Java", "Go", "C", "Python", "Apache Kafka", "Docker", "Linux"],
   projects: [

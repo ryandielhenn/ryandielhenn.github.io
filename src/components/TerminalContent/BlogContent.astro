@@ -1,0 +1,174 @@
+---
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+---
+
+<div id="blog-content" class="terminal-content hidden">
+  <div class="terminal-line">
+    <span class="prompt">portfolio@ryandielhenn:~/blog$</span>
+    <span class="command" id="blog-command"></span>
+  </div>
+
+  <div class="file-content" id="blog-content-body" style="opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease;">
+    <div class="simple-content">
+      <div style="margin-bottom: 1.5rem;">
+        <h3 style="margin: 0;">Blog</h3>
+      </div>
+
+      {posts.length === 0 ? (
+        <p style="color: #5c6a72; font-style: italic;">No posts yet.</p>
+      ) : (
+        <div class="blog-list">
+          {posts.map(post => (
+            <a href={`/blog/${post.slug}`} class="blog-item">
+              <div class="blog-item-meta">
+                <span class="blog-date">{formatDate(post.data.date)}</span>
+                {post.data.tags && post.data.tags.map(tag => (
+                  <span class="blog-tag">{tag}</span>
+                ))}
+              </div>
+              <div class="blog-item-title">{post.data.title}</div>
+              {post.data.description && (
+                <div class="blog-item-desc">{post.data.description}</div>
+              )}
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</div>
+
+<script>
+  function typeBlogCommand(element: HTMLElement, text: string, speed: number = 80) {
+    if (element.classList.contains('typing') || element.classList.contains('typing-complete')) return;
+
+    element.textContent = '';
+    element.classList.add('typing');
+
+    let i = 0;
+    function type() {
+      if (i < text.length) {
+        element.textContent += text.charAt(i);
+        i++;
+        setTimeout(type, speed);
+      } else {
+        element.classList.remove('typing');
+        element.classList.add('typing-complete');
+        setTimeout(() => {
+          const contentBody = document.getElementById('blog-content-body');
+          if (contentBody) {
+            contentBody.style.opacity = '1';
+            contentBody.style.transform = 'translateY(0)';
+          }
+        }, 300);
+      }
+    }
+    type();
+  }
+
+  let blogAnimationInitialized = false;
+
+  function initBlogAnimation() {
+    if (blogAnimationInitialized) return;
+    const blogCommand = document.getElementById('blog-command');
+    if (blogCommand) {
+      blogAnimationInitialized = true;
+      setTimeout(() => {
+        typeBlogCommand(blogCommand, 'ls -la', 80);
+      }, 500);
+    }
+  }
+
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+        const target = mutation.target as HTMLElement;
+        if (target.id === 'blog-content' && !target.classList.contains('hidden')) {
+          initBlogAnimation();
+        }
+      }
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const blogContent = document.getElementById('blog-content');
+    if (blogContent) {
+      observer.observe(blogContent, { attributes: true });
+      if (!blogContent.classList.contains('hidden')) {
+        initBlogAnimation();
+      }
+    }
+  });
+</script>
+
+<style>
+  @import "../../styles/terminal.css";
+
+  .blog-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .blog-item {
+    display: block;
+    text-decoration: none;
+    padding: 1.25rem 1.5rem;
+    background: rgba(60, 72, 79, 0.4);
+    border-left: 3px solid #a7c080;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+  }
+
+  .blog-item:hover {
+    background: rgba(60, 72, 79, 0.7);
+    border-left-color: #dbbc7f;
+    transform: translateX(4px);
+  }
+
+  .blog-item-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .blog-date {
+    color: #5c6a72;
+    font-size: 0.8rem;
+  }
+
+  .blog-tag {
+    background: #3c484f;
+    color: #9da9a0;
+    padding: 0.1rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    border: 1px solid #475258;
+  }
+
+  .blog-item-title {
+    color: #7fbbb3;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+  }
+
+  .blog-item:hover .blog-item-title {
+    color: #dbbc7f;
+  }
+
+  .blog-item-desc {
+    color: #9da9a0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+</style>
