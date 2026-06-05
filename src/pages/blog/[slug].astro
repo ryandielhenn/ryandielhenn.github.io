@@ -26,12 +26,6 @@ function formatDate(date: Date): string {
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={post.data.description ?? post.data.title} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
     <title>{post.data.title} — {siteConfig.name}</title>
     <script is:inline>
       document.documentElement.classList.add('dark');
@@ -66,8 +60,15 @@ function formatDate(date: Date): string {
     color: #d3c6aa;
     margin: 0;
     padding: 0;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Times New Roman', serif;
     min-height: 100vh;
+  }
+
+  /* Keep the whole blog on Times New Roman, overriding the global
+     Inter/IBM Plex Mono rules from global.css */
+  main,
+  main :global(*) {
+    font-family: 'Times New Roman', serif;
   }
 
   main {
@@ -84,9 +85,9 @@ function formatDate(date: Date): string {
 
   h1 {
     color: #e5dfc8;
-    font-size: 2rem;
+    font-size: 2.4rem;
     font-weight: 700;
-    line-height: 1.25;
+    line-height: 1.2;
     margin: 0 0 1rem;
   }
 
@@ -101,7 +102,7 @@ function formatDate(date: Date): string {
   .date {
     color: #5c6a72;
     font-size: 0.85rem;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'Times New Roman', serif;
   }
 
   .tag {
@@ -110,27 +111,27 @@ function formatDate(date: Date): string {
     padding: 0.15rem 0.6rem;
     border-radius: 3px;
     font-size: 0.75rem;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'Times New Roman', serif;
     border: 1px solid #475258;
   }
 
   .description {
     color: #9da9a0;
-    font-size: 1rem;
+    font-size: 1.15rem;
     margin: 0;
-    line-height: 1.6;
+    line-height: 1.55;
   }
 
   /* Prose */
   .prose {
-    font-size: 1rem;
-    line-height: 1.8;
+    font-size: 1.1875rem;
+    line-height: 1.7;
     color: #c8c3aa;
   }
 
   .prose :global(h1) {
     color: #e5dfc8;
-    font-size: 1.6rem;
+    font-size: 1.9rem;
     font-weight: 700;
     margin: 2.5rem 0 0.75rem;
     line-height: 1.3;
@@ -138,7 +139,7 @@ function formatDate(date: Date): string {
 
   .prose :global(h2) {
     color: #e5dfc8;
-    font-size: 1.35rem;
+    font-size: 1.6rem;
     font-weight: 600;
     margin: 2.25rem 0 0.75rem;
     line-height: 1.3;
@@ -146,14 +147,14 @@ function formatDate(date: Date): string {
 
   .prose :global(h3) {
     color: #d3c6aa;
-    font-size: 1.1rem;
+    font-size: 1.35rem;
     font-weight: 600;
     margin: 2rem 0 0.5rem;
   }
 
   .prose :global(h4) {
     color: #d3c6aa;
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 600;
     margin: 1.75rem 0 0.5rem;
   }
@@ -198,7 +199,7 @@ function formatDate(date: Date): string {
     padding: 0.15rem 0.4rem;
     border-radius: 3px;
     font-size: 0.875em;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'Times New Roman', serif;
   }
 
   .prose :global(pre) {
