@@ -11,20 +11,20 @@ html, body {
 }
 
 body {
-  font-family: 'Inter', 'IBM Plex Mono', monospace;
+  font-family: 'Lora', serif;
   line-height: 1.7;
   letter-spacing: 0.01em;
 }
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Lora', serif;
   line-height: 1.2;
   letter-spacing: -0.02em;
 }
 
 p, span, div {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Lora', serif;
   line-height: 1.7;
 }
 

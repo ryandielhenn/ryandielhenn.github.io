@@ -26,6 +26,12 @@ function formatDate(date: Date): string {
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={post.data.description ?? post.data.title} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+      rel="stylesheet"
+    />
     <title>{post.data.title} — {siteConfig.name}</title>
     <script is:inline>
       document.documentElement.classList.add('dark');
@@ -56,19 +62,21 @@ function formatDate(date: Date): string {
 
 <style>
   body {
+    /* Single source of truth for the blog font — change this one line to swap fonts */
+    --blog-font: 'Lora', Georgia, serif;
     background-color: #2d353b;
     color: #d3c6aa;
     margin: 0;
     padding: 0;
-    font-family: 'Times New Roman', serif;
+    font-family: var(--blog-font);
     min-height: 100vh;
   }
 
-  /* Keep the whole blog on Times New Roman, overriding the global
+  /* Keep the whole blog on the chosen font, overriding the global
      Inter/IBM Plex Mono rules from global.css */
   main,
   main :global(*) {
-    font-family: 'Times New Roman', serif;
+    font-family: var(--blog-font);
   }
 
   main {
@@ -102,7 +110,7 @@ function formatDate(date: Date): string {
   .date {
     color: #5c6a72;
     font-size: 0.85rem;
-    font-family: 'Times New Roman', serif;
+    font-family: var(--blog-font);
   }
 
   .tag {
@@ -111,7 +119,7 @@ function formatDate(date: Date): string {
     padding: 0.15rem 0.6rem;
     border-radius: 3px;
     font-size: 0.75rem;
-    font-family: 'Times New Roman', serif;
+    font-family: var(--blog-font);
     border: 1px solid #475258;
   }
 

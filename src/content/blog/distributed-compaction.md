@@ -1,15 +1,15 @@
 ---
-title: Distributed Compaction in SlateDB
+title: Distributed Compaction in SlateDb
 date: 2026-05-26
-description: An intro to SlateDB, LSM Trees, Compaction, and Distributed Compaction
-tags: [SlateDB, Distributed Systems Engineering, Object Storage]
+description: A visual and written explanation of Distributed Compaction (RFC-0025 in SlateDb)
+tags: [SlateDb, Distributed Systems Engineering, Object Storage]
 ---
 
 # Background
 
-[SlateDB](https://slatedb.io/) is a key-value store that writes data to Object Storage. Object Storage allows storage needs to be offloaded to a cloud provider. It is incredibly cheap, allows users to only pay for what they use, and stores data durably. 
+[SlateDb](https://slatedb.io/) is a key-value store that writes data to Object Storage. Object Storage allows storage needs to be offloaded to a cloud provider. It is incredibly cheap, allows users to only pay for what they use, and stores data durably. 
 
-Internally, SlateDB uses a Log-Structured Merge Tree, or LSM for short, to batch writes to object storage and minimize perceived latency. Incoming writes land in an in-memory buffer called the memtable. Once the memtable fills up, it is flushed to an immutable Sorted String Table (SST) in object storage. Freshly flushed SSTs land in L0. From there, SlateDB uses size-tiered compaction, where SSTs are grouped by size and merged together as each tier fills up. LSM trees let you tune the tradeoffs between read, write, and space amplification. I recommend reading [this blog](https://www.bitsxpages.com/p/understanding-lsm-trees-via-read) by Almog Gavra if you want know more about these tradeoffs.
+Internally, SlateDb uses a Log-Structured Merge Tree, or LSM for short, to batch writes to object storage and minimize perceived latency. Incoming writes land in an in-memory buffer called the memtable. Once the memtable fills up, it is flushed to an immutable Sorted String Table (SST) in object storage. Freshly flushed SSTs land in L0. From there, SlateDb uses size-tiered compaction, where SSTs are grouped by size and merged together as each tier fills up. LSM trees let you tune the tradeoffs between read, write, and space amplification. I recommend reading [this blog](https://www.bitsxpages.com/p/understanding-lsm-trees-via-read) by Almog Gavra if you want know more about these tradeoffs.
 
 The following is an explanation of what SlateDb persists in an object storage bucket:
 
@@ -46,7 +46,7 @@ Compaction is a critical background process of the LSM tree that takes Sorted St
 
 # Distributed Compaction
 
-A single compactor is a bottleneck: if it cannot keep pace with write throughput, the whole system degrades in two stages. First, as uncompacted SSTs pile up in L0, more files need to be scanned to find a key, increasing read latency. Then, once the L0 file count reaches `l0_max_ssts`, the flusher stops writing immutable memtables to L0. Those memtables accumulate in memory until `max_unflushed_bytes` is exceeded, at which point SlateDB applies backpressure that stalls writes from being durably written to object storage. A lagging compactor therefore degrades read latency first, then write throughput.
+A single compactor is a bottleneck: if it cannot keep pace with write throughput, the whole system degrades in two stages. First, as uncompacted SSTs pile up in L0, more files need to be scanned to find a key, increasing read latency. Then, once the L0 file count reaches `l0_max_ssts`, the flusher stops writing immutable memtables to L0. Those memtables accumulate in memory until `max_unflushed_bytes` is exceeded, at which point SlateDb applies backpressure that stalls writes from being durably written to object storage. A lagging compactor therefore degrades read latency first, then write throughput.
 
 ![How distributing compaction across workers relieves the single-compactor bottleneck](/slatedb_distributed_compaction_why_it_helps_minimal.svg)
 
@@ -54,26 +54,26 @@ We want to be able to parallelize compaction of L0. This was not possible on a s
 
 From RFC-24:
 
-> Parallel L0 compaction *within* a single segment is a separate concern tied to the watermark's single-cursor design and is not addressed here.
+> Parallel L0 compaction within a single segment is a separate concern tied to the watermark's single-cursor design and is not addressed here.
 
-RFC-25 is a natural place to address this shortcoming in SlateDB.
+RFC-25 is a natural place to address this shortcoming in SlateDb.
 
 Even so, it should be noted that parallel compaction of disjoint sorted run compactions already work today making distributed compaction worth it even without parallelization of L0 compactions.
 
-L0 SST compaction jobs running in parallel in conjunction with Subcompactions (RFC-0027 by Almog Gavra) should be a massive improvement to SlateDB's throughput capability.
+L0 SST compaction jobs running in parallel in conjunction with Subcompactions (RFC-0027 by Almog Gavra) should be a massive improvement to SlateDb's throughput capability.
 
 # How it works
 
-The whole design hangs on one constraint: SlateDB has a **single-writer invariant**. Only one process may commit to the manifest. Break it and two writers can clobber each other's view of the database. So distributing compaction can't simply mean "let many machines write results." The trick is to split the one thing that must stay single from the work that wants to scale out:
+The whole design hangs on one constraint: SlateDb has a **single-writer invariant**. Only one process may commit to the manifest. Break it and two writers can clobber each other's view of the database. So distributing compaction can't simply mean "let many machines write results." The trick is to split the one thing that must stay single from the work that wants to scale out:
 
-- A single **coordinator** owns scheduling and is the *only* process that commits to the manifest.
+- A single **coordinator** owns scheduling and is the only process that commits to the manifest.
 - Any number of stateless **workers** poll for jobs, execute the actual compaction (the expensive, I/O-bound part), and report results back.
 
 There's no lock service, no consensus protocol, no new infrastructure. The only coordination primitive is the object store itself.
 
 ## Claiming work without a lock
 
-Workers claim jobs using optimistic concurrency. Each new version of `.compactions` is written as the next sequentially-numbered file (`...0003.compactions`) using create-if-not-exists. To claim a job, a worker reads the latest state, marks the job as its own, and writes the next file. If another worker got there first, the write fails with `AlreadyExists`, and the loser simply re-reads and tries again. This works identically across every object store SlateDB supports, including ones with no native compare-and-swap.
+Workers claim jobs using optimistic concurrency. Each new version of `.compactions` is written as the next sequentially-numbered file (`...0003.compactions`) using create-if-not-exists. To claim a job, a worker reads the latest state, marks the job as its own, and writes the next file. If another worker got there first, the write fails with `AlreadyExists`, and the loser simply re-reads and tries again. This works identically across every object store SlateDb supports, including ones with no native compare-and-swap.
 
 ## The state machine
 
@@ -94,19 +94,19 @@ Submitted --> Scheduled <-> Running --> Compacted --> Completed
 
 Workers heartbeat by piggybacking a timestamp onto their progress writes. The detail I like here: **heartbeats are tied to throughput, not wall-clock time.** A worker writes a heartbeat every `heartbeat_bytes` of data processed, not every N seconds. So a machine that is technically alive but pathologically slow due to a degraded disk or a noisy neighbor falls behind the heartbeat rate and gets its job reclaimed, exactly as if it had crashed. Liveness is defined as "making real compaction progress," which is the property we actually care about.
 
-When the coordinator sees a `Running` job whose heartbeat is older than `worker_heartbeat_timeout_ms`, it resets the job to `Submitted` and clears the owner. Crucially, the job keeps its already-written output SSTs, so the next worker to pick it up resumes from the last checkpoint instead of starting over. And on a *graceful* shutdown, a worker proactively resets its in-flight jobs so peers can grab them immediately rather than waiting out the timeout.
+When the coordinator sees a `Running` job whose heartbeat is older than `worker_heartbeat_timeout_ms`, it resets the job to `Submitted` and clears the owner. Crucially, the job keeps its already-written output SSTs, so the next worker to pick it up resumes from the last checkpoint instead of starting over. And on a graceful shutdown, a worker proactively resets its in-flight jobs so peers can grab them immediately rather than waiting out the timeout.
 
 # Guide
 
 ## Preamble
 
-Running SlateDB itself is out of scope for this blog, but here are some helpful resources for anyone interested (directly from the SlateDB website):
+Running SlateDb itself is out of scope for this blog, but here are some helpful resources for anyone interested (directly from the SlateDb website):
 
 - [Connect to Azure Blob Storage](https://slatedb.io/docs/tutorials/abs/)
 - [Connect to S3](https://slatedb.io/docs/tutorials/s3/)
 - [Connect to Google Cloud Storage](https://slatedb.io/docs/tutorials/gcs/)
 
-This writeup is about running distributed compaction for SlateDB but anything else you'd like to know is on the SlateDB website.
+This writeup is about running distributed compaction for SlateDb but anything else you'd like to know is on the SlateDb website.
 
 ## Running external/distributed compaction
 
@@ -142,4 +142,4 @@ The door is wide open for future enhancements that take advantage of these state
 
 2. A shared worker pool serving multiple database instances, significantly reducing I/O bound threads per database and allowing instances to trade compaction resources as needed.
 
-![A shared worker pool serving multiple SlateDB instances](/slatedb_shared_compaction_worker_pool_minimal.svg)
+![A shared worker pool serving multiple SlateDb instances](/slatedb_shared_compaction_worker_pool_minimal.svg)
