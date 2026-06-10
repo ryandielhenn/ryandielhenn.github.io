@@ -58,7 +58,9 @@ From RFC-24:
 
 RFC-25 is a natural place to address this shortcoming in SlateDB.
 
-Even so, it should be noted that parallel compaction of disjoint sorted run compactions already work today, and the following benchmarks of write throughput with embedded compaction vs distributed compaction clearly demonstrate the benefits. These benchmarks were done before making any changes to allow parallelization of L0 compaction within a single segment.
+Even so, it should be noted that parallel compaction of disjoint sorted run compactions already work today making distributed compaction worth it even without parallelization of L0 compactions.
+
+L0 SST compaction jobs running in parallel in conjunction with Subcompactions (RFC-0027 by Almog Gavra) should be a massive improvement to SlateDB's throughput capability.
 
 # Future benefits and work
 
