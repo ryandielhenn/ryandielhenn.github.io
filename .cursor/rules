@@ -67,9 +67,9 @@ This is a modern portfolio template built with Astro and Tailwind CSS v4. The pr
 
 ## Commands to Remember
 ```bash
-npm run dev     # Development server
-npm run build   # Production build
-npm run preview # Preview production build
+bun run dev     # Development server
+bun run build   # Production build
+bun run preview # Preview production build
 ```
 
 ## Important Notes

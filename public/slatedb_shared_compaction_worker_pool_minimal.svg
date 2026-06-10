@@ -8,8 +8,8 @@
 
 </defs>
 
-<text x="170" y="28" text-anchor="middle" dominant-baseline="central" style="fill:rgb(211, 198, 170);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, sans-serif;font-size:13px;font-weight:500;text-anchor:middle;dominant-baseline:central">Before — per-DB compactor</text>
-<text x="510" y="28" text-anchor="middle" dominant-baseline="central" style="fill:rgb(211, 198, 170);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, sans-serif;font-size:13px;font-weight:500;text-anchor:middle;dominant-baseline:central">After — shared worker pool</text>
+<text x="170" y="45" text-anchor="middle" dominant-baseline="central" style="fill:rgb(211, 198, 170);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, sans-serif;font-size:13px;font-weight:500;text-anchor:middle;dominant-baseline:central">Per-DB Workers</text>
+<text x="510" y="45" text-anchor="middle" dominant-baseline="central" style="fill:rgb(211, 198, 170);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, sans-serif;font-size:13px;font-weight:500;text-anchor:middle;dominant-baseline:central">Shared Workers</text>
 
 <line x1="340" y1="50" x2="340" y2="620" style="fill:none;stroke:rgb(92, 106, 114);color:rgb(255, 255, 255);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
 

@@ -9,9 +9,34 @@ tags: [SlateDB, Distributed Systems Engineering, Object Storage]
 
 [SlateDB](https://slatedb.io/) is a key-value store that writes data to Object Storage. Object Storage allows storage needs to be offloaded to a cloud provider. It is incredibly cheap, allows users to only pay for what they use, and stores data durably. 
 
-Internally, SlateDB uses a Log-Structured Merge Tree, or LSM for short, to batch writes to object storage and minimize perceived latency. Incoming writes land in an in-memory buffer called the memtable. Once the memtable fills up, it is flushed to an immutable Sorted String Table (SST) in object storage. Freshly flushed SSTs land in L0. From there, SlateDB uses size-tiered compaction, where SSTs are grouped by size and merged together as each tier fills up. LSM trees let you tune the tradeoffs between read, write, and space amplification.
+Internally, SlateDB uses a Log-Structured Merge Tree, or LSM for short, to batch writes to object storage and minimize perceived latency. Incoming writes land in an in-memory buffer called the memtable. Once the memtable fills up, it is flushed to an immutable Sorted String Table (SST) in object storage. Freshly flushed SSTs land in L0. From there, SlateDB uses size-tiered compaction, where SSTs are grouped by size and merged together as each tier fills up. LSM trees let you tune the tradeoffs between read, write, and space amplification. I recommend reading [this blog](https://www.bitsxpages.com/p/understanding-lsm-trees-via-read) by Almog Gavra if you want know more about these tradeoffs.
 
-![LSM Tree Compaction Process](/lsm_tree_compaction_minimal.svg)
+The following is an explanation of what SlateDb persists in an object storage bucket:
+
+```
+manifest/
+  00000000001.manifest  # This is a snapshot of the database state.
+  00000000002.manifest
+  00000000003.manifest
+  ...
+compactions/
+  00000000001.compactions # This is a set of jobs scheduled for compaction by the compaction
+  00000000002.compactions # coordinator.
+  00000000003.compactions
+  ...
+compacted/
+  <ULID1>.sst # This is compacted data
+  <ULID2>.sst # L0 ssts also happen to live here which have not been compacted yet
+  <ULID3>.sst
+  ...
+wal/ # This is the write ahead log. Writes land here first so that they can be replayed in a failure scenario.
+  00000000001.sst 
+  00000000002.sst 
+  00000000003.sst
+gc/
+  manifest.boundary
+  compactions.boundary
+```
 
 # Compaction
 
@@ -25,39 +50,24 @@ A single compactor is a bottleneck: if it cannot keep pace with write throughput
 
 ![LSM Compaction Merge Step Detail](/slatedb_distributed_compaction_why_it_helps_minimal.svg)
 
-We want to be able to parallelize compaction of l0, and in theory this is possible but there is a caveat detailed in RFC-24:
+We want to be able to parallelize compaction of L0. This was not possible on a single machine before RFC-25, even with max_concurrent_compactions set to something other than 1. RFC-24 allowed pallalellization of L0 SSTs in different segments, but explicity kept parallel L0 compaction within a single segment out of scope. 
 
-> **Parallel L0 compaction across segments.** Parallel compaction of disjoint *sorted-run* compactions already works today, because the `last_compacted_l0_sst_view_id` watermark is unaffected when no L0 SSTs are involved. What segmentation unlocks is parallel *L0-sourced* compaction across segments: each segment has its own L0 list and its own `last_compacted_l0_sst_view_id` watermark, so an L0-draining compaction in segment A can complete out of order relative to one in segment B without the watermark truncation issue that blocks parallel L0 compactions in a single-tree layout. The execution model in this RFC can be extended to exploit this by scheduling L0 compactions in disjoint segments concurrently. Parallel L0 compaction *within* a single segment is a separate concern tied to the watermark's single-cursor design and is not addressed here.
-
-This mentions that segments unlock parallelization of L0 since each LSM tree has its own watermark for L0. However, it would be a shame if segmentation were required for parallelization of L0.
+From RFC-24:
 
 > Parallel L0 compaction *within* a single segment is a separate concern tied to the watermark's single-cursor design and is not addressed here.
 
-RFC-25 is a natural place to address this.
+RFC-25 is a natural place to address this shortcoming in SlateDB.
 
-Even so, it is noted that parallel compaction of disjoint sorted run compactions already work today, and the following benchmarks of write throughput with embedded compaction vs distributed compaction clearly demonstrate the benefits. These benchmarks were done before making any changes to allow parallelization of L0 compaction within a single segment.
-
-# Benchmark
-
-| Elapsed | Local writer, embedded compactor (pre distributed compaction) | 1 writer, 3 external compactors + 1 coordinator (EC2/distributed) |
-| :--- | :--- | :--- |
-| **10s** | 12,412 put/s (12.1 MiB/s) | 55,702 put/s (54.4 MiB/s) |
-| **20s** | 7,266 put/s (7.1 MiB/s) | 46,231 put/s (45.1 MiB/s) |
-| **30s** | 5,681 put/s (5.5 MiB/s) | 41,111 put/s (40.1 MiB/s) |
-| **40s** | 4,895 put/s (4.8 MiB/s) | 35,202 put/s (34.4 MiB/s) |
-| **50s** | 4,336 put/s (4.2 MiB/s) | 30,322 put/s (29.6 MiB/s) |
-| **60s** | — | 26,597 put/s (26.0 MiB/s) |
+Even so, it should be noted that parallel compaction of disjoint sorted run compactions already work today, and the following benchmarks of write throughput with embedded compaction vs distributed compaction clearly demonstrate the benefits. These benchmarks were done before making any changes to allow parallelization of L0 compaction within a single segment.
 
 # Future benefits and work
 
-I am excited to see how the architecture for distributed compaction in SlateDB opens the door for many new ways to use SlateDB. It also opens the door for future enhancements that take advantage of stateless compaction workers. 
+The door is wide open for future enhancements that take advantage of these stateless compaction workers. 
 
-Compactions could also be routed to specific workers (or pools of them) based on priority. 
+1. Compactions routed to specific workers (or pools of them) based on priority. 
 
 ![Compaction Routing](/slatedb_priority_routed_compaction_minimal.svg)
 
-Ashared worker pool could serve multiple database instances, significantly reducing I/O bound threads per database and allowing instances to trade compaction resources as needed.
+2. A shared worker pool serving multiple database instances, significantly reducing I/O bound threads per database and allowing instances to trade compaction resources as needed.
 
 ![LSM Compaction Merge Step Detail](/slatedb_shared_compaction_worker_pool_minimal.svg)
-
-Taken together, these possibilities make distributed compaction not just a scalability improvement, but a foundation for a more flexible and efficient SlateDB.
