@@ -25,7 +25,7 @@ body.terminal-active {
 }
 
 .terminal-window {
-  background: #2d353b; /* Everforest Background */
+  background: #181c1f; /* Deep slate background */
   border-radius: 0;
   box-shadow: none;
   overflow: hidden; /* Hide overflow on window, let body handle scrolling */
@@ -75,7 +75,7 @@ body.terminal-active {
 }
 
 .terminal-body {
-  background: #2d353b; /* Everforest Background */
+  background: #181c1f; /* Deep slate background */
   padding: 1.5rem;
   flex: 1;
   overflow-y: auto;
@@ -146,7 +146,7 @@ body.terminal-active {
 .back-button-container {
   position: sticky;
   top: 0;
-  background: #2d353b; /* Match terminal background */
+  background: #181c1f; /* Match terminal background */
   z-index: 10;
   margin: -1.5rem -1.5rem 0 -1.5rem; /* Extend to edges but no bottom margin */
   padding: 1rem 1.5rem 0 1.5rem; /* Remove bottom padding */
