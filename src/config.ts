@@ -28,7 +28,7 @@ export const siteConfig = {
     },
     {
       name: "Zephyr - Distributed Cache with Decentralized Membership",
-      dateRange: "July 2025 – Present",
+      dateRange: "July 2025 – May 2026",
       bullets: [
         "Built a distributed cache in Go with consistent hashing for routing, key replication for availability, and a SWIM-based gossip protocol for decentralized node discovery and failure detection.",
       ],
