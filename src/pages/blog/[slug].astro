@@ -43,6 +43,9 @@ function formatDate(date: Date): string {
         <header>
           <h1>{post.data.title}</h1>
           <div class="meta">
+            {post.data.author && (
+              <span class="author">{post.data.author}</span>
+            )}
             <span class="date">{formatDate(post.data.date)}</span>
             {post.data.tags && post.data.tags.map(tag => (
               <span class="tag">{tag}</span>
@@ -105,6 +108,19 @@ function formatDate(date: Date): string {
     gap: 0.5rem;
     flex-wrap: wrap;
     margin-bottom: 0.75rem;
+  }
+
+  .author {
+    color: #a7c080;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: var(--blog-font);
+  }
+
+  .author + .date::before {
+    content: '·';
+    margin-right: 0.5rem;
+    color: #5c6a72;
   }
 
   .date {
