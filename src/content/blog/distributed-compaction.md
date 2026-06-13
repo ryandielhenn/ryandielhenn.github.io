@@ -6,6 +6,44 @@ description: A visual and written explanation of Distributed Compaction (RFC-002
 tags: [SlateDb, Distributed Systems Engineering, Object Storage]
 ---
 
+# Guide
+
+## Preamble
+
+This guide assumes familiarity with SlateDb and how compaction works; if you'd like that context first, skip down to [Background](#background) and the sections that follow, then come back here.
+
+Running SlateDb itself is out of scope for this blog, but here are some helpful resources for anyone interested (directly from the SlateDb website):
+
+- [Connect to Azure Blob Storage](https://slatedb.io/docs/tutorials/abs/)
+- [Connect to S3](https://slatedb.io/docs/tutorials/s3/)
+- [Connect to Google Cloud Storage](https://slatedb.io/docs/tutorials/gcs/)
+
+This writeup is about running distributed compaction for SlateDb but anything else you'd like to know is on the SlateDb website.
+
+## Running external/distributed compaction
+
+Historically compaction ran as a single process either embedded in the writer or via a standalone process via cli.
+
+```
+slatedb --env-file .env --path <db-path> run-compactor
+```
+
+This cli still exists if you'd like to run compaction as an entirely separate process outside of the DB writer. Now, you may also disable the embedded compaction worker to decouple compaction scheduling/coordination from the running of actual compaction jobs by adding the `--no-embedded-worker` flag.
+
+```
+slatedb --env-file .env --path <db-path> run-compactor --no-embedded-worker
+```
+
+You should not start more than one compaction coordinator. Doing so will fence the writer and halt all DB operations. This is behavior that existed pre distributed compaction and is expected.
+
+However, you may now run multiple workers separately via the `run-worker` sub-command of the slatedb cli. Compaction jobs take a majority of the computing resources anyway so allowing workers to scale was an obvious starting point.
+
+```
+slatedb --env-file .env --path <db-path> run-worker
+```
+
+We've discussed distributing and scaling coordination but that is out of scope for this work.
+
 # Background
 
 [SlateDb](https://slatedb.io) is an embedded key-value store built on object storage. It uses a Log-Structured Merge Tree, or LSM for short, to batch writes to object storage to reduce write latency. Incoming writes land in an in-memory buffer called the memtable. Once the memtable fills up, it is flushed to an immutable Sorted String Table (SST) in object storage. Freshly flushed SSTs land in L0. From there, SlateDb uses size-tiered compaction, where SSTs are grouped by size and merged together as each tier fills up. LSM trees let you tune the tradeoffs between read, write, and space amplification. I recommend reading [this blog](https://www.bitsxpages.com/p/understanding-lsm-trees-via-read) by Almog Gavra if you want know more about these tradeoffs.
@@ -91,45 +129,9 @@ Submitted --> Scheduled <-> Running --> Compacted --> Completed
 
 ## Detecting dead workers
 
-Workers heartbeat by piggybacking a timestamp onto their progress writes. The detail I like here: **heartbeats are tied to throughput, not wall-clock time.** A worker writes a heartbeat every `heartbeat_bytes` of data processed, not every N seconds. So a machine that is technically alive but pathologically slow due to a degraded disk or a noisy neighbor falls behind the heartbeat rate and gets its job reclaimed, exactly as if it had crashed. Liveness is defined as "making real compaction progress," which is the property we actually care about.
+Workers heartbeat by piggybacking a timestamp onto their progress writes. Heartbeats are tied to throughput, not wall-clock time. A worker writes a heartbeat every `heartbeat_bytes` of data processed per job, not every N seconds and per-job to allow reclamation of stalled jobs due to parallel compactions happening in the same process. So a machine that is technically alive but pathologically slow due to a degraded disk or a noisy neighbor falls behind the heartbeat rate and gets its job reclaimed, exactly as if it had crashed. Liveness is defined as "making real compaction progress," which is the property we actually care about.
 
 When the coordinator sees a `Running` job whose heartbeat is older than `worker_heartbeat_timeout_ms`, it resets the job to `Submitted` and clears the owner. Crucially, the job keeps its already-written output SSTs, so the next worker to pick it up resumes from the last checkpoint instead of starting over. And on a graceful shutdown, a worker proactively resets its in-flight jobs so peers can grab them immediately rather than waiting out the timeout.
-
-# Guide
-
-## Preamble
-
-Running SlateDb itself is out of scope for this blog, but here are some helpful resources for anyone interested (directly from the SlateDb website):
-
-- [Connect to Azure Blob Storage](https://slatedb.io/docs/tutorials/abs/)
-- [Connect to S3](https://slatedb.io/docs/tutorials/s3/)
-- [Connect to Google Cloud Storage](https://slatedb.io/docs/tutorials/gcs/)
-
-This writeup is about running distributed compaction for SlateDb but anything else you'd like to know is on the SlateDb website.
-
-## Running external/distributed compaction
-
-Historically compaction ran as a single process either embedded in the writer or via a standalone process via cli.
-
-```
-slatedb --env-file .env --path <db-path> run-compactor
-```
-
-This cli still exists if you'd like to run compaction as an entirely separate process outside of the DB writer. Now, you may also disable the embedded compaction worker to decouple compaction scheduling/coordination from the running of actual compaction jobs by adding the `--no-embedded-worker` flag.
-
-```
-slatedb --env-file .env --path <db-path> run-compactor --no-embedded-worker
-```
-
-You should not start more than one compaction coordinator. Doing so will fence the writer and halt all DB operations. This is behavior that existed pre distributed compaction and is expected.
-
-However, you may now run multiple workers separately via the `run-worker` sub-command of the slatedb cli. Compaction jobs take a majority of the computing resources anyway so allowing workers to scale was an obvious starting point.
-
-```
-slatedb --env-file .env --path <db-path> run-worker
-```
-
-We've discussed distributing and scaling coordination but that is out of scope for this work.
 
 # Future benefits and work
 
