@@ -1,4 +1,4 @@
-<svg width="100%" viewBox="0 0 680 360" role="img" xmlns="http://www.w3.org/2000/svg">
+<svg width="100%" viewBox="0 0 680 250" role="img" xmlns="http://www.w3.org/2000/svg">
 <title>Track a set of consumed L0 SST ids</title>
 <desc>The same six-block L0 list, but instead of a single cursor each SST carries its own consumed flag shown as a dot. An explicit consumed set holds L0 one and L0 two. Job A marks L0 three and L0 four consumed while Job B marks L0 five and L0 six, as two independent disjoint operations with no conflict.</desc>
 <defs>
@@ -64,9 +64,5 @@
 
 <text x="338" y="228" text-anchor="middle" class="tg ts">independent</text>
 <text x="526" y="228" text-anchor="middle" class="tg ts">independent</text>
-<text x="432" y="252" text-anchor="middle" class="td ts">disjoint subsets &#8212; any order, no truncation, no conflict</text>
 
-<line x1="40" y1="288" x2="640" y2="288" class="line-dim"/>
-<text x="40" y="310" class="t ts">Track a set of consumed SSTs instead of one boundary, so two L0</text>
-<text x="40" y="328" class="t ts">compactions in the same segment advance independently.</text>
 </svg>

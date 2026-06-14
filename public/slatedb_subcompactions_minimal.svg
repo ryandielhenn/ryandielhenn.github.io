@@ -1,4 +1,4 @@
-<svg width="100%" viewBox="0 0 680 500" role="img" xmlns="http://www.w3.org/2000/svg">
+<svg width="100%" viewBox="0 0 680 350" role="img" xmlns="http://www.w3.org/2000/svg">
 <title>Subcompactions sidestep the watermark</title>
 <desc>One logical compaction over the live set L0 three through L0 six. A vertical dashed split at key k divides the work into sub-range A covering keys below k on core one and sub-range B covering keys at or above k on core two, each producing its own output. Both feed a single manifest commit that advances the cursor exactly once over the whole consumed set, so the single-cursor invariant holds.</desc>
 <defs>
@@ -25,7 +25,7 @@
 </style>
 </defs>
 
-<text x="40" y="36" class="td ts">one logical compaction over the live set { L0&#8323; &#8230; L0&#8326; }</text>
+<text x="40" y="36" class="td ts">One logical compaction over the live set { L0&#8323; &#8230; L0&#8326; }</text>
 
 <rect x="236" y="52" width="392" height="58" rx="2" fill="none" stroke="#859289" stroke-width="1" stroke-dasharray="0"/>
 <rect x="248" y="60" width="84" height="42" rx="2" class="live"/>
@@ -37,17 +37,15 @@
 <rect x="534" y="60" width="84" height="42" rx="2" class="live"/>
 <text x="576" y="83" text-anchor="middle" dominant-baseline="central" class="t mono ts">L0&#8326;</text>
 
-<line x1="432" y1="124" x2="432" y2="232" class="split"/>
-<text x="432" y="140" text-anchor="middle" class="td mono ts">split at key k</text>
 
 <path d="M330 110 C 300 126, 270 138, 240 156" class="line" marker-end="url(#arrow)"/>
 <rect x="70" y="162" width="280" height="56" rx="2" class="box"/>
-<text x="210" y="184" text-anchor="middle" dominant-baseline="central" class="t th">sub-range A &#8212; core 1</text>
+<text x="210" y="184" text-anchor="middle" dominant-baseline="central" class="t th">sub-range A: core 1</text>
 <text x="210" y="203" text-anchor="middle" dominant-baseline="central" class="td mono ts">keys (&#8722;&#8734;, k)</text>
 
 <path d="M520 110 C 560 126, 600 138, 610 156" class="line" marker-end="url(#arrow)"/>
 <rect x="430" y="162" width="180" height="56" rx="2" class="box"/>
-<text x="520" y="184" text-anchor="middle" dominant-baseline="central" class="t th">sub-range B &#8212; core 2</text>
+<text x="520" y="184" text-anchor="middle" dominant-baseline="central" class="t th">sub-range B: core 2</text>
 <text x="520" y="203" text-anchor="middle" dominant-baseline="central" class="td mono ts">keys [k, +&#8734;)</text>
 
 <text x="210" y="238" text-anchor="middle" class="td ts">output SST(s) for A</text>
@@ -59,11 +57,4 @@
 <rect x="196" y="290" width="288" height="50" rx="2" class="commit"/>
 <text x="340" y="310" text-anchor="middle" dominant-baseline="central" class="t th">single manifest commit</text>
 <text x="340" y="328" text-anchor="middle" dominant-baseline="central" class="td mono ts">advance cursor once: before L0&#8323; &#8594; after L0&#8326;</text>
-
-<text x="40" y="368" class="td ts">The parent compaction commits exactly one cursor advance over the whole</text>
-<text x="40" y="386" class="td ts">consumed set &#8212; the single-cursor invariant is never violated.</text>
-
-<line x1="40" y1="408" x2="640" y2="408" class="line-dim"/>
-<text x="40" y="430" class="t ts">Parallelism from splitting one compaction by key range; the cursor still</text>
-<text x="40" y="448" class="t ts">advances exactly once. Available today, across cores on one worker.</text>
 </svg>
