@@ -89,15 +89,29 @@ A single compactor is a bottleneck: if it cannot keep pace with write throughput
 
 ![How distributing compaction across workers relieves the single-compactor bottleneck](/slatedb_distributed_compaction_why_it_helps_minimal.svg)
 
-Idealy, we want to be able to parallelize compaction of L0 and Sorted Run compaction. Parallelization of compaction jobs containing L0 SST's was not possible on a single machine before RFC-25, even with `max_concurrent_compactions` set to something other than 1. RFC-24 allowed parallelization of L0 SSTs in different segments, but explicitly kept parallel L0 compaction within a single segment out of scope.
+Ideally we want to parallelize compaction work, but it helps to separate two axes of parallelism that are easy to conflate.
 
-From RFC-24:
+The first is running *independent* compactions at the same time — an L0→SR compaction in one segment alongside a sorted-run merge in another, or L0 compactions in two different segments. RFC-24 made this safe at the data-model level by giving each segment its own L0 list and its own `last_compacted_l0_sst_view_id` watermark, and disjoint sorted-run compactions were already safe because they never touch the watermark at all. Distributed compaction is what lets you actually *execute* these across more than one machine: a single embedded worker is capped by one box's CPU and I/O, and `max_concurrent_compactions` only stretches that one box so far. Spreading independent jobs across a pool of workers is the bottleneck relief this post is about.
+
+The second axis is parallelizing L0 compactions within the same segment, and here it's worth not overselling: distributed compaction does **not** unlock it. The blocker is the watermark itself. `last_compacted_l0_sst_view_id` is a single cursor over a segment's L0 list, and "already compacted" means "at or below the cursor." A single monotonic boundary can't represent two disjoint, in-flight L0 consumptions at once, so L0 compaction within a tree is serialized whether that tree is served by one embedded worker or a fleet of remote ones. RFC-24 calls this out directly:
 
 > Parallel L0 compaction within a single segment is a separate concern tied to the watermark's single-cursor design and is not addressed here.
 
-RFC-25 is a natural place to address this shortcoming in SlateDb.
+![Watermark conflict with workers operating on L0 in the same segment](/slatedb_l0_watermark_problem_minimal.svg)
 
-L0 SST compaction jobs running in parallel in conjunction with Subcompactions (RFC-0027 by Almog Gavra) should be a massive improvement to SlateDb's throughput capability.
+That note is just as true after RFC-25. Moving work onto stateless workers changes *where* a compaction runs, not whether one L0 compaction can be split in two.
+
+Closing that gap takes one of two things, and neither is distributed compaction:
+
+- **Subcompactions (RFC-0028, by Almog Gavra).** Rather than splitting the L0 list across multiple compactions (which the watermark forbids), a subcompaction keeps it as one logical compaction and splits the *key range* into sub-ranges that run in parallel. The parent commits a single manifest update that advances the watermark exactly once over the whole consumed set, so the single-cursor invariant is never violated — it sidesteps the problem instead of fighting it. Today subcompactions parallelize across cores on one worker, which composes cleanly with distributed compaction parallelizing across workers; farming sub-ranges out to separate workers is explicit future work in that RFC.
+
+![Subcompactions](/slatedb_subcompactions_minimal.svg)
+
+- **Reworking the watermark** to track a *set* of consumed L0 SSTs instead of a single cursor. This is the more invasive change, and something we've discussed, but it's what would let two L0 compactions in the same segment advance independently.
+
+![Reworking the cursor](/slatedb_watermark_set_rework_minimal.svg)
+
+So the accurate story is that distributed compaction removes the single-*process* ceiling and lays down the stateless-worker substrate the rest builds on, while subcompactions remove the single-*core-per-compaction* ceiling. They attack different limits — the throughput win comes from stacking them, not from any one of them parallelizing L0 on its own.
 
 # How it works
 
