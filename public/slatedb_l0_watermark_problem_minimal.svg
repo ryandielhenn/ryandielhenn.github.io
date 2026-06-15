@@ -25,6 +25,7 @@
 </defs>
 
 <text x="40" y="36" class="td ts">segment L0 list</text>
+<text x="156" y="30" class="td ts">at/below cursor = consumed   &#183;   above = live</text>
 <text x="640" y="36" text-anchor="end" class="td ts">oldest &#8594; newest</text>
 
 <rect x="60" y="48" width="86" height="50" rx="2" class="consumed"/>
@@ -44,7 +45,6 @@
 <path d="M244 112 l-5 -8 l10 0 z" fill="#859289"/>
 <text x="244" y="128" text-anchor="middle" class="td mono ts">last_compacted_l0_sst_view_id</text>
 
-<text x="60" y="148" class="td ts">at/below cursor = consumed   &#183;   above = live</text>
 
 <path d="M338 206 C 380 170, 430 140, 428 112" class="line-dim" marker-end="url(#arrow)"/>
 <text x="348" y="184" text-anchor="end" class="td ts">&#8594; cursor after L0&#8324;</text>

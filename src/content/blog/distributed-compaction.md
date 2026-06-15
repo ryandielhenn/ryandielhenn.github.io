@@ -52,8 +52,8 @@ The following is what you would see if you listed the contents of an object stor
 
 ```
 manifest/
-  00000000001.manifest  # This is a snapshot of the database state.
-  00000000002.manifest
+  00000000001.manifest  # This is a snapshot of the database state: 
+  00000000002.manifest  # SST lists, watermarks, epochs, external dbs, checkpoints etc.
   00000000003.manifest
   ...
 compactions/
@@ -71,7 +71,7 @@ wal/ # This is the write ahead log. Writes land here first so that they can be r
   00000000002.sst 
   00000000003.sst
 gc/
-  manifest.boundary # Garbage collector deletes .manifest versions at or below this Boundary
+  manifest.boundary # Garbage collector deletes .manifest versions at or below this Boundary 
   compactions.boundary # Garbage collecor deletes .compactions files at or below this Boundary
 ```
 
@@ -92,6 +92,8 @@ A single compactor is a bottleneck: if it cannot keep pace with write throughput
 # Future benefits and work
 
 The door is wide open for future enhancements that take advantage of these stateless compaction workers. Below are just a few examples of extensions made possible by the stateless workers added in RFC-0025.
+
+## L0 Compaction Watermark
 
 Ideally we want to parallelize compaction work, but it helps to separate two axes of parallelism that are easy to conflate.
 
@@ -118,18 +120,31 @@ Closing that gap takes one of two things (or both), and neither is distributed c
 
 ![Reworking the cursor](/slatedb_watermark_set_rework_minimal.svg)
 
-- - - *Track a set of consumed SSTs instead of one boundary, so two L0 compactions in the same segment advance independently.*
+- - - *Track a set of Compacted SSTs instead of one boundary, so two L0 compactions in the same segment advance independently.*
 
 So the accurate story is that distributed compaction removes the single-*process* ceiling and lays down the stateless-worker foundation, while subcompactions remove the single-*core-per-compaction* ceiling. The watermark design to allow L0 compactions within the same segment to run independently is addressed by neither but is complementary.
 
+## Priority Based Compaction Routing
 
-1. Compactions routed to specific workers (or pools of them) based on priority. 
+Once compactions are jobs claimed by stateless workers rather than steps run inline by one process, the coordinator is free to decide *which* job goes *where*. Compactions could be routed to specific workers, or pools of them, based on priority: an L0 compaction on a segment approaching `l0_max_ssts` is far more urgent than a routine sorted-run merge, because the former is what stands between the database and write-stalling backpressure. High-priority jobs could be steered to a dedicated set of low-latency workers while bulk sorted-run merges run on cheaper, best-effort capacity. This turns the worker pool into a scheduling surface where compaction resources follow the work that is most likely to degrade read and write latency.
 
 ![Compaction Routing](/slatedb_priority_routed_compaction_minimal.svg)
 
-2. A shared worker pool serving multiple database instances, significantly reducing I/O bound threads per database and allowing instances to trade compaction resources as needed.
+## Shared Worker Pools
+
+Because the workers are stateless, nothing about a compaction job ties it to a single database instance. A shared worker pool serving many instances would significantly reduce the I/O-bound threads each instance has to reserve for itself, and let instances trade compaction resources as needed e.g. an idle database contributes its share of the pool to a neighbor that is busy ingesting. Without it, capacity is sized per database for that database's worst case. This is true of an embedded compactor and equally of a remote fleet dedicated to one instance, unless you build per-DB autoscaling. Pooling that capacity absorbs those bursts and raises overall utilization, while priority-based routing decides how the shared pool is divided when several instances contend for it at once.
 
 ![A shared worker pool serving multiple SlateDb instances](/slatedb_shared_compaction_worker_pool_minimal.svg)
 
+# Conclusion
 
-# Until next time...
+Distributed compaction (RFC-0025) removes the single-*process* ceiling on compaction and lays down a stateless-worker foundation: jobs are claimed and executed by workers that hold no durable state of their own. On its own that relieves the single-compactor bottleneck that degrades read latency and then write throughput. Just as importantly, the stateless-worker model is what makes the future work above tractable. Reworking the watermark design, adding priority-based routing and shared worker pool support are natural extensions now that a compaction is just a job that any worker can claim.
+
+# Acknowledgments
+
+Thanks to the SlateDb maintainers and community for the reviews, discussion, and guidance that shaped this work. If you'd like to dig into the details or get involved, the relevant RFCs and the project are linked below:
+
+- [RFC-0024: Segment-Oriented Compaction](https://slatedb.io/rfcs/0024-segment-oriented-compaction/)
+- [RFC-0025: Distributed Compaction](https://slatedb.io/rfcs/0025-distributed-compaction/)
+- [RFC-0028: Subcompactions](https://slatedb.io/rfcs/0028-subcompactions/)
+- [SlateDb on GitHub](https://github.com/slatedb/slatedb)

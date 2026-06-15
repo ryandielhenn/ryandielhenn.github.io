@@ -48,17 +48,14 @@
 <text x="78" y="130" class="td ts">consumed</text>
 <circle cx="158" cy="126" r="5" class="dot-off"/>
 <text x="170" y="130" class="td ts">live</text>
-<text x="616" y="130" text-anchor="end" class="t mono ts">consumed = { L0&#8321;, L0&#8322; }</text>
 
 <rect x="248" y="158" width="180" height="46" rx="2" class="box"/>
 <text x="338" y="176" text-anchor="middle" dominant-baseline="central" class="t th">Job A</text>
-<text x="338" y="193" text-anchor="middle" dominant-baseline="central" class="td mono ts">mark {L0&#8323;, L0&#8324;}</text>
 <path d="M291 158 L291 110" class="line-green" marker-end="url(#arrow-green)"/>
 <path d="M385 158 L385 110" class="line-green" marker-end="url(#arrow-green)"/>
 
 <rect x="436" y="158" width="180" height="46" rx="2" class="box"/>
 <text x="526" y="176" text-anchor="middle" dominant-baseline="central" class="t th">Job B</text>
-<text x="526" y="193" text-anchor="middle" dominant-baseline="central" class="td mono ts">mark {L0&#8325;, L0&#8326;}</text>
 <path d="M479 158 L479 110" class="line-green" marker-end="url(#arrow-green)"/>
 <path d="M573 158 L573 110" class="line-green" marker-end="url(#arrow-green)"/>
 
