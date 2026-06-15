@@ -1,7 +1,7 @@
 ---
 title: Distributed Compaction in SlateDb
 author: Ryan Dielhenn
-date: 2026-05-26
+date: 2026-06-14
 description: A visual and written explanation of Distributed Compaction (RFC-0025 in SlateDb) and discussion of future work
 tags: [SlateDb, Distributed Systems Engineering, Object Storage]
 ---
