@@ -57,7 +57,7 @@ export const siteConfig = {
         "Uses DuckDB to enable fast and memory efficient analytical queries on datasets with millions of rows.",
       ],
       link: "https://github.com/ryandielhenn/eda-dashboard",
-      skills: ["Python", "FastAPI", "DuckDB", "Data Analysis", "Bias Detection", "Fairness Analysis", "State Management", "Caching", "Data Visualization"],
+      skills: ["Python", "FastAPI", "DuckDB", "Data Analysis", "Caching", "Data Visualization"],
     },
     {
       name: "GeoPresence - High-Performance Geospatial Index for IoT",
