@@ -11,15 +11,16 @@ export const siteConfig = {
     x: "https://x.com/dielhennr",
   },
   aboutMe:
-    "M.S. Computer Science candidate specializing in scalable distributed systems and applied machine learning. My background includes multiple compaction-related contributions to SlateDB, contributions to Apache Kafka's transition to a self-managed metadata architecture (KRaft), and various contributions to OpenData - a collection of databases built ontop of SlateDB for native use with Object Storage.",
+    "My background includes multiple compaction-related contributions to SlateDB, contributions to Apache Kafka's transition to a self-managed metadata architecture (KRaft), and various contributions to OpenData. I am currently pursuing my Masters degree in Computer Science with a focus on systems and applied machine learning.",
 
-  skills: ["Java", "Go", "C", "Python", "Apache Kafka", "Docker", "Linux"],
+  skills: ["Rust", "Java", "Go", "C", "Object Storage", "Apache Kafka", "Docker", "Linux"],
   projects: [
     {
       name: "SlateDB - Open Source Embedded Key-Value Store",
       dateRange: "Feb. 2026 – Present",
       bullets: [
-        "Authored an RFC proposing distributed compaction for SlateDB, enabling parallelization of L0 SST and sorted run merging to address a single-compactor throughput bottleneck in the LSM-based architecture.",
+        "Designed and implemented distributed compaction for SlateDB (Rust, LSM‑tree on object storage), enabling parallel compaction across multiple workers to address a single‑compactor throughput bottleneck; core implementation merged to main.",
+        "Authored the RFC proposing distributed compaction for SlateDB, enabling parallelization of L0 SST and sorted run merging between remote workers.",
         "Simplified the builder API by consolidating compactor configuration, reducing complexity and improving the developer experience.",
       ],
       link: "https://github.com/slatedb/slatedb/pulls?q=is:pr+author:ryandielhenn",
@@ -27,13 +28,14 @@ export const siteConfig = {
       skills: ["Rust", "Databases", "Key-Value Store", "API Design", "Object Storage"],
     },
     {
-      name: "Zephyr - Distributed Cache with Decentralized Membership",
+      name: "Zephyr - Distributed Cache with Pluggable Membership Service",
       dateRange: "July 2025 – May 2026",
       bullets: [
-        "Built a distributed cache in Go with consistent hashing for routing, key replication for availability, and a SWIM-based gossip protocol for decentralized node discovery and failure detection.",
+        "Built a distributed cache in Go with consistent hashing for routing, key replication for availability, and a pluggable membership service.",
+        "Configurable between an etcd lease protocol and SWIM-based gossip protocol for node discovery and failure detection.",
       ],
       link: "https://github.com/ryandielhenn/zephyrcache",
-      skills: ["Go", "Distributed Systems", "Consistent Hashing", "Gossip Protocol", "Docker", "Prometheus", "Grafana"],
+      skills: ["Go", "Distributed Systems", "Consistent Hashing", "Gossip Protocol", "etcd", "Docker", "Prometheus", "Grafana"],
     },
     {
       name: "OpenData - Open Source Object Storage Databases",
