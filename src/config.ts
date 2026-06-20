@@ -11,7 +11,7 @@ export const siteConfig = {
     x: "https://x.com/dielhennr",
   },
   aboutMe:
-    "My background includes multiple compaction-related contributions to SlateDB, contributions to Apache Kafka's transition to a self-managed metadata architecture (KRaft), and various contributions to OpenData. I am currently pursuing my Masters degree in Computer Science with a focus on systems and applied machine learning.",
+    "My background includes multiple compaction-related contributions to SlateDB, contributions to Apache Kafka's transition to a self-managed metadata architecture (KRaft), and various contributions to OpenData. I am currently pursuing a Masters degree in Computer Science with a focus on systems and applied machine learning.",
 
   skills: ["Rust", "Java", "Go", "C", "Object Storage", "Apache Kafka", "Docker", "Linux"],
   projects: [
