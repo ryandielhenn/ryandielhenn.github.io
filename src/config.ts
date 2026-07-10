@@ -11,7 +11,7 @@ export const siteConfig = {
     x: "https://x.com/dielhennr",
   },
   aboutMe:
-    "My background includes multiple compaction-related contributions to SlateDB, contributions to Apache Kafka's transition to a self-managed metadata architecture (KRaft), and various contributions to OpenData. I am currently pursuing a Masters degree in Computer Science with a focus on systems and applied machine learning.",
+    "My background includes multiple contributions to SlateDB including distributed compaction, contributions to Apache Kafka's transition to a self-managed metadata architecture (KRaft), and various contributions to OpenData. I am currently pursuing a Masters degree in Computer Science with a focus on systems and applied machine learning.",
 
   skills: ["Rust", "Java", "Go", "C", "Object Storage", "Apache Kafka", "Docker", "Linux"],
   projects: [
@@ -20,8 +20,7 @@ export const siteConfig = {
       dateRange: "Feb. 2026 – Present",
       bullets: [
         "Designed and implemented distributed compaction for SlateDB (Rust, LSM‑tree on object storage), enabling parallel compaction across multiple workers to address a single‑compactor throughput bottleneck; core implementation merged to main.",
-        "Authored the RFC proposing distributed compaction for SlateDB, enabling parallelization of L0 SST and sorted run merging between remote workers.",
-        "Simplified the builder API by consolidating compactor configuration, reducing complexity and improving the developer experience.",
+        "Authored the RFC proposing distributed compaction for SlateDB, enabling parallelization of independent compaction jobs between remote workers.",
       ],
       link: "https://github.com/slatedb/slatedb/pulls?q=is:pr+author:ryandielhenn",
       linkLabel: "View Pull Requests to SlateDB",
