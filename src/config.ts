@@ -103,6 +103,20 @@ export const siteConfig = {
   ],
   experience: [
     {
+      company: "Tensorlake",
+      title: "Software Engineer",
+      dateRange: "Aug 2026 – Present",
+      bullets: [
+      ]
+    },
+    {
+      company: "xAI",
+      title: "Software Engineering Specialist",
+      dateRange: "May 2026 – Aug 2026",
+      bullets: [
+      ]
+    },
+    {
       company: "Confluent",
       title: "Software Engineer",
       dateRange: "Jan 2021 – Aug 2022",
