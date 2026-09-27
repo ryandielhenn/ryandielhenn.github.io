@@ -107,8 +107,8 @@ export const siteConfig = {
       title: "Software Engineer",
       dateRange: "Aug 2026 – Present",
       bullets: [
-        "Built and hardened sandbox snapshot restore paths across Firecracker and gVisor runtimes, including durable fallback recovery, missing-local snapshot handling, explicit failure reasons, migrations, and acceptance coverage.",
-        "Improved dataplane startup behavior by making network slot precreation lazy for both Firecracker VM and gVisor runtimes, reducing startup pressure while preserving on-demand allocation and background pool refill.",
+        "Improved sandbox restore reliability across Firecracker and gVisor runtimes by adding durable fallback recovery, clearer failure reporting, state migrations, and end-to-end acceptance coverage.",
+        "Reduced dataplane startup pressure for Firecracker VM and gVisor runtimes by deferring expensive network setup until needed while preserving on-demand allocation and background capacity warmup.",
         "Simplified and stabilized production compute infrastructure by removing obsolete Firecracker cache state, fixing flaky migration/readiness tests, and documenting architecture changes through ADRs and component docs.",
       ]
     },
