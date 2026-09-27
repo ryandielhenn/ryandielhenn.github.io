@@ -107,7 +107,7 @@ export const siteConfig = {
       title: "Software Engineer",
       dateRange: "Aug 2026 – Present",
       bullets: [
-        "Improved snapshot restore reliability across Firecracker and gVisor runtimes by fixing races between durable publication and local cache garbage collection",
+        "Improved snapshot restore reliability across Firecracker and gVisor runtimes by fixing races between server acknowledgement of durable snapshot publication and local cache garbage collection on dataplanes.",
         "Reduced dataplane startup times for Firecracker VM and gVisor runtimes by deferring expensive network setup until needed while preserving on-demand allocation and background capacity warmup.",
         "Simplified compute infrastructure and reduced dataplane startup times by removing an obsolete Firecracker cache state graph stored and rebuilt from RocksDB in favor of filesystem caching with file locking mechanisms to protect in-use snapshots from garbage collection.",
         "Many flaky migration/readiness tests fixes, and documenting architecture changes through ADRs and component docs.",
