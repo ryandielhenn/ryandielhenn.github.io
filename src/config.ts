@@ -107,6 +107,9 @@ export const siteConfig = {
       title: "Software Engineer",
       dateRange: "Aug 2026 – Present",
       bullets: [
+        "Built and hardened sandbox snapshot restore paths across Firecracker and gVisor runtimes, including durable fallback recovery, missing-local snapshot handling, explicit failure reasons, migrations, and acceptance coverage.",
+        "Improved dataplane startup behavior by making network slot precreation lazy for both Firecracker VM and gVisor runtimes, reducing startup pressure while preserving on-demand allocation and background pool refill.",
+        "Simplified and stabilized production compute infrastructure by removing obsolete Firecracker cache state, fixing flaky migration/readiness tests, and documenting architecture changes through ADRs and component docs.",
       ]
     },
     {
@@ -114,6 +117,8 @@ export const siteConfig = {
       title: "Software Engineering Specialist",
       dateRange: "May 2026 – Aug 2026",
       bullets: [
+        "Reviewed anonymized AI model outputs for shared prompts and produced preference rankings and written rationales used to develop training data for Grok.",
+        "Performed model trace analysis to evaluate Grok's use of MCP servers and tools, identifying scenarios where the model struggled with tool selection, sequencing, and task completion.",
       ]
     },
     {
