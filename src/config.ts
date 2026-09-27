@@ -109,7 +109,7 @@ export const siteConfig = {
       bullets: [
         "Improved snapshot restore reliability across Firecracker and gVisor runtimes by fixing races between durable publication and local cache garbage collection",
         "Reduced dataplane startup times for Firecracker VM and gVisor runtimes by deferring expensive network setup until needed while preserving on-demand allocation and background capacity warmup.",
-        "Simplified compute infrastructure and reduced dataplane startup times by removing an obsolete Firecracker cache state graph stored and rebuilt from RocksDB in favor of filesystem caching with file locking mechanisms to protect in-use snapshots from garbage collection. 
+        "Simplified compute infrastructure and reduced dataplane startup times by removing an obsolete Firecracker cache state graph stored and rebuilt from RocksDB in favor of filesystem caching with file locking mechanisms to protect in-use snapshots from garbage collection.",
         "Many flaky migration/readiness tests fixes, and documenting architecture changes through ADRs and component docs.",
       ]
     },
