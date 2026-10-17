@@ -16,8 +16,8 @@ export const siteConfig = {
   skills: ["Rust", "Java", "Go", "C", "Object Storage", "Apache Kafka", "Docker", "Linux"],
   projects: [
     {
-      name: "SlateDB - Open Source Embedded Key-Value Store",
-      dateRange: "Feb. 2026 – Present",
+      name: "SlateDB - Distributed Compaction for Open Source Object Store Native LSM",
+      dateRange: "Apr. 2026 – Aug. 2026",
       bullets: [
         "Designed and implemented distributed compaction for SlateDB (Rust, LSM‑tree on object storage), enabling parallel compaction across multiple workers to address a single‑compactor throughput bottleneck; core implementation merged to main.",
         "Authored the RFC proposing distributed compaction for SlateDB, enabling parallelization of independent compaction jobs between remote workers.",
@@ -28,7 +28,7 @@ export const siteConfig = {
     },
     {
       name: "Zephyr - Distributed Cache with Pluggable Membership Service",
-      dateRange: "July 2025 – May 2026",
+      dateRange: "January 2025 – May 2026",
       bullets: [
         "Built a distributed cache in Go with consistent hashing for routing, key replication for availability, and a pluggable membership service.",
         "Configurable between an etcd lease protocol and SWIM-based gossip protocol for node discovery and failure detection.",
@@ -40,8 +40,8 @@ export const siteConfig = {
       name: "OpenData - Open Source Object Storage Databases",
       dateRange: "Feb. 2026 – March 2026",
       bullets: [
-        "Added the Prometheus /federate endpoint, the Prometheus /metadata endpoint, and support for PromQL scalar arguments in the timeseries database.",
-        "Established a nightly regression benchmark to identify performance regressions in the timeseries database.",
+        "Developed a nightly regression benchmark to identify performance regressions in the timeseries database.",
+        "Added support for the Prometheus /federate and /metadata endpoints in the timeseries database.",
       ],
       link: "https://github.com/opendata-oss/opendata/pulls?q=is:pr+author:ryandielhenn",
       linkLabel: "View Pull Requests to OpenData",
