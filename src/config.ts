@@ -16,7 +16,7 @@ export const siteConfig = {
   skills: ["Rust", "Java", "Go", "C", "Object Storage", "Apache Kafka", "Docker", "Linux"],
   projects: [
     {
-      name: "SlateDB - Distributed Compaction for Open Source Object Store Native LSM",
+      name: "SlateDB - Distributed Compaction for Open Source Object Store Native LSM Tree",
       dateRange: "Apr. 2026 – Aug. 2026",
       bullets: [
         "Designed and implemented distributed compaction for SlateDB (Rust, LSM‑tree on object storage), enabling parallel compaction across multiple workers to address a single‑compactor throughput bottleneck; core implementation merged to main.",
